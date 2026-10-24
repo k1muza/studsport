@@ -396,7 +396,7 @@ export const products: Product[] = [
     variantGroup: 'm20-cone-nut', variantLabel: 'LH',
     related: ['SS-2001', 'SS-1002'],
     spec: { revision: 'A', date: '2026-08-19', status: 'illustrative' }
-  }
+  },
   {
     id: 'lt001', slug: 'ss-3001', partNo: 'SS-3001',
     name: "Mazda Front — supplier drawing",
