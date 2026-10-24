@@ -12,7 +12,10 @@ export interface Seg {
   y1: number;
   r: number;
   // head
-  shape: 'd-flat' | 'round';
+  shape: 'd-flat' | 'round' | 'double-flat';
+  basis?: 'drawing' | 'derived' | 'schematic';
+  tipChamfer?: { lengthMm: number; tipDiameterMm: number; basis: 'drawing' | 'derived' | 'schematic'; note?: string };
+  endTaper?: { lengthMm: number; endDiameterMm: number; basis: 'drawing' | 'derived' | 'schematic'; note?: string };
   f: number | null;
   c: number;
   // knurl
@@ -75,7 +78,29 @@ export function geom(p: Product): Geom {
   const thr = (t: Thread, y0: number, y1: number, tip: 'start' | 'end') =>
     seg({ kind: 'thread', y0, y1, r: t.dia / 2, rMin: t.dia / 2 - 0.6134 * t.pitch * 0.92, pitch: t.pitch, dir: t.dir, tip, t });
   let g: Geom;
-  if (p.template === 'press-in-stud' || p.template === 'stud-nut') {
+  if (p.template === 'profiled-fastener') {
+    let y = 0;
+    for (let i = 0; i < p.dims.sections.length; i++) {
+      const s = p.dims.sections[i];
+      const next = p.dims.sections[i + 1];
+      const y0 = y, y1 = y + s.length, r = s.dia / 2;
+      if (s.kind === 'head') {
+        const shape = s.headShape || 'round';
+        const flat = shape === 'd-flat' ? s.flatAcross! - r : shape === 'double-flat' ? s.flatAcross! / 2 : null;
+        segs.push(seg({ kind: 'head', y0, y1, r, shape, f: flat, c: Math.min(0.8, s.length / 6), basis: s.basis }));
+      } else if (s.kind === 'knurl') {
+        segs.push(seg({kind:'knurl',y0,y1,r,rIn: s.splines ? r - (s.visualDepthMm ?? 0.5) : r,splines:s.splines || 0,
+          taper: Math.min(1.5,s.length * .12),rNext:(next?.dia || s.dia)/2,basis:s.basis}));
+      } else if (s.kind === 'thread') {
+        const t = { ...s.thread!, length:s.length };
+        segs.push(seg({...thr(t,y0,y1,i === 0 ? 'start' : 'end'),basis:s.basis,tipChamfer:s.tipChamfer}));
+      } else if (s.kind === 'hex') {
+        segs.push(seg({kind:'hex',y0,y1,r: s.af! / Math.sqrt(3),af:s.af!,basis:s.basis}));
+      } else segs.push(seg({kind:s.kind,y0,y1,r,basis:s.basis,endTaper:s.endTaper}));
+      y = y1;
+    }
+    g = {L:y,segs,maxR:0};
+  } else if (p.template === 'press-in-stud' || p.template === 'stud-nut') {
     const d = p.dims, H = d.head.thickness, K = d.knurl.length, S = d.shoulder.length, T = d.thread.length;
     segs.push(seg({ kind: 'head', y0: 0, y1: H, r: d.head.dia / 2, shape: d.head.shape, f: d.head.shape === 'd-flat' ? d.head.flatAcross! - d.head.dia / 2 : null, c: 0.8 }));
     let y = H;
@@ -111,7 +136,16 @@ export function geom(p: Product): Geom {
 /* Measurement rules. Run as a publish check (see catalogue-check.ts) before a record goes live. */
 export function validate(p: Product): string[] {
   const out: string[] = [];
-  if (p.template === 'press-in-stud' || p.template === 'stud-nut') {
+  if (p.template === 'profiled-fastener') {
+    const d = p.dims;
+    const s = d.sections.reduce((sum, section) => sum + section.length, 0);
+    if (Math.abs(s - d.overall) > 0.01) out.push(`Profile length ${s} ≠ overall ${d.overall}`);
+    if (!d.sections.some(section => section.kind === 'thread')) out.push('Profile has no threaded sections');
+    for (const section of d.sections) {
+      if (!Number.isFinite(section.length) || section.length <= 0 || !Number.isFinite(section.dia) || section.dia <= 0) out.push('Invalid profile section size');
+      if (section.kind === 'thread' && (!section.thread || section.thread.dia !== section.dia)) out.push('Thread section missing/mismatched thread specification');
+    }
+  } else if (p.template === 'press-in-stud' || p.template === 'stud-nut') {
     const d = p.dims;
     const s = d.head.thickness + d.knurl.length + d.shoulder.length + d.thread.length;
     if (Math.abs(s - d.overall) > 0.01) out.push(`L ${d.overall} ≠ H+K+S+T (${s})`);
@@ -154,10 +188,10 @@ export function callouts(p: Product): Callout[] {
   const head = g.segs.find(s => s.kind === 'head'), kn = g.segs.find(s => s.kind === 'knurl'), hx = g.segs.find(s => s.kind === 'hex' || s.kind === 'collar');
   const ths = g.segs.filter(s => s.kind === 'thread'), te = ths.find(s => s.tip === 'end')!, ts = ths.find(s => s.tip === 'start');
   out.push({ t: 'lin', a: 0, b: g.L, ra: g.segs[0].r, rb: te.rMin, s: 1, lvl: g.nut ? 2 : 1, label: `L ${n(g.L)}`, key: true });
-  out.push({ t: 'lin', a: te.y0, b: te.y1, ra: te.r, rb: te.rMin, s: -1, lvl: 0, label: `T ${n(te.y1 - te.y0)}` });
-  if (ts) out.push({ t: 'lin', a: ts.y0, b: ts.y1, ra: ts.rMin, rb: ts.r, s: -1, lvl: 0, label: `T ${n(ts.y1 - ts.y0)}` });
-  if (head && p.template !== 'double-ended') out.push({ t: 'lead', y: head.y1 * 0.5, r: head.r, s: -1, lvl: 1, label: `Ø${n(p.dims.head.dia)} head`, dir: -1 });
-  if (kn) out.push({ t: 'lead', y: (kn.y0 + kn.y1) / 2, r: kn.r, s: -1, lvl: 0, label: `Ø${n(kn.r * 2)} knurl`, minor: true, dir: -1 });
+  if (te.basis !== 'schematic') out.push({ t: 'lin', a: te.y0, b: te.y1, ra: te.r, rb: te.rMin, s: -1, lvl: 0, label: `T ${n(te.y1 - te.y0)}` });
+  if (ts && ts.basis !== 'schematic') out.push({ t: 'lin', a: ts.y0, b: ts.y1, ra: ts.rMin, rb: ts.r, s: -1, lvl: 0, label: `T ${n(ts.y1 - ts.y0)}` });
+  if (head && head.basis !== 'schematic' && p.template !== 'double-ended') out.push({ t: 'lead', y: (head.y0 + head.y1) / 2, r: head.r, s: -1, lvl: 1, label: head.y0 > 0 && head.shape === 'double-flat' ? `Ø${n(head.r * 2)} drive · ${n((head.f || 0) * 2)} flats` : `Ø${n(head.r * 2)} head`, dir: -1 });
+  if (kn && kn.basis !== 'schematic') out.push({ t: 'lead', y: (kn.y0 + kn.y1) / 2, r: kn.r, s: -1, lvl: 0, label: `Ø${n(kn.r * 2)} knurl`, minor: true, dir: -1 });
   out.push({ t: 'lead', y: g.nut ? te.y1 - 8 : te.y0 + (te.y1 - te.y0) * 0.62, r: te.r, s: 1, lvl: 0, label: thread(te.t), key: true, dir: 1 });
   if (ts) out.push({ t: 'lead', y: ts.y0 + (ts.y1 - ts.y0) * 0.4, r: ts.r, s: 1, lvl: 0, label: thread(ts.t), key: true, dir: -1 });
   if (hx) out.push({ t: 'lead', y: (hx.y0 + hx.y1) / 2, r: hx.r, s: -1, lvl: 1, label: hx.kind === 'hex' ? `${n(hx.af)} AF collar` : `Ø${n(hx.r * 2)} collar`, dir: 1 });

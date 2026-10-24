@@ -1,13 +1,14 @@
-/* StudSport sample catalogue — the single source of truth for every page, card, drawing and 3D model.
-   ILLUSTRATIVE DATA ONLY: names, dimensions, fitment, prices and availability are invented
-   and must be replaced by verified records before launch. See design/HANDOFF.md for the DB mapping. */
+import { modelDims } from './model-data';
+/* Illustrative product catalogue metadata. All 3D model dimensions live in
+   src/data/part-models.json, loaded and type-checked through model-data.ts.
+   None of the sample data establishes real inventory, fitment or compliance. */
 
-export type ThreadDir = 'RH' | 'LH';
+export type ThreadDir = 'RH' | 'LH' | 'UNSPECIFIED';
 export type ProductType = 'wheel-stud' | 'hub-bolt' | 'double-ended' | 'stud-nut-set' | 'wheel-nut';
-export type Template = 'press-in-stud' | 'double-ended' | 'stud-nut' | 'wheel-nut';
+export type Template = 'press-in-stud' | 'double-ended' | 'stud-nut' | 'wheel-nut' | 'profiled-fastener';
 export type IncludesKey = 'stud' | 'nut' | 'stud-nut' | 'assembly';
 export type AvailabilityKey = 'in-stock' | 'on-request' | 'confirm';
-export type FinishKey = 'zinc-yellow' | 'zinc-clear' | 'zinc-flake' | 'black-phosphate' | 'black-oxide';
+export type FinishKey = 'zinc-yellow' | 'zinc-clear' | 'zinc-flake' | 'black-phosphate' | 'black-oxide' | 'grey-phosphate' | 'finish-unconfirmed';
 
 export interface Thread { dia: number; pitch: number; dir: ThreadDir; cls: string; length?: number; role?: string }
 export interface StudThread extends Thread { length: number }
@@ -35,6 +36,33 @@ export interface NutDims {
   idGroove: boolean;
 }
 
+/* Supplier profiles preserve axial features without forcing them into the older
+   four rigid templates. Schematic segments are deliberately NOT certified dimensions. */
+export interface ProfileSection {
+  kind: 'head' | 'knurl' | 'plain' | 'thread' | 'hex' | 'collar';
+  length: number;
+  dia: number;
+  basis: 'drawing' | 'derived' | 'schematic';
+  note?: string;
+  headShape?: 'round' | 'd-flat' | 'double-flat';
+  flatAcross?: number;
+  af?: number;
+  splines?: number;
+  /** Rendering-only spline depth (mm); not a manufacturing specification. */
+  visualDepthMm?: number;
+  /** Render-only end chamfer, applied at the exposed thread tip (not an OEM fitment spec). */
+  tipChamfer?: { lengthMm: number; tipDiameterMm: number; basis: 'drawing' | 'derived' | 'schematic'; note?: string };
+  /** Optional shaft-to-thread taper in the final part of a plain section. */
+  endTaper?: { lengthMm: number; endDiameterMm: number; basis: 'drawing' | 'derived' | 'schematic'; note?: string };
+  thread?: Thread;
+}
+export interface ProfiledDims {
+  overall: number;
+  sections: ProfileSection[];
+  uncertainties: string[];
+  measurements: { label: string; value: string; basis: 'drawing' | 'derived'; note?: string }[];
+}
+
 export interface Application { vehicle: string; model: string; years: string; position: string; side: string; notes: string }
 export interface Component { qty: number; label: string; partNo: string }
 
@@ -52,7 +80,8 @@ export interface PressInProduct extends ProductBase { template: 'press-in-stud';
 export interface StudNutProduct extends ProductBase { template: 'stud-nut'; dims: StudDims; assembly: { nut: string; clampLength: number } }
 export interface DoubleEndedProduct extends ProductBase { template: 'double-ended'; dims: DoubleEndedDims; assembly?: undefined }
 export interface WheelNutProduct extends ProductBase { template: 'wheel-nut'; dims: NutDims; assembly?: undefined }
-export type Product = PressInProduct | StudNutProduct | DoubleEndedProduct | WheelNutProduct;
+export interface ProfiledProduct extends ProductBase { template: 'profiled-fastener'; dims: ProfiledDims; assembly?: undefined }
+export type Product = PressInProduct | StudNutProduct | DoubleEndedProduct | WheelNutProduct | ProfiledProduct;
 export type StudProduct = PressInProduct | StudNutProduct;
 
 export interface Vehicle { id: string; make: string; model: string; label: string }
@@ -94,6 +123,7 @@ export const templates: Record<Template, string> = {
   'double-ended': 'Double-ended bolt: thread A + collar + thread B',
   'stud-nut': 'Press-in stud with matching nut assembled',
   'wheel-nut': 'Hex wheel nut with seat',
+  'profiled-fastener': 'Supplier-derived axial sections, with schematic regions clearly identified',
 };
 
 export const includes: Record<IncludesKey, string> = {
@@ -115,10 +145,14 @@ export const finishes: Record<FinishKey, { label: string; render: FinishRender }
   'zinc-flake': { label: 'Zinc-flake, silver', render: { color: '#a9adb0', metalness: 0.85, roughness: 0.48 } },
   'black-phosphate': { label: 'Black phosphate, oiled', render: { color: '#3b3c3e', metalness: 0.6, roughness: 0.45 } },
   'black-oxide': { label: 'Black oxide', render: { color: '#2c2d2f', metalness: 0.75, roughness: 0.34 } },
+  'grey-phosphate': { label: 'Grey phosphated (supplier stated)', render: { color: '#85878a', metalness: 0.62, roughness: 0.53 } },
+  'finish-unconfirmed': { label: 'Not specified by supplier', render: { color: '#8c9197', metalness: 0.58, roughness: 0.45 } },
 };
 
 export const vehicles: Vehicle[] = [
   { id: 'toyota-dyna', make: 'Toyota', model: 'Dyna', label: 'Toyota Dyna' },
+  { id: 'mazda', make: 'Mazda', model: '', label: 'Mazda (supplier labelled)' },
+  { id: 'toyota-rino', make: 'Toyota', model: 'Rino', label: 'Toyota Rino (unconfirmed)' },
   { id: 'hino', make: 'Hino', model: '', label: 'Hino' },
   { id: 'isuzu', make: 'Isuzu', model: '', label: 'Isuzu' },
   { id: 'mitsubishi-canter', make: 'Mitsubishi', model: 'Canter', label: 'Mitsubishi Canter' },
@@ -139,13 +173,7 @@ export const products: Product[] = [
       { vehicle: 'toyota-dyna', model: 'Dyna 200 / 300', years: '1995–2011', position: 'Front', side: 'Right side', notes: 'Single front wheel' },
       { vehicle: 'hino', model: 'Dutro', years: '2000–2011', position: 'Front', side: 'Right side', notes: '' }
     ],
-    dims: {
-      overall: 74,
-      head:     { shape: 'd-flat', dia: 34, thickness: 8, flatAcross: 32 },
-      knurl:    { dia: 22.4, length: 14, splines: 36 },
-      shoulder: { dia: 20, length: 6 },
-      thread:   { dia: 20, pitch: 1.5, dir: 'RH', length: 46, cls: '6g' }
-    },
+    dims: modelDims('SS-1001', 'press-in-stud'),
     material: 'Alloy steel, quenched & tempered', grade: '10.9', finish: 'zinc-yellow',
     includes: 'stud', components: [{ qty: 1, label: 'Wheel stud', partNo: 'SS-1001' }],
     matchingNut: 'SS-2001',
@@ -165,13 +193,7 @@ export const products: Product[] = [
       { vehicle: 'toyota-dyna', model: 'Dyna 200 / 300', years: '1995–2011', position: 'Front', side: 'Left side', notes: 'Single front wheel' },
       { vehicle: 'hino', model: 'Dutro', years: '2000–2011', position: 'Front', side: 'Left side', notes: '' }
     ],
-    dims: {
-      overall: 74,
-      head:     { shape: 'd-flat', dia: 34, thickness: 8, flatAcross: 32 },
-      knurl:    { dia: 22.4, length: 14, splines: 36 },
-      shoulder: { dia: 20, length: 6 },
-      thread:   { dia: 20, pitch: 1.5, dir: 'LH', length: 46, cls: '6g' }
-    },
+    dims: modelDims('SS-1002', 'press-in-stud'),
     material: 'Alloy steel, quenched & tempered', grade: '10.9', finish: 'zinc-yellow',
     includes: 'stud', components: [{ qty: 1, label: 'Wheel stud, LH', partNo: 'SS-1002' }],
     matchingNut: 'SS-2003',
@@ -190,13 +212,7 @@ export const products: Product[] = [
     applications: [
       { vehicle: 'toyota-dyna', model: 'Dyna 300 / 400', years: '1995–2011', position: 'Rear', side: 'Right side', notes: 'Dual rear wheels' }
     ],
-    dims: {
-      overall: 94,
-      head:     { shape: 'd-flat', dia: 34, thickness: 8, flatAcross: 32 },
-      knurl:    { dia: 22.4, length: 14, splines: 36 },
-      shoulder: { dia: 20, length: 10 },
-      thread:   { dia: 20, pitch: 1.5, dir: 'RH', length: 62, cls: '6g' }
-    },
+    dims: modelDims('SS-1003', 'press-in-stud'),
     material: 'Alloy steel, quenched & tempered', grade: '10.9', finish: 'zinc-yellow',
     includes: 'stud', components: [{ qty: 1, label: 'Wheel stud, long', partNo: 'SS-1003' }],
     matchingNut: 'SS-2001',
@@ -215,13 +231,7 @@ export const products: Product[] = [
     applications: [
       { vehicle: 'isuzu', model: 'N-Series NPR / NQR', years: '2004–2016', position: 'Rear', side: 'Right side', notes: '' }
     ],
-    dims: {
-      overall: 85,
-      head:     { shape: 'round', dia: 40, thickness: 9 },
-      knurl:    { dia: 24.6, length: 16, splines: 40 },
-      shoulder: { dia: 22, length: 8 },
-      thread:   { dia: 22, pitch: 1.5, dir: 'RH', length: 52, cls: '6g' }
-    },
+    dims: modelDims('SS-1010', 'press-in-stud'),
     material: 'Alloy steel, quenched & tempered', grade: '10.9', finish: 'black-phosphate',
     includes: 'stud', components: [{ qty: 1, label: 'Hub bolt', partNo: 'SS-1010' }],
     matchingNut: null,
@@ -240,13 +250,7 @@ export const products: Product[] = [
     applications: [
       { vehicle: 'isuzu', model: 'N-Series NPR / NQR', years: '2004–2016', position: 'Rear', side: 'Left side', notes: '' }
     ],
-    dims: {
-      overall: 85,
-      head:     { shape: 'round', dia: 40, thickness: 9 },
-      knurl:    { dia: 24.6, length: 16, splines: 40 },
-      shoulder: { dia: 22, length: 8 },
-      thread:   { dia: 22, pitch: 1.5, dir: 'LH', length: 52, cls: '6g' }
-    },
+    dims: modelDims('SS-1011', 'press-in-stud'),
     material: 'Alloy steel, quenched & tempered', grade: '10.9', finish: 'black-phosphate',
     includes: 'stud', components: [{ qty: 1, label: 'Hub bolt, LH', partNo: 'SS-1011' }],
     matchingNut: null,
@@ -265,13 +269,7 @@ export const products: Product[] = [
     applications: [
       { vehicle: 'mitsubishi-canter', model: 'Canter FE', years: '2002–2012', position: 'Front & rear', side: 'Both sides', notes: '' }
     ],
-    dims: {
-      overall: 64,
-      head:     { shape: 'd-flat', dia: 30, thickness: 7, flatAcross: 28 },
-      knurl:    { dia: 20.2, length: 12, splines: 32 },
-      shoulder: { dia: 18, length: 5 },
-      thread:   { dia: 18, pitch: 1.5, dir: 'RH', length: 40, cls: '6g' }
-    },
+    dims: modelDims('SS-1020', 'press-in-stud'),
     material: 'Alloy steel, quenched & tempered', grade: '10.9', finish: 'zinc-flake',
     includes: 'stud', components: [{ qty: 1, label: 'Wheel stud', partNo: 'SS-1020' }],
     matchingNut: null,
@@ -292,13 +290,7 @@ export const products: Product[] = [
       { vehicle: 'volvo', model: 'FM / FH', years: '2005–2018', position: 'Front & rear', side: 'Both sides', notes: '' },
       { vehicle: 'scania', model: 'P / G / R', years: '2005–2016', position: 'Front & rear', side: 'Both sides', notes: '' }
     ],
-    dims: {
-      overall: 108,
-      head:     { shape: 'round', dia: 40, thickness: 10 },
-      knurl:    { dia: 24.6, length: 16, splines: 40 },
-      shoulder: { dia: 22, length: 12 },
-      thread:   { dia: 22, pitch: 1.5, dir: 'RH', length: 70, cls: '6g' }
-    },
+    dims: modelDims('SS-1030', 'stud-nut'),
     assembly: { nut: 'SS-2002', clampLength: 50 },
     material: 'Alloy steel, quenched & tempered', grade: '10.9', finish: 'zinc-clear',
     includes: 'stud-nut', components: [
@@ -321,12 +313,7 @@ export const products: Product[] = [
     applications: [
       { vehicle: 'nissan-ud', model: 'Condor', years: '1998–2012', position: 'Rear', side: 'Both sides', notes: 'Hub end screws into hub flange' }
     ],
-    dims: {
-      overall: 84,
-      threadA: { dia: 20, pitch: 1.5, dir: 'RH', length: 30, cls: '6g', role: 'Hub end' },
-      collar:  { shape: 'hex', af: 27, length: 10 },
-      threadB: { dia: 20, pitch: 1.5, dir: 'RH', length: 44, cls: '6g', role: 'Wheel end' }
-    },
+    dims: modelDims('SS-1040', 'double-ended'),
     material: 'Alloy steel, quenched & tempered', grade: '10.9', finish: 'black-oxide',
     includes: 'stud', components: [{ qty: 1, label: 'Double-ended hub bolt', partNo: 'SS-1040' }],
     matchingNut: 'SS-2001',
@@ -345,12 +332,7 @@ export const products: Product[] = [
     applications: [
       { vehicle: 'nissan-ud', model: 'MK Series', years: '2000–2010', position: 'Rear', side: 'Both sides', notes: 'Axle flange' }
     ],
-    dims: {
-      overall: 78,
-      threadA: { dia: 18, pitch: 1.5, dir: 'RH', length: 26, cls: '6g', role: 'Flange end' },
-      collar:  { shape: 'round', dia: 24, length: 12 },
-      threadB: { dia: 20, pitch: 1.5, dir: 'RH', length: 40, cls: '6g', role: 'Wheel end' }
-    },
+    dims: modelDims('SS-1041', 'double-ended'),
     material: 'Alloy steel, quenched & tempered', grade: '8.8', finish: 'zinc-yellow',
     includes: 'stud', components: [{ qty: 1, label: 'Double-ended hub bolt, stepped', partNo: 'SS-1041' }],
     matchingNut: 'SS-2001',
@@ -370,13 +352,7 @@ export const products: Product[] = [
       { vehicle: 'toyota-dyna', model: 'Dyna 200 / 300 / 400', years: '1995–2011', position: 'Front & rear', side: 'Right side', notes: 'Use with SS-1001 / SS-1003' },
       { vehicle: 'hino', model: 'Dutro', years: '2000–2011', position: 'Front & rear', side: 'Right side', notes: '' }
     ],
-    dims: {
-      overall: 24,
-      thread: { dia: 20, pitch: 1.5, dir: 'RH', cls: '6H' },
-      af: 32, height: 24,
-      seat: { type: 'cone60', dia: 28 },
-      idGroove: false
-    },
+    dims: modelDims('SS-2001', 'wheel-nut'),
     material: 'Carbon steel', grade: '10', finish: 'zinc-clear',
     includes: 'nut', components: [{ qty: 1, label: 'Wheel nut', partNo: 'SS-2001' }],
     matchingNut: null,
@@ -397,13 +373,7 @@ export const products: Product[] = [
       { vehicle: 'volvo', model: 'FM / FH', years: '2005–2018', position: 'Front & rear', side: 'Both sides', notes: '' },
       { vehicle: 'scania', model: 'P / G / R', years: '2005–2016', position: 'Front & rear', side: 'Both sides', notes: '' }
     ],
-    dims: {
-      overall: 27,
-      thread: { dia: 22, pitch: 1.5, dir: 'RH', cls: '6H' },
-      af: 32, height: 27,
-      seat: { type: 'flat-flange', dia: 46, thickness: 4.5 },
-      idGroove: false
-    },
+    dims: modelDims('SS-2002', 'wheel-nut'),
     material: 'Carbon steel', grade: '10', finish: 'zinc-flake',
     includes: 'nut', components: [{ qty: 1, label: 'Flange wheel nut', partNo: 'SS-2002' }],
     matchingNut: null,
@@ -423,13 +393,7 @@ export const products: Product[] = [
       { vehicle: 'toyota-dyna', model: 'Dyna 200 / 300 / 400', years: '1995–2011', position: 'Front & rear', side: 'Left side', notes: 'Use with SS-1002' },
       { vehicle: 'hino', model: 'Dutro', years: '2000–2011', position: 'Front & rear', side: 'Left side', notes: '' }
     ],
-    dims: {
-      overall: 24,
-      thread: { dia: 20, pitch: 1.5, dir: 'LH', cls: '6H' },
-      af: 32, height: 24,
-      seat: { type: 'cone60', dia: 28 },
-      idGroove: true
-    },
+    dims: modelDims('SS-2003', 'wheel-nut'),
     material: 'Carbon steel', grade: '10', finish: 'zinc-clear',
     includes: 'nut', components: [{ qty: 1, label: 'Wheel nut, LH', partNo: 'SS-2003' }],
     matchingNut: null,
@@ -438,5 +402,90 @@ export const products: Product[] = [
     variantGroup: 'm20-cone-nut', variantLabel: 'LH',
     related: ['SS-2001', 'SS-1002'],
     spec: { revision: 'A', date: '2026-08-19', status: 'illustrative' }
+  },
+  {
+    id: 'lt001', slug: 'ss-3001', partNo: 'SS-3001',
+    name: "Mazda Front — supplier drawing",
+    type: 'wheel-stud', template: 'profiled-fastener',
+    summary: "Supplier drawing reference, not confirmed for installation. R/L marking does not identify which handed variant this record represents.",
+    positions: ['Front'],
+    applications: [{ vehicle: 'mazda', model: "Mazda Front (supplier label)", years: 'Not specified', position: 'Front', side: 'Confirm', notes: 'Supplier drawing label only — OEM fitment not verified' }],
+    dims: modelDims('SS-3001', 'profiled-fastener'),
+    material: 'Not specified by supplier', grade: '10.9 (supplier stated)', finish: 'black-phosphate',
+    includes: 'stud', components: [{ qty: 1, label: 'Supplier-referenced fastener (stud only)', partNo: 'SS-3001' }],
+    matchingNut: null, availability: 'confirm', fulfilment: 'Reference only — no inventory or lead time confirmed', price: null,
+    media: { photos: [], model: {} }, variantGroup: null, variantLabel: 'Drawing page 1', related: [],
+    spec: { revision: 'not supplied', date: '2026-10-24', status: 'pending' }
+  },
+  {
+    id: 'lt002', slug: 'ss-3002', partNo: 'SS-3002',
+    name: "Mazda Rear — supplier drawing",
+    type: 'wheel-stud', template: 'profiled-fastener',
+    summary: "Supplier drawing reference, not confirmed for installation. CRITICAL: drawing heading says 72 mm under head; detailed side view says 66 mm. Provisional model uses 66 mm; NOT an approved dimension.",
+    positions: ['Rear'],
+    applications: [{ vehicle: 'mazda', model: "Mazda Rear (supplier label)", years: 'Not specified', position: 'Rear', side: 'Confirm', notes: 'Supplier drawing label only — OEM fitment not verified' }],
+    dims: modelDims('SS-3002', 'profiled-fastener'),
+    material: 'Not specified by supplier', grade: '10.9 (supplier stated)', finish: 'black-phosphate',
+    includes: 'stud', components: [{ qty: 1, label: 'Supplier-referenced fastener (stud only)', partNo: 'SS-3002' }],
+    matchingNut: null, availability: 'confirm', fulfilment: 'Reference only — no inventory or lead time confirmed', price: null,
+    media: { photos: [], model: {} }, variantGroup: null, variantLabel: 'Drawing page 2', related: [],
+    spec: { revision: 'not supplied', date: '2026-10-24', status: 'pending' }
+  },
+  {
+    id: 'lt003', slug: 'ss-3003', partNo: 'SS-3003',
+    name: "Hino GH Rear — supplier drawing",
+    type: 'hub-bolt', template: 'profiled-fastener',
+    summary: "Supplier drawing reference, not confirmed for installation. R/L variants shown but direction for this listing is not selected.",
+    positions: ['Rear'],
+    applications: [{ vehicle: 'hino', model: "GH Rear (supplier label)", years: 'Not specified', position: 'Rear', side: 'Confirm', notes: 'Supplier drawing label only — OEM fitment not verified' }],
+    dims: modelDims('SS-3003', 'profiled-fastener'),
+    material: 'Not specified by supplier', grade: '10.9 (supplier stated)', finish: 'black-phosphate',
+    includes: 'stud', components: [{ qty: 1, label: 'Supplier-referenced fastener (stud only)', partNo: 'SS-3003' }],
+    matchingNut: null, availability: 'confirm', fulfilment: 'Reference only — no inventory or lead time confirmed', price: null,
+    media: { photos: [], model: {} }, variantGroup: null, variantLabel: 'Drawing page 3', related: [],
+    spec: { revision: 'not supplied', date: '2026-10-24', status: 'pending' }
+  },
+  {
+    id: 'lt004', slug: 'ss-3004', partNo: 'SS-3004',
+    name: "Toyota Dynaps Rear — supplier drawing",
+    type: 'wheel-stud', template: 'profiled-fastener',
+    summary: "Supplier drawing reference, not confirmed for installation. Supplier vehicle label 'Dynaps' requires OEM identification.",
+    positions: ['Rear'],
+    applications: [{ vehicle: 'toyota-dyna', model: "Dynaps Rear (name as printed)", years: 'Not specified', position: 'Rear', side: 'Confirm', notes: 'Supplier drawing label only — OEM fitment not verified' }],
+    dims: modelDims('SS-3004', 'profiled-fastener'),
+    material: 'Not specified by supplier', grade: '10.9 (supplier stated)', finish: 'finish-unconfirmed',
+    includes: 'stud', components: [{ qty: 1, label: 'Supplier-referenced fastener (stud only)', partNo: 'SS-3004' }],
+    matchingNut: null, availability: 'confirm', fulfilment: 'Reference only — no inventory or lead time confirmed', price: null,
+    media: { photos: [], model: {} }, variantGroup: null, variantLabel: 'Drawing page 4', related: [],
+    spec: { revision: 'not supplied', date: '2026-10-24', status: 'pending' }
+  },
+  {
+    id: 'lt005', slug: 'ss-3005', partNo: 'SS-3005',
+    name: "Toyota Rino Rear — supplier drawing",
+    type: 'double-ended', template: 'profiled-fastener',
+    summary: "Supplier drawing reference. 75 mm overall; two M20 × 1.5 ends, central flange and Ø20.8 / 50-tooth knurl. Flange diameter and several transitions remain schematic; OEM fitment unconfirmed.",
+    positions: ['Rear'],
+    applications: [{ vehicle: 'toyota-rino', model: "Rino Rear (name as printed)", years: 'Not specified', position: 'Rear', side: 'Confirm', notes: 'Supplier drawing label only — OEM fitment not verified' }],
+    dims: modelDims('SS-3005', 'profiled-fastener'),
+    material: 'Not specified by supplier', grade: '10.9 (supplier stated)', finish: 'finish-unconfirmed',
+    includes: 'stud', components: [{ qty: 1, label: 'Supplier-referenced fastener (stud only)', partNo: 'SS-3005' }],
+    matchingNut: null, availability: 'confirm', fulfilment: 'Reference only — no inventory or lead time confirmed', price: null,
+    media: { photos: [], model: {} }, variantGroup: null, variantLabel: 'Drawing page 5', related: [],
+    spec: { revision: 'not supplied', date: '2026-10-24', status: 'pending' }
+  },
+  {
+    id: 'lt006', slug: 'ss-3006', partNo: 'SS-3006',
+    name: "Hino Durton Rear — supplier drawing",
+    type: 'double-ended', template: 'profiled-fastener',
+    summary: "Supplier drawing reference, not confirmed for installation. Supplier model name 'Hino Durton' requires confirmation.",
+    positions: ['Rear'],
+    applications: [{ vehicle: 'hino', model: "Durton Rear (name as printed)", years: 'Not specified', position: 'Rear', side: 'Confirm', notes: 'Supplier drawing label only — OEM fitment not verified' }],
+    dims: modelDims('SS-3006', 'profiled-fastener'),
+    material: 'Not specified by supplier', grade: '10.9 (supplier stated)', finish: 'grey-phosphate',
+    includes: 'stud', components: [{ qty: 1, label: 'Supplier-referenced fastener (stud only)', partNo: 'SS-3006' }],
+    matchingNut: null, availability: 'confirm', fulfilment: 'Reference only — no inventory or lead time confirmed', price: null,
+    media: { photos: [], model: {} }, variantGroup: null, variantLabel: 'Drawing page 6', related: [],
+    spec: { revision: 'not supplied', date: '2026-10-24', status: 'pending' }
   }
+
 ];

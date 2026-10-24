@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "check:models": "node scripts/check-models.mjs",
+    "test:models": "node --test tests/models.test.mjs",
+    "prebuild": "npm run check:models && npm run test:models"
   },
   "dependencies": {
     "next": "^16.4.3",

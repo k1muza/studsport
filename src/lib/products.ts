@@ -22,6 +22,7 @@ export const href = (p: Product) => `/products/${p.slug}`;
 export const sheetHref = (p: Product) => `/products/${p.slug}/spec-sheet`;
 
 export function threadsOf(p: Product): Thread[] {
+  if (p.template === 'profiled-fastener') return p.dims.sections.filter(s => s.kind === 'thread' && s.thread).map(s => s.thread!);
   return p.template === 'double-ended' ? [p.dims.threadA, p.dims.threadB] : [p.dims.thread];
 }
 export function allThreads(p: Product): Thread[] {
@@ -32,9 +33,9 @@ export function allThreads(p: Product): Thread[] {
   }
   return t;
 }
-export const thread = (t: Thread) => `M${t.dia} × ${t.pitch} ${t.dir}`;
-export const threadShort = (t: Thread) => `M${t.dia}×${t.pitch} ${t.dir}`;
-export const dirLong = (d: ThreadDir) => (d === 'LH' ? 'Left-hand (LH)' : 'Right-hand (RH)');
+export const thread = (t: Thread) => `M${t.dia} × ${t.pitch}${t.dir === 'UNSPECIFIED' ? ' (hand unconfirmed)' : ' '+t.dir}`;
+export const threadShort = (t: Thread) => `M${t.dia}×${t.pitch}${t.dir === 'UNSPECIFIED' ? ' · hand TBC' : ' '+t.dir}`;
+export const dirLong = (d: ThreadDir) => (d === 'LH' ? 'Left-hand (LH)' : d === 'RH' ? 'Right-hand (RH)' : 'Handedness unconfirmed');
 export function threadLabel(p: Product) {
   const ts = threadsOf(p);
   if (ts.length === 2) {
@@ -69,6 +70,7 @@ export const whatsapp = (p?: Product | null, qty?: number) =>
 export interface KV { k: string; v: string }
 
 export function keyDims(p: Product): KV[] {
+  if (p.template === 'profiled-fastener') return [{k:'L',v:n(p.dims.overall)}, {k:'Thread',v:threadShort(threadsOf(p)[0])}, {k:'Source',v:'Supplier drawing'}];
   if (p.template === 'wheel-nut') {
     const d = p.dims;
     return [{ k: 'Thread', v: threadShort(d.thread) }, { k: 'AF', v: n(d.af) }, { k: 'Seat', v: d.seat.type === 'cone60' ? '60° cone' : 'Flange' }];
@@ -86,6 +88,13 @@ const nutSeat = (s: { type: string; dia: number; thickness?: number }, withThick
 
 export function keySpecs(p: Product): KV[] {
   const F = finishOf(p).label, out: KV[] = [];
+  if (p.template === 'profiled-fastener') {
+    out.push({k:'Overall model length L',v:`${n(p.dims.overall)} mm (refer to drawing)`});
+    out.push({k:'Thread',v:uniq(threadsOf(p).map(thread)).join(' / ')});
+    out.push({k:'Source',v:'Supplier engineering drawing · not yet OEM verified'});
+    out.push({k:'Geometry',v:p.dims.sections.some(s=>s.basis==='schematic') ? 'Contains schematic regions' : 'Supplier dimensions; transitions simplified'});
+    return out;
+  }
   if (p.template === 'wheel-nut') {
     const d = p.dims;
     out.push({ k: 'Thread', v: `M${d.thread.dia} × ${d.thread.pitch}` }, { k: 'Direction', v: dirLong(d.thread.dir) }, { k: 'Across flats', v: `${n(d.af)} mm` }, { k: 'Height', v: `${n(d.height)} mm` },
@@ -115,7 +124,11 @@ export interface SpecGroup { group: string; rows: KV[] }
 export function specGroups(p: Product): SpecGroup[] {
   const groups: { group: string; rows: [string, string][] }[] = [];
   groups.push({ group: 'General', rows: [['Part number', p.partNo], ['Product type', typeLabel(p)], ['Supplied as', includes[p.includes]], ['Position', p.positions.join(' & ')]] });
-  if (p.template === 'press-in-stud' || p.template === 'stud-nut') {
+  if (p.template === 'profiled-fastener') {
+    groups.push({group:'Supplier drawing measurements',rows:p.dims.measurements.map(m=>[m.label,`${m.value}${m.basis==='derived' ? ' · calculated' : ''}`] as [string,string])});
+    groups.push({group:'Outstanding checks',rows:p.dims.uncertainties.map((issue,i)=>[`Issue ${i+1}`,issue] as [string,string])});
+    groups.push({group:'Geometry provenance',rows:[['Drawing','Quanzhou Litai · DRAWINGS.pdf'],['Render','Schematic where dimensions or handedness are not provided'],['Fitment','Not verified by OEM/chassis number']]});
+  } else if (p.template === 'press-in-stud' || p.template === 'stud-nut') {
     const d = p.dims, H = d.head.thickness;
     groups.push({ group: 'Dimensions (mm)', rows: [
       ['Overall length L (incl. head)', n(d.overall)], ['Length under head Lu', n(d.overall - H)],
@@ -142,7 +155,7 @@ export function specGroups(p: Product): SpecGroup[] {
     groups.push({ group: 'Thread', rows: [['Size', `M${d.thread.dia} × ${d.thread.pitch}`], ['Direction', dirLong(d.thread.dir)], ['Tolerance class', d.thread.cls], ['LH identification', d.idGroove ? 'Groove around hex corners' : '—']] });
   }
   groups.push({ group: 'Material & finish', rows: [['Material', p.material], ['Property class', p.grade], ['Finish', finishOf(p).label]] });
-  groups.push({ group: 'Data', rows: [['Specification revision', `Rev ${p.spec.revision} · ${p.spec.date}`], ['Data status', 'Illustrative sample, verify before use']] });
+  groups.push({ group: 'Data', rows: [['Specification revision', p.spec.status === 'pending' ? 'Supplier revision not supplied · imported '+p.spec.date : `Rev ${p.spec.revision} · ${p.spec.date}`], ['Data status', p.spec.status === 'pending' ? 'Supplier-declared drawing; incomplete and not verified for installation' : 'Illustrative sample, verify before use']] });
   return groups.map(g => ({ group: g.group, rows: g.rows.map(r => ({ k: r[0], v: r[1] })) }));
 }
 
