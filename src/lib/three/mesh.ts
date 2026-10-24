@@ -4,6 +4,7 @@ import type * as THREE from 'three';
 import type { Product, FinishKey } from '../catalogue';
 import { finishes } from '../catalogue';
 import { geom, type Seg, type NutGeom, type Geom } from '../geometry';
+import { neutralThreadRadius } from './neutral-thread-profile.mjs';
 
 export type Three = typeof THREE;
 const TAU = Math.PI * 2;
@@ -49,10 +50,18 @@ interface ThreadSpec { y0: number; y1: number; pitch: number; dir: 'RH' | 'LH' |
 
 /* Crest locus y = y0 + sign·p·φ/2π; the grid is sheared along the helix so crests stay clean. */
 function threadGeo(T: Three, s: ThreadSpec, internal = false) {
-  // Unknown handedness must NOT be rendered as an apparently valid RH helix.
-  // Draw the nominal threaded region as a smooth schematic cylinder until confirmed.
+  // A supplier may declare pitch/diameter without specifying RH vs LH.
+  // Give those sections visible *axisymmetric* grooves: the radial profile
+  // varies along the axis, never with angle, so it does not imply thread hand.
   if (s.dir === 'UNSPECIFIED') {
-    return patch(T, 2, 96, (i, j) => [s.r || s.rMaj || (s.rMin + 0.7), i ? s.y1 : s.y0, (j / 96) * TAU]);
+    const major = s.r ?? s.rMaj ?? s.rMin + 0.6134 * s.pitch;
+    const minor = Math.min(s.rMin, major - 0.35 * s.pitch);
+    const rows = Math.max(3, Math.ceil(((s.y1 - s.y0) / s.pitch) * 18) + 1);
+    const radialSteps = 64;
+    return patch(T, rows, radialSteps, (i, j) => {
+      const y = s.y0 + (s.y1 - s.y0) * i / (rows - 1);
+      return [neutralThreadRadius(y, s.y0, s.pitch, major, minor), y, (j / radialSteps) * TAU];
+    });
   }
   const p = s.pitch, sg = s.dir === 'LH' ? -1 : 1, R = 10, N = 72;
   const len = s.y1 - s.y0, nP = Math.ceil(len / p) + 4, M = nP * R + 1, base = s.y0 - 2 * p, off = sg < 0 ? p : 0;

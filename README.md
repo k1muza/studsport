@@ -52,7 +52,7 @@ Run `npm run check:models` to validate dimensions, lengths, part keys, and requi
 
 ## Six Quanzhou Litai drawing-based references (SS-3001 to SS-3006)
 
-The supplier pages are in `DRAWINGS.pdf` (not redistributed in this repo). Supplier records are separate from the 12 invented prototype records because **none matched in full geometry**. New `profiled-fastener` models represent a chain of axial sections annotated with `basis: drawing | derived | schematic` so unprovided geometry is never mistaken for a measured dimension. Unknown handedness is deliberately rendered as a smooth nominal thread cylinder (NOT fabricated right-hand helical thread), and unknown spline count is left smooth. The live model is a visualization, not a validated manufacturing drawing.
+The supplier pages are in `DRAWINGS.pdf` (not redistributed in this repo). Supplier records are separate from the 12 invented prototype records because **none matched in full geometry**. New `profiled-fastener` models represent a chain of axial sections annotated with `basis: drawing | derived | schematic` so unprovided geometry is never mistaken for a measured dimension. Unknown handedness is deliberately rendered as **axisymmetric circumferential thread grooves** at the supplied pitch (NOT a fabricated right-hand or left-hand helix), and unknown spline count is left smooth. The live model is a visualization, not a validated manufacturing drawing.
 
 | SKU | Supplier sheet | Model length | Status |
 |---|---|---:|---|
