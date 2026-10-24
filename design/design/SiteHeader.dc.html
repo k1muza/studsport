@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<header style="position:sticky;top:0;z-index:60;background:rgba(15,17,19,0.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid #25292d;color:#eceeef;font-family:'Schibsted Grotesk',system-ui,sans-serif">
+  <div style="max-width:1440px;margin:0 auto;padding:0 clamp(16px,3vw,40px);height:68px;display:flex;align-items:center;gap:36px">
+    <a href="Home.dc.html" aria-label="StudSport home" style="display:flex;align-items:center;gap:12px;flex:none;color:#eceeef;text-decoration:none">
+      <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true" style="flex:none">
+        <circle cx="15" cy="15" r="12.5" fill="none" stroke="#eceeef" stroke-width="2.4"></circle>
+        <path d="M23 15 A8 8 0 1 1 15 7" fill="none" stroke="oklch(0.68 0.17 45)" stroke-width="1.6"></path>
+        <line x1="15" y1="1" x2="15" y2="29" stroke="#eceeef" stroke-width="0.8" stroke-dasharray="3 1.5 1 1.5"></line>
+        <line x1="1" y1="15" x2="29" y2="15" stroke="#eceeef" stroke-width="0.8" stroke-dasharray="3 1.5 1 1.5"></line>
+      </svg>
+      <span style="display:flex;flex-direction:column;gap:4px">
+        <span style="font-weight:800;font-size:21px;letter-spacing:-0.035em;line-height:1">StudSport</span>
+        <span style="font-family:'Martian Mono',monospace;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:#8b9298;line-height:1">Wheel Studs, Hub Bolts &amp; Nuts</span>
+      </span>
+    </a>
+    <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+      <nav aria-label="Main" style="display:flex;align-items:stretch;gap:28px;height:68px;flex:1">
+        <sc-for list="{{ links }}" as="l" hint-placeholder-count="4">
+          <a href="{{ l.href }}" style="position:relative;display:flex;align-items:center;font-size:14px;font-weight:500;color:#d6d9db;text-decoration:none;white-space:nowrap" style-hover="color:#ffffff">
+            {{ l.label }}
+            <sc-if value="{{ l.active }}"><span style="position:absolute;left:0;right:0;bottom:-1px;height:2px;background:oklch(0.68 0.17 45)"></span></sc-if>
+          </a>
+        </sc-for>
+      </nav>
+      <div style="display:flex;align-items:center;gap:20px;flex:none">
+        <a href="https://wa.me/263000000000" target="_blank" rel="noopener" style="font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:0.04em;color:#a2a8ae;text-decoration:none;white-space:nowrap" style-hover="color:#ffffff">WhatsApp +263 [number]</a>
+        <a href="FindMyPart.dc.html" style="height:40px;padding:0 18px;display:inline-flex;align-items:center;background:oklch(0.68 0.17 45);color:#121416;font-weight:700;font-size:14px;border-radius:2px;text-decoration:none;white-space:nowrap" style-hover="background:oklch(0.74 0.16 50)">Request a quote</a>
+      </div>
+    </sc-if>
+    <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:1"></div>
+      <a href="FindMyPart.dc.html" style="height:40px;padding:0 14px;display:inline-flex;align-items:center;background:oklch(0.68 0.17 45);color:#121416;font-weight:700;font-size:13px;border-radius:2px;text-decoration:none">Quote</a>
+      <button onClick="{{ toggle }}" aria-label="Menu" aria-expanded="{{ open }}" style="width:44px;height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:transparent;border:1px solid #33383d;border-radius:2px;cursor:pointer;padding:0">
+        <span style="width:18px;height:1.5px;background:#eceeef;display:block"></span>
+        <span style="width:18px;height:1.5px;background:#eceeef;display:block"></span>
+        <span style="width:12px;height:1.5px;background:#eceeef;display:block;margin-left:6px"></span>
+      </button>
+    </sc-if>
+  </div>
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="border-top:1px solid #25292d;background:#121416;padding:8px clamp(16px,3vw,40px) 20px;display:flex;flex-direction:column">
+      <sc-for list="{{ links }}" as="l" hint-placeholder-count="4">
+        <a href="{{ l.href }}" style="display:flex;justify-content:space-between;align-items:center;min-height:52px;border-bottom:1px solid #212428;font-size:17px;font-weight:600;color:#eceeef;text-decoration:none">{{ l.label }}<span style="font-family:'Martian Mono',monospace;font-size:12px;color:#8b9298">→</span></a>
+      </sc-for>
+      <a href="https://wa.me/263000000000" target="_blank" rel="noopener" style="margin-top:16px;font-family:'Martian Mono',monospace;font-size:12px;color:#a2a8ae;text-decoration:none">WhatsApp +263 [number]</a>
+    </div>
+  </sc-if>
+</header>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:68},&quot;active&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;&quot;,&quot;catalogue&quot;,&quot;enquiry&quot;,&quot;how&quot;,&quot;contact&quot;],&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { mobile: false, open: false };
+  componentDidMount() {
+    this.mq = window.matchMedia('(max-width: 1060px)');
+    this.onMq = () => this.setState({ mobile: this.mq.matches, open: false });
+    this.onMq(); this.mq.addEventListener('change', this.onMq);
+  }
+  componentWillUnmount() { this.mq && this.mq.removeEventListener('change', this.onMq); }
+  renderVals() {
+    const a = this.props.active || '';
+    const links = [
+      { id: 'catalogue', label: 'Products', href: 'Catalogue.dc.html' },
+      { id: 'enquiry', label: 'Find my part', href: 'FindMyPart.dc.html' },
+      { id: 'how', label: 'How it works', href: 'Home.dc.html#how' },
+      { id: 'contact', label: 'Contact', href: 'Home.dc.html#contact' }
+    ].map(l => ({ ...l, active: l.id === a }));
+    return {
+      links, isMobile: this.state.mobile, isDesktop: !this.state.mobile,
+      open: this.state.open, menuOpen: this.state.mobile && this.state.open,
+      toggle: () => this.setState(s => ({ open: !s.open }))
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<a href="{{ href }}" style="display:flex;flex-direction:column;height:100%;background:#ffffff;border:1px solid #d9dbda;color:#15171a;text-decoration:none;font-family:'Schibsted Grotesk',system-ui,sans-serif;transition:border-color .2s ease,transform .25s cubic-bezier(.2,.7,.2,1)" style-hover="border-color:#15171a;transform:translateY(-2px)">
+  <div style="position:relative;aspect-ratio:16/10;background:radial-gradient(ellipse 75% 70% at 50% 52%,#2b2f34 0%,#1a1d20 72%);overflow:hidden">
+    <sc-if value="{{ ready }}" hint-placeholder-val="{{ false }}">
+      <x-import component-from-global-scope="ss-thumb" sku="{{ sku }}" tone="dark" spin="{{ spin }}" style="position:absolute;inset:0" hint-size="100%,100%"></x-import>
+    </sc-if>
+    <span style="position:absolute;left:10px;top:10px;display:inline-flex;align-items:center;gap:7px;height:24px;padding:0 9px;background:rgba(15,17,19,0.78);border:1px solid rgba(255,255,255,0.1);font-family:'Martian Mono',monospace;font-size:9.5px;letter-spacing:0.06em;color:#eceeef;text-transform:uppercase;white-space:nowrap"><span style="width:6px;height:6px;border-radius:50%;background:{{ availColor }}"></span>{{ availLabel }}</span>
+    <sc-if value="{{ lh }}" hint-placeholder-val="{{ false }}">
+      <span style="position:absolute;right:10px;top:10px;height:24px;padding:0 8px;display:inline-flex;align-items:center;border:1px solid oklch(0.68 0.17 45);background:rgba(15,17,19,0.78);font-family:'Martian Mono',monospace;font-size:9.5px;letter-spacing:0.08em;color:#ffffff">LH</span>
+    </sc-if>
+  </div>
+  <div style="padding:16px 16px 14px;display:flex;flex-direction:column;gap:14px;flex:1">
+    <div style="display:flex;flex-direction:column;gap:5px">
+      <span style="font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:0.03em;color:#6c7278"><span style="color:oklch(0.55 0.16 45);font-weight:600">{{ partNo }}</span> · {{ typeLabel }}</span>
+      <h3 style="margin:0;font-size:17px;line-height:1.25;font-weight:700;letter-spacing:-0.01em;text-wrap:pretty">{{ name }}</h3>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:0 14px;border-top:1px solid #e3e5e4;border-bottom:1px solid #e3e5e4">
+      <sc-for list="{{ dims }}" as="d" hint-placeholder-count="3">
+        <span style="display:flex;flex-direction:column;gap:3px;padding:9px 0 9px 0;min-width:0">
+          <span style="font-family:'Martian Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:#6c7278">{{ d.k }}</span>
+          <span style="font-family:'Martian Mono',monospace;font-size:12px;color:#15171a;white-space:nowrap">{{ d.v }}</span>
+        </span>
+      </sc-for>
+    </div>
+    <span style="font-size:13px;line-height:1.45;color:#4b5157;flex:1">{{ apps }}</span>
+    <span style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+      <span style="font-family:'Martian Mono',monospace;font-size:12px;color:#15171a">{{ price }}</span>
+      <span style="font-size:13.5px;font-weight:600;display:inline-flex;gap:8px;align-items:center">View part <span style="font-family:'Martian Mono',monospace">→</span></span>
+    </span>
+  </div>
+</a>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:320,&quot;height&quot;:440},&quot;sku&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;ss-1001&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { ready: false };
+  componentDidMount() { const t = () => (window.SS && window.SS.__loaded && window.SS_DATA) ? this.setState({ ready: true }) : setTimeout(t, 30); t(); }
+  renderVals() {
+    if (!this.state.ready) return { ready: false };
+    const SS = window.SS, p = SS.get(this.props.sku || 'ss-1001');
+    if (!p) return { ready: false };
+    const av = SS.avail(p), pr = SS.price(p);
+    return {
+      ready: true, sku: p.slug, spin: this.props.spin || 'off', href: SS.href(p), partNo: p.partNo, name: p.name, typeLabel: SS.typeLabel(p),
+      dims: SS.keyDims(p), apps: SS.appsLabel(p), availLabel: av.label, availColor: av.color, lh: SS.isLH(p),
+      price: pr ? `${pr} ${p.price.unit}` : 'Price on quote'
+    };
+  }
+}
+</script>
+</body>
+</html>

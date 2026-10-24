@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Design system · StudSport</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@300;400;500;600&amp;family=Schibsted+Grotesk:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<script src="data/catalogue.js"></script>
+<script src="lib/studsport.js"></script>
+<style>
+html,body{margin:0;background:#f1f1ef}
+body{font-family:'Schibsted Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased;color:#15171a}
+*{box-sizing:border-box}
+a{color:inherit;text-decoration:none}
+a:hover{color:inherit}
+</style>
+</helmet>
+<dc-import name="SiteHeader" active="" hint-size="100%,68px"></dc-import>
+<main style="max-width:1280px;margin:0 auto;padding:clamp(32px,5vw,64px) clamp(16px,3vw,40px) 96px;display:flex;flex-direction:column;gap:clamp(48px,6vw,80px)">
+  <header style="display:flex;flex-direction:column;gap:12px;max-width:760px">
+    <span style="font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:oklch(0.55 0.16 45)">StudSport · Design system v0.1</span>
+    <h1 style="margin:0;font-size:clamp(36px,5vw,64px);font-weight:800;letter-spacing:-0.04em;line-height:1">Precision, plainly presented</h1>
+    <p style="margin:0;font-size:17px;line-height:1.55;color:#4b5157;text-wrap:pretty">Charcoal for the product stage, white for drawings and data, one signal orange for actions and key measurements. Grotesk for voice, mono for anything you could measure.</p>
+  </header>
+
+  <section style="display:flex;flex-direction:column;gap:20px">
+    <h2 style="margin:0;font-size:26px;font-weight:800;letter-spacing:-0.02em">Identity</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:12px">
+      <div style="background:#121416;color:#eceeef;padding:40px 32px;display:flex;align-items:center;gap:16px;min-height:200px">
+        <svg width="54" height="54" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="12.5" fill="none" stroke="#eceeef" stroke-width="2.4"></circle><path d="M23 15 A8 8 0 1 1 15 7" fill="none" stroke="oklch(0.68 0.17 45)" stroke-width="1.6"></path><line x1="15" y1="1" x2="15" y2="29" stroke="#eceeef" stroke-width="0.8" stroke-dasharray="3 1.5 1 1.5"></line><line x1="1" y1="15" x2="29" y2="15" stroke="#eceeef" stroke-width="0.8" stroke-dasharray="3 1.5 1 1.5"></line></svg>
+        <span style="display:flex;flex-direction:column;gap:6px"><span style="font-weight:800;font-size:38px;letter-spacing:-0.035em;line-height:1">StudSport</span><span style="font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#8b9298">Wheel Studs, Hub Bolts &amp; Nuts</span></span>
+      </div>
+      <div style="background:#ffffff;border:1px solid #d9dbda;padding:40px 32px;display:flex;align-items:center;gap:16px;min-height:200px">
+        <svg width="54" height="54" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="12.5" fill="none" stroke="#15171a" stroke-width="2.4"></circle><path d="M23 15 A8 8 0 1 1 15 7" fill="none" stroke="oklch(0.62 0.17 45)" stroke-width="1.6"></path><line x1="15" y1="1" x2="15" y2="29" stroke="#15171a" stroke-width="0.8" stroke-dasharray="3 1.5 1 1.5"></line><line x1="1" y1="15" x2="29" y2="15" stroke="#15171a" stroke-width="0.8" stroke-dasharray="3 1.5 1 1.5"></line></svg>
+        <span style="display:flex;flex-direction:column;gap:6px"><span style="font-weight:800;font-size:38px;letter-spacing:-0.035em;line-height:1">StudSport</span><span style="font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#4b5157">Wheel Studs, Hub Bolts &amp; Nuts</span></span>
+      </div>
+    </div>
+    <p style="margin:0;font-size:14px;color:#4b5157;max-width:70ch;line-height:1.55">The mark is the drafting symbol for an external thread seen end-on: a full circle for the major diameter, a three-quarter arc for the minor diameter, and centre lines.</p>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:20px">
+    <h2 style="margin:0;font-size:26px;font-weight:800;letter-spacing:-0.02em">Colour</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,180px),1fr));gap:8px">
+      <sc-for list="{{ swatches }}" as="s" hint-placeholder-count="12">
+        <div style="background:#ffffff;border:1px solid #d9dbda;display:flex;flex-direction:column">
+          <span style="height:84px;background:{{ s.c }};border-bottom:1px solid #e3e5e4"></span>
+          <span style="padding:10px 12px;display:flex;flex-direction:column;gap:3px">
+            <span style="font-size:14px;font-weight:700">{{ s.name }}</span>
+            <span style="font-family:'Martian Mono',monospace;font-size:10.5px;color:#4b5157">{{ s.c }}</span>
+            <span style="font-size:12.5px;color:#6c7278;line-height:1.4">{{ s.use }}</span>
+          </span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:20px">
+    <h2 style="margin:0;font-size:26px;font-weight:800;letter-spacing:-0.02em">Type</h2>
+    <div style="background:#ffffff;border:1px solid #d9dbda;display:flex;flex-direction:column">
+      <div style="display:flex;flex-wrap:wrap;gap:12px 32px;align-items:baseline;padding:24px;border-bottom:1px solid #e3e5e4"><span style="font-family:'Martian Mono',monospace;font-size:10.5px;color:#6c7278;width:160px">Display · 800 · −4.5%</span><span style="font-size:clamp(40px,6vw,80px);font-weight:800;letter-spacing:-0.045em;line-height:0.95">The right stud.</span></div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px 32px;align-items:baseline;padding:24px;border-bottom:1px solid #e3e5e4"><span style="font-family:'Martian Mono',monospace;font-size:10.5px;color:#6c7278;width:160px">Heading · 800 · −3%</span><span style="font-size:34px;font-weight:800;letter-spacing:-0.03em">Front wheel stud M20 × 1.5 RH</span></div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px 32px;align-items:baseline;padding:24px;border-bottom:1px solid #e3e5e4"><span style="font-family:'Martian Mono',monospace;font-size:10.5px;color:#6c7278;width:160px">Body · 400 · 16/1.55</span><span style="font-size:16px;line-height:1.55;max-width:60ch;color:#4b5157">Press-in wheel stud with D-flat head for front hubs on light trucks. Right-hand thread, fitted to right-side wheels.</span></div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px 32px;align-items:baseline;padding:24px"><span style="font-family:'Martian Mono',monospace;font-size:10.5px;color:#6c7278;width:160px">Mono · Martian Mono</span><span style="font-family:'Martian Mono',monospace;font-size:14px;display:flex;flex-wrap:wrap;gap:20px"><span style="color:oklch(0.55 0.16 45);font-weight:600">SS-1001</span><span>M20 × 1.5 RH</span><span>L 74</span><span>Ø22.4 × 14</span><span style="font-size:10.5px;letter-spacing:0.12em;color:#6c7278">LABEL · UPPERCASE</span></span></div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:20px">
+    <h2 style="margin:0;font-size:26px;font-weight:800;letter-spacing:-0.02em">Components</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:12px">
+      <div style="background:#121416;padding:28px;display:flex;flex-direction:column;gap:18px">
+        <span style="font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:0.12em;color:#8b9298">ACTIONS · ON CHARCOAL</span>
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <span style="height:50px;padding:0 22px;display:inline-flex;align-items:center;background:oklch(0.68 0.17 45);color:#121416;font-weight:700;font-size:15px;border-radius:2px">Request a quote →</span>
+          <span style="height:50px;padding:0 20px;display:inline-flex;align-items:center;border:1px solid #4a5056;color:#eceeef;font-weight:600;font-size:15px;border-radius:2px">Ask on WhatsApp</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          <span style="height:24px;padding:0 9px;display:inline-flex;align-items:center;gap:7px;background:rgba(15,17,19,0.78);border:1px solid rgba(255,255,255,0.14);font-family:'Martian Mono',monospace;font-size:9.5px;letter-spacing:0.06em;color:#eceeef"><span style="width:6px;height:6px;border-radius:50%;background:oklch(0.72 0.14 150)"></span>IN STOCK</span>
+          <span style="height:24px;padding:0 9px;display:inline-flex;align-items:center;gap:7px;background:rgba(15,17,19,0.78);border:1px solid rgba(255,255,255,0.14);font-family:'Martian Mono',monospace;font-size:9.5px;letter-spacing:0.06em;color:#eceeef"><span style="width:6px;height:6px;border-radius:50%;background:oklch(0.80 0.13 85)"></span>ON REQUEST</span>
+          <span style="height:24px;padding:0 9px;display:inline-flex;align-items:center;gap:7px;background:rgba(15,17,19,0.78);border:1px solid rgba(255,255,255,0.14);font-family:'Martian Mono',monospace;font-size:9.5px;letter-spacing:0.06em;color:#eceeef"><span style="width:6px;height:6px;border-radius:50%;background:#9aa1a7"></span>CONFIRM AVAILABILITY</span>
+          <span style="height:24px;padding:0 8px;display:inline-flex;align-items:center;border:1px solid oklch(0.68 0.17 45);font-family:'Martian Mono',monospace;font-size:9.5px;letter-spacing:0.08em;color:#ffffff">LH</span>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <span style="min-height:44px;padding:6px 12px;display:inline-flex;flex-direction:column;justify-content:center;gap:2px;border:1px solid oklch(0.68 0.17 45);background:#1d2023"><span style="font-size:13px;font-weight:600;color:#ffffff">Front · RH</span><span style="font-family:'Martian Mono',monospace;font-size:9.5px;color:#a2a8ae">SS-1001</span></span>
+          <span style="min-height:44px;padding:6px 12px;display:inline-flex;flex-direction:column;justify-content:center;gap:2px;border:1px solid #33383d"><span style="font-size:13px;font-weight:600;color:#d6d9db">Front · LH</span><span style="font-family:'Martian Mono',monospace;font-size:9.5px;color:#8b9298">SS-1002</span></span>
+        </div>
+      </div>
+      <div style="background:#ffffff;border:1px solid #d9dbda;padding:28px;display:flex;flex-direction:column;gap:18px">
+        <span style="font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:0.12em;color:#6c7278">FORMS · ON WHITE</span>
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          <span style="min-height:44px;padding:0 14px;display:inline-flex;align-items:center;border:1px solid #15171a;background:#15171a;color:#ffffff;font-size:14px;font-weight:600;border-radius:2px">Toyota Dyna</span>
+          <span style="min-height:44px;padding:0 14px;display:inline-flex;align-items:center;border:1px solid #c4c7c8;color:#15171a;font-size:14px;border-radius:2px">Hino</span>
+          <span style="min-height:44px;padding:0 14px;display:inline-flex;align-items:center;border:1px solid #c4c7c8;color:#15171a;font-size:14px;border-radius:2px">I'm not sure</span>
+        </div>
+        <span style="height:50px;padding:0 14px;display:flex;align-items:center;border:1px solid #15171a;border-radius:2px;font-family:'Martian Mono',monospace;font-size:14px;color:#6c7278">SS-1030</span>
+        <div style="display:flex;flex-direction:column">
+          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #dcdedd"><span style="font-size:14.5px;color:#4b5157">Overall length L (incl. head)</span><span style="font-family:'Martian Mono',monospace;font-size:12.5px">74</span></div>
+          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #dcdedd"><span style="font-size:14.5px;color:#4b5157">Thread</span><span style="font-family:'Martian Mono',monospace;font-size:12.5px">M20 × 1.5 RH</span></div>
+          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #dcdedd;background:oklch(0.95 0.035 62);box-shadow:inset 0 -2px 0 oklch(0.68 0.17 45)"><span style="font-size:14.5px;color:#4b5157;padding-left:8px">Direction (differs)</span><span style="font-family:'Martian Mono',monospace;font-size:12.5px;font-weight:600;padding-right:8px">Left-hand (LH)</span></div>
+        </div>
+      </div>
+      <div style="max-width:340px">
+        <dc-import name="ProductCard" sku="ss-1040" hint-size="100%,430px"></dc-import>
+      </div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:20px">
+    <h2 style="margin:0;font-size:26px;font-weight:800;letter-spacing:-0.02em">Drawing conventions</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:12px">
+      <div style="flex:2 1 520px;min-width:0;background:#ffffff;border:1px solid #d9dbda;padding:20px">
+        <sc-if value="{{ ready }}" hint-placeholder-val="{{ false }}">
+          <x-import component-from-global-scope="ss-drawing" sku="ss-1040" layout="auto" grid="true" style="width:100%" hint-size="100%,260px"></x-import>
+        </sc-if>
+      </div>
+      <div style="flex:1 1 280px;display:flex;flex-direction:column;gap:12px;font-size:14px;line-height:1.5;color:#4b5157">
+        <span style="display:flex;gap:12px;align-items:center"><span style="width:44px;height:0;border-top:2.4px solid #15171a;flex:none"></span>Visible outline · thick</span>
+        <span style="display:flex;gap:12px;align-items:center"><span style="width:44px;height:0;border-top:1px solid #353c43;flex:none"></span>Dimension, extension, thread root · thin</span>
+        <span style="display:flex;gap:12px;align-items:center"><span style="width:44px;height:0;border-top:1px dashed #59616a;flex:none"></span>Hidden detail (nut bore)</span>
+        <span style="display:flex;gap:12px;align-items:center"><span style="width:44px;height:0;border-top:1px dotted #59616a;flex:none"></span>Centre line · dash-dot</span>
+        <span>Every drawing, 3D model, card and spec table is generated from the same record. Overall length L always includes the head; chain dimensions add up to L.</span>
+      </div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:20px">
+    <h2 style="margin:0;font-size:26px;font-weight:800;letter-spacing:-0.02em">Motion</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:1px;background:#d9dbda;border:1px solid #d9dbda">
+      <div style="background:#ffffff;padding:20px;display:flex;flex-direction:column;gap:6px"><span style="font-family:'Martian Mono',monospace;font-size:11px;color:oklch(0.55 0.16 45)">0.42 rad/s</span><span style="font-weight:700">Slow axial spin</span><span style="font-size:14px;color:#4b5157;line-height:1.5">Parts turn on their own axis so threads, splines and head forms pass the light; dimension lines stay put.</span></div>
+      <div style="background:#ffffff;padding:20px;display:flex;flex-direction:column;gap:6px"><span style="font-family:'Martian Mono',monospace;font-size:11px;color:oklch(0.55 0.16 45)">Damped</span><span style="font-weight:700">Drag, zoom, reset</span><span style="font-size:14px;color:#4b5157;line-height:1.5">User input eases to its target. Reset returns to the catalogue pose.</span></div>
+      <div style="background:#ffffff;padding:20px;display:flex;flex-direction:column;gap:6px"><span style="font-family:'Martian Mono',monospace;font-size:11px;color:oklch(0.55 0.16 45)">0.5–0.8 s</span><span style="font-weight:700">Fades, no bounces</span><span style="font-size:14px;color:#4b5157;line-height:1.5">Outline placeholder cross-fades to the rendered part. Cards lift 2 px on hover.</span></div>
+      <div style="background:#ffffff;padding:20px;display:flex;flex-direction:column;gap:6px"><span style="font-family:'Martian Mono',monospace;font-size:11px;color:oklch(0.55 0.16 45)">Reduced motion</span><span style="font-weight:700">Still by default</span><span style="font-size:14px;color:#4b5157;line-height:1.5">Rotation starts paused. The viewer stops when off-screen or in a background tab.</span></div>
+    </div>
+  </section>
+</main>
+<dc-import name="SiteFooter" hint-size="100%,420px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { ready: false };
+  componentDidMount() { const t = () => (window.SS && window.SS.__loaded && window.SS_DATA) ? this.setState({ ready: true }) : setTimeout(t, 30); t(); }
+  renderVals() {
+    return {
+      ready: this.state.ready,
+      swatches: [
+        { name: 'Graphite', c: '#0e1012', use: 'Footer' },
+        { name: 'Charcoal', c: '#121416', use: 'Hero, header, viewer page' },
+        { name: 'Stage', c: '#1a1d20', use: 'Viewer and thumbnail wells' },
+        { name: 'Rule dark', c: '#2a2e32', use: 'Lines on charcoal' },
+        { name: 'Steel', c: '#a2a8ae', use: 'Secondary text on charcoal' },
+        { name: 'Paper', c: '#f1f1ef', use: 'Catalogue and detail surfaces' },
+        { name: 'Sheet', c: '#ffffff', use: 'Drawings, tables, cards' },
+        { name: 'Rule light', c: '#d9dbda', use: 'Lines on paper' },
+        { name: 'Ink', c: '#15171a', use: 'Text and outlines' },
+        { name: 'Ink 2', c: '#4b5157', use: 'Secondary text on paper' },
+        { name: 'Signal', c: 'oklch(0.68 0.17 45)', use: 'Primary action, key callouts' },
+        { name: 'Signal ink', c: 'oklch(0.55 0.16 45)', use: 'Part numbers and labels on paper' },
+        { name: 'In stock', c: 'oklch(0.72 0.14 150)', use: 'Status dot' },
+        { name: 'On request', c: 'oklch(0.80 0.13 85)', use: 'Status dot, prototype notice' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+/* Spec sheets print as one full-bleed A4 page. */
+@page { size: A4 portrait; margin: 0; }
+@media print {
+  html, body { background: #fff; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}

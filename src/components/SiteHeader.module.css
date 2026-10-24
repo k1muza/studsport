@@ -1,0 +1,59 @@
+.header {
+  position: sticky; top: 0; z-index: 60;
+  background: rgba(15, 17, 19, 0.9);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--rule-d1);
+  color: var(--on-dark);
+}
+.bar { height: var(--header-h); display: flex; align-items: center; gap: 36px; }
+.brand { display: flex; align-items: center; gap: 12px; flex: none; min-width: 0; color: var(--on-dark); }
+.brandText { display: flex; flex-direction: column; gap: 4px; }
+.word { font-weight: 800; font-size: 21px; letter-spacing: -0.035em; line-height: 1; }
+.desc {
+  font-family: var(--font-mono), monospace; font-size: 8px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--on-dark-4); line-height: 1;
+}
+.nav { display: flex; align-items: stretch; gap: 28px; height: var(--header-h); flex: 1; }
+.navLink {
+  position: relative; display: flex; align-items: center;
+  font-size: 14px; font-weight: 500; color: var(--on-dark-2); white-space: nowrap;
+}
+.navLink:hover { color: #fff; }
+.navLink[aria-current="page"]::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--accent);
+}
+.actions { display: flex; align-items: center; gap: 20px; flex: none; }
+.wa { font-family: var(--font-mono), monospace; font-size: 11px; letter-spacing: 0.04em; color: var(--on-dark-3); white-space: nowrap; }
+.wa:hover { color: #fff; }
+.spacer { flex: 1; }
+.quoteSm { height: 40px; padding: 0 14px; font-size: 13px; flex: none; }
+.menuBtn {
+  width: 44px; height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+  background: transparent; border: 1px solid #33383d; border-radius: 2px; cursor: pointer; padding: 0; flex: none;
+}
+.menuBtn span { width: 18px; height: 1.5px; background: var(--on-dark); display: block; }
+.menuBtn span:last-child { width: 12px; margin-left: 6px; }
+.menu {
+  border-top: 1px solid var(--rule-d1); background: var(--charcoal);
+  padding: 8px var(--pad-x) 20px; display: flex; flex-direction: column;
+}
+.menuLink {
+  display: flex; justify-content: space-between; align-items: center; min-height: 52px;
+  border-bottom: 1px solid #212428; font-size: 17px; font-weight: 600; color: var(--on-dark);
+}
+.menuLink span { font-family: var(--font-mono), monospace; font-size: 12px; color: var(--on-dark-4); }
+.menuWa { margin-top: 16px; font-family: var(--font-mono), monospace; font-size: 12px; color: var(--on-dark-3); }
+
+/* Scoped under .bar so these win over .menuBtn and the global .btn display rules. */
+.bar .mobileOnly { display: none; }
+@media (max-width: 1060px) {
+  .nav, .actions { display: none; }
+  .bar .mobileOnly { display: flex; }
+  .bar { gap: 12px; }
+  .brand { flex: 0 1 auto; }
+  .brandText { min-width: 0; }
+  .desc { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+}
+@media (min-width: 1061px) {
+  .menu { display: none; }
+}

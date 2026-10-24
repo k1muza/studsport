@@ -1,0 +1,139 @@
+:root {
+  /* dark surfaces */
+  --graphite: #0e1012;
+  --charcoal: #121416;
+  --stage: #1a1d20;
+  --stage-gradient: radial-gradient(ellipse 70% 62% at 50% 46%, #2b2f34 0%, #1a1d20 58%, #141618 100%);
+  --well-gradient: radial-gradient(ellipse 75% 70% at 50% 52%, #2b2f34 0%, #1a1d20 72%);
+  --rule-d1: #25292d;
+  --rule-d2: #2a2e32;
+  --rule-d3: #3a3f44;
+  --rule-d4: #4a5056;
+  --on-dark: #eceeef;
+  --on-dark-2: #d6d9db;
+  --on-dark-3: #a2a8ae;
+  --on-dark-4: #8b9298;
+  --on-dark-5: #6f767c;
+
+  /* light surfaces */
+  --paper: #f1f1ef;
+  --sheet: #ffffff;
+  --sheet-2: #fafaf9;
+  --rule-l1: #d9dbda;
+  --rule-l2: #dcdedd;
+  --rule-l3: #e3e5e4;
+  --rule-input: #c4c7c8;
+  --ink: #15171a;
+  --ink-2: #4b5157;
+  --ink-3: #6c7278;
+
+  /* signal */
+  --accent: oklch(0.68 0.17 45);
+  --accent-hover: oklch(0.74 0.16 50);
+  --accent-ink: oklch(0.55 0.16 45);
+  --accent-light: oklch(0.74 0.15 50);
+  --accent-tint: oklch(0.95 0.035 62);
+  --ok: oklch(0.72 0.14 150);
+  --notice: oklch(0.80 0.13 85);
+  --confirm: #9aa1a7;
+  --error: #b02a1a;
+
+  --pad-x: clamp(16px, 3vw, 40px);
+  --ease-lift: cubic-bezier(.2, .7, .2, 1);
+  --header-h: 68px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--charcoal); }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  color: var(--ink);
+}
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font: inherit; }
+::selection { background: var(--accent); color: var(--charcoal); }
+input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+input[type=number] { -moz-appearance: textfield; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+@keyframes ssRise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes ssIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes ssSpin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; scroll-behavior: auto !important; transition: none !important; }
+}
+
+/* ---------- layout ---------- */
+.wrap { max-width: 1440px; margin: 0 auto; padding-left: var(--pad-x); padding-right: var(--pad-x); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.mono { font-family: var(--font-mono), ui-monospace, Menlo, monospace; }
+
+/* ---------- type ---------- */
+.eyebrow {
+  font-family: var(--font-mono), monospace; font-size: 11px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent-ink);
+}
+.eyebrow-dark { color: var(--accent-light); }
+.eyebrow-rule {
+  display: flex; align-items: center; gap: 12px;
+  font-family: var(--font-mono), monospace; font-size: 11px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--on-dark-3);
+}
+.eyebrow-rule::before { content: ''; width: 28px; height: 1px; background: var(--accent); }
+.h2 { margin: 0; font-size: clamp(28px, 3vw, 40px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; }
+.label {
+  font-family: var(--font-mono), monospace; font-size: 10px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--ink-3);
+}
+.label-dark { color: var(--on-dark-4); }
+.optional { font-family: var(--font-mono), monospace; font-size: 10px; font-weight: 400; color: var(--ink-3); letter-spacing: 0.06em; }
+.req { font-weight: 400; color: var(--error); }
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  height: 50px; padding: 0 22px; border: 1px solid transparent; border-radius: 2px;
+  font-size: 15px; font-weight: 600; white-space: nowrap; cursor: pointer;
+  transition: background .15s, border-color .15s, color .15s;
+}
+.btn-lg { height: 54px; padding: 0 26px; font-size: 16px; }
+.btn-sm { height: 40px; padding: 0 18px; font-size: 14px; }
+.btn-accent { background: var(--accent); color: var(--charcoal); font-weight: 700; }
+.btn-accent:hover { background: var(--accent-hover); }
+.btn-ghost { background: transparent; border-color: var(--rule-d4); color: var(--on-dark); }
+.btn-ghost:hover { border-color: var(--on-dark-3); }
+.btn-ink { background: var(--ink); color: #fff; }
+.btn-ink:hover { background: #2a2e32; }
+.btn-outline { background: transparent; border-color: var(--ink); color: var(--ink); }
+.btn-outline:hover { background: var(--sheet); }
+.btn-light { background: var(--sheet); border-color: var(--rule-input); color: var(--ink); }
+.btn-light:hover { border-color: var(--ink); }
+.btn-link {
+  height: auto; padding: 0; border: 0; background: none; color: var(--ink);
+  font-weight: 400; text-decoration: underline; text-underline-offset: 3px;
+}
+.btn[disabled] { opacity: .7; cursor: progress; }
+.arrow { font-family: var(--font-mono), monospace; }
+.link-rule { font-size: 15px; font-weight: 600; border-bottom: 1px solid var(--ink); padding-bottom: 2px; }
+
+/* ---------- form choices (chips that act as radios) ---------- */
+.choice {
+  min-height: 44px; padding: 0 14px; border: 1px solid var(--rule-input); background: var(--sheet);
+  color: var(--ink); font-size: 14px; border-radius: 2px; cursor: pointer; white-space: nowrap;
+}
+.choice:hover { border-color: var(--ink); }
+.choice[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: #fff; font-weight: 600; }
+
+.input {
+  height: 50px; padding: 0 14px; border: 1px solid var(--rule-input); border-radius: 2px;
+  font-size: 16px; outline: none; color: var(--ink); background: var(--sheet); width: 100%;
+}
+.input:focus { border-color: var(--ink); }
+.input-mono { font-family: var(--font-mono), monospace; }
+.error { font-size: 13px; color: var(--error); }
+
+/* ---------- misc ---------- */
+.notice-dot { flex: none; margin-top: 5px; width: 6px; height: 6px; background: var(--notice); }
+.placeholder-stripes { background: repeating-linear-gradient(135deg, #1e2124 0 10px, #1a1d20 10px 20px); }

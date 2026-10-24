@@ -1,0 +1,35 @@
+.card {
+  display: flex; flex-direction: column; height: 100%;
+  background: var(--sheet); border: 1px solid var(--rule-l1); color: var(--ink);
+  transition: border-color .2s ease, transform .25s var(--ease-lift);
+}
+.card:hover { border-color: var(--ink); transform: translateY(-2px); }
+.well { position: relative; aspect-ratio: 16 / 10; background: var(--well-gradient); overflow: hidden; }
+.pill {
+  position: absolute; left: 10px; top: 10px; display: inline-flex; align-items: center; gap: 7px; height: 24px; padding: 0 9px;
+  background: rgba(15, 17, 19, 0.78); border: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: var(--font-mono), monospace; font-size: 9.5px; letter-spacing: 0.06em; color: var(--on-dark);
+  text-transform: uppercase; white-space: nowrap;
+}
+.dot { width: 6px; height: 6px; border-radius: 50%; }
+.lh {
+  position: absolute; right: 10px; top: 10px; height: 24px; padding: 0 8px; display: inline-flex; align-items: center;
+  border: 1px solid var(--accent); background: rgba(15, 17, 19, 0.78);
+  font-family: var(--font-mono), monospace; font-size: 9.5px; letter-spacing: 0.08em; color: #fff;
+}
+.body { padding: 16px 16px 14px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
+.head { display: flex; flex-direction: column; gap: 5px; }
+.meta { font-family: var(--font-mono), monospace; font-size: 11px; letter-spacing: 0.03em; color: var(--ink-3); }
+.partNo { color: var(--accent-ink); font-weight: 600; }
+.name { margin: 0; font-size: 17px; line-height: 1.25; font-weight: 700; letter-spacing: -0.01em; text-wrap: pretty; }
+.dims {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 14px;
+  border-top: 1px solid var(--rule-l3); border-bottom: 1px solid var(--rule-l3);
+}
+.dim { display: flex; flex-direction: column; gap: 3px; padding: 9px 0; min-width: 0; }
+.dimK { font-family: var(--font-mono), monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); }
+.dimV { font-family: var(--font-mono), monospace; font-size: 12px; color: var(--ink); white-space: nowrap; }
+.apps { font-size: 13px; line-height: 1.45; color: var(--ink-2); flex: 1; }
+.foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.price { font-family: var(--font-mono), monospace; font-size: 12px; color: var(--ink); }
+.view { font-size: 13.5px; font-weight: 600; display: inline-flex; gap: 8px; align-items: center; }

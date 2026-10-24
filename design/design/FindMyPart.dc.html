@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Find my part · StudSport</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@300;400;500;600&amp;family=Schibsted+Grotesk:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<script src="data/catalogue.js"></script>
+<script src="lib/studsport.js"></script>
+<style>
+html,body{margin:0;background:#121416}
+body{font-family:'Schibsted Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased;color:#15171a}
+*{box-sizing:border-box}
+a{color:inherit;text-decoration:none}
+a:hover{color:inherit}
+button,input,select,textarea{font:inherit}
+::selection{background:oklch(0.68 0.17 45);color:#121416}
+@keyframes ssSpin{to{transform:rotate(360deg)}}
+@keyframes ssIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important}}
+</style>
+</helmet>
+<dc-import name="SiteHeader" active="enquiry" hint-size="100%,68px"></dc-import>
+<section style="background:#121416;color:#eceeef;border-bottom:1px solid #25292d">
+  <div style="max-width:1200px;margin:0 auto;padding:clamp(28px,4vw,52px) clamp(16px,3vw,40px);display:flex;flex-direction:column;gap:14px">
+    <span style="display:flex;align-items:center;gap:12px;font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#a2a8ae"><span style="width:28px;height:1px;background:oklch(0.68 0.17 45)"></span>Enquiry</span>
+    <h1 style="margin:0;font-size:clamp(34px,4.4vw,60px);font-weight:800;letter-spacing:-0.04em;line-height:1">{{ title }}</h1>
+    <p style="margin:0;font-size:17px;line-height:1.55;color:#c3c8cc;max-width:60ch;text-wrap:pretty">Tell us what you have. Skip anything you don't know. The team will confirm the match, price and availability before you buy.</p>
+  </div>
+</section>
+<main style="background:#f1f1ef;min-height:70vh">
+  <div style="max-width:1200px;margin:0 auto;padding:clamp(20px,3vw,40px) clamp(16px,3vw,40px) clamp(48px,6vw,96px);display:flex;flex-wrap:wrap;gap:clamp(20px,3vw,36px);align-items:flex-start">
+
+    <sc-if value="{{ notDone }}" hint-placeholder-val="{{ true }}">
+      <div style="flex:1.8 1 520px;min-width:0;display:flex;flex-direction:column;gap:16px">
+        <ol aria-label="Progress" style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px">
+          <sc-for list="{{ steps }}" as="s" hint-placeholder-count="3">
+            <li style="display:flex;flex-direction:column;gap:8px">
+              <sc-if value="{{ s.reached }}"><span style="height:3px;background:#15171a"></span></sc-if>
+              <sc-if value="{{ s.ahead }}"><span style="height:3px;background:#d0d3d2"></span></sc-if>
+              <span style="display:flex;gap:8px;align-items:baseline;font-size:13.5px;font-weight:600;color:#15171a"><span style="font-family:'Martian Mono',monospace;font-size:11px;color:oklch(0.55 0.16 45)">0{{ s.n }}</span>{{ s.label }}</span>
+            </li>
+          </sc-for>
+        </ol>
+
+        <form onSubmit="{{ onSubmit }}" novalidate="" style="background:#ffffff;border:1px solid #d9dbda;display:flex;flex-direction:column">
+          <sc-if value="{{ step1 }}" hint-placeholder-val="{{ true }}">
+            <div style="padding:clamp(20px,3vw,36px);display:flex;flex-direction:column;gap:28px;animation:ssIn .35s ease both">
+              <fieldset style="border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:12px">
+                <legend style="padding:0;margin-bottom:12px;font-size:15px;font-weight:700;white-space:nowrap">Vehicle make <span style="font-weight:400;color:#b02a1a">*</span></legend>
+                <div style="display:flex;flex-wrap:wrap;gap:6px">
+                  <sc-for list="{{ makeOpts }}" as="o" hint-placeholder-count="9">
+                    <sc-if value="{{ o.on }}"><button type="button" aria-pressed="true" onClick="{{ o.pick }}" style="min-height:44px;padding:0 14px;border:1px solid #15171a;background:#15171a;color:#ffffff;font-size:14.5px;font-weight:600;border-radius:2px;cursor:pointer;white-space:nowrap">{{ o.label }}</button></sc-if>
+                    <sc-if value="{{ o.off }}"><button type="button" aria-pressed="false" onClick="{{ o.pick }}" style="min-height:44px;padding:0 14px;border:1px solid #c4c7c8;background:#ffffff;color:#15171a;font-size:14.5px;border-radius:2px;cursor:pointer;white-space:nowrap" style-hover="border-color:#15171a">{{ o.label }}</button></sc-if>
+                  </sc-for>
+                </div>
+                <sc-if value="{{ err.make }}"><span role="alert" style="font-size:13px;color:#b02a1a">Choose a make, or “I'm not sure”.</span></sc-if>
+              </fieldset>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:16px">
+                <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:14px;font-weight:600">Model</span><input value="{{ f.model }}" onChange="{{ on.model }}" placeholder="e.g. Dyna 300, NQR, Condor" style="height:50px;padding:0 14px;border:1px solid #c4c7c8;border-radius:2px;font-size:16px;outline:none;color:#15171a;background:#ffffff" style-focus="border-color:#15171a"></label>
+                <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:14px;font-weight:600">Year <span style="font-family:'Martian Mono',monospace;font-size:10px;font-weight:400;color:#6c7278;letter-spacing:0.06em">OPTIONAL</span></span><input value="{{ f.year }}" onChange="{{ on.year }}" inputmode="numeric" placeholder="e.g. 2006" style="height:50px;padding:0 14px;border:1px solid #c4c7c8;border-radius:2px;font-size:16px;outline:none;color:#15171a;background:#ffffff" style-focus="border-color:#15171a"></label>
+                <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:14px;font-weight:600">Chassis / VIN <span style="font-family:'Martian Mono',monospace;font-size:10px;font-weight:400;color:#6c7278;letter-spacing:0.06em">OPTIONAL</span></span><input value="{{ f.chassis }}" onChange="{{ on.chassis }}" placeholder="From the registration book" style="height:50px;padding:0 14px;border:1px solid #c4c7c8;border-radius:2px;font-size:16px;outline:none;color:#15171a;background:#ffffff;font-family:'Martian Mono',monospace" style-focus="border-color:#15171a"></label>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:24px">
+                <fieldset style="border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px">
+                  <legend style="padding:0;margin-bottom:10px;font-size:14px;font-weight:600">Wheel position</legend>
+                  <div style="display:flex;flex-wrap:wrap;gap:6px">
+                    <sc-for list="{{ posOpts }}" as="o" hint-placeholder-count="4">
+                      <sc-if value="{{ o.on }}"><button type="button" aria-pressed="true" onClick="{{ o.pick }}" style="min-height:44px;padding:0 14px;border:1px solid #15171a;background:#15171a;color:#ffffff;font-size:14px;font-weight:600;border-radius:2px;cursor:pointer;white-space:nowrap">{{ o.label }}</button></sc-if>
+                      <sc-if value="{{ o.off }}"><button type="button" aria-pressed="false" onClick="{{ o.pick }}" style="min-height:44px;padding:0 14px;border:1px solid #c4c7c8;background:#ffffff;color:#15171a;font-size:14px;border-radius:2px;cursor:pointer;white-space:nowrap" style-hover="border-color:#15171a">{{ o.label }}</button></sc-if>
+                    </sc-for>
+                  </div>
+                </fieldset>
+                <fieldset style="border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px">
+                  <legend style="padding:0;margin-bottom:10px;font-size:14px;font-weight:600">Side of vehicle</legend>
+                  <div style="display:flex;flex-wrap:wrap;gap:6px">
+                    <sc-for list="{{ sideOpts }}" as="o" hint-placeholder-count="4">
+                      <sc-if value="{{ o.on }}"><button type="button" aria-pressed="true" onClick="{{ o.pick }}" style="min-height:44px;padding:0 14px;border:1px solid #15171a;background:#15171a;color:#ffffff;font-size:14px;font-weight:600;border-radius:2px;cursor:pointer;white-space:nowrap">{{ o.label }}</button></sc-if>
+                      <sc-if value="{{ o.off }}"><button type="button" aria-pressed="false" onClick="{{ o.pick }}" style="min-height:44px;padding:0 14px;border:1px solid #c4c7c8;background:#ffffff;color:#15171a;font-size:14px;border-radius:2px;cursor:pointer;white-space:nowrap" style-hover="border-color:#15171a">{{ o.label }}</button></sc-if>
+                    </sc-for>
+                  </div>
+                  <span style="font-size:12.5px;color:#6c7278;line-height:1.5">Helps us tell right-hand from left-hand thread.</span>
+                </fieldset>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ step2 }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:clamp(20px,3vw,36px);display:flex;flex-direction:column;gap:28px;animation:ssIn .35s ease both">
+              <fieldset style="border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px">
+                <legend style="padding:0;margin-bottom:10px;font-size:15px;font-weight:700">What do you need?</legend>
+                <div style="display:flex;flex-wrap:wrap;gap:6px">
+                  <sc-for list="{{ typeOpts }}" as="o" hint-placeholder-count="6">
+                    <sc-if value="{{ o.on }}"><button type="button" aria-pressed="true" onClick="{{ o.pick }}" style="min-height:44px;padding:0 14px;border:1px solid #15171a;background:#15171a;color:#ffffff;font-size:14px;font-weight:600;border-radius:2px;cursor:pointer;white-space:nowrap">{{ o.label }}</button></sc-if>
+                    <sc-if value="{{ o.off }}"><button type="button" aria-pressed="false" onClick="{{ o.pick }}" style="min-height:44px;padding:0 14px;border:1px solid #c4c7c8;background:#ffffff;color:#15171a;font-size:14px;border-radius:2px;cursor:pointer;white-space:nowrap" style-hover="border-color:#15171a">{{ o.label }}</button></sc-if>
+                  </sc-for>
+                </div>
+              </fieldset>
+              <div style="display:flex;flex-wrap:wrap;gap:16px 24px;align-items:flex-end">
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <label for="qty" style="font-size:14px;font-weight:600">Quantity <span style="font-weight:400;color:#b02a1a">*</span></label>
+                  <div style="display:flex;height:50px;border:1px solid #15171a;border-radius:2px">
+                    <button type="button" onClick="{{ dec }}" aria-label="Decrease quantity" style="width:50px;border:0;background:transparent;font-size:20px;cursor:pointer;color:#15171a">−</button>
+                    <input id="qty" type="number" min="1" value="{{ f.qty }}" onChange="{{ on.qty }}" style="width:70px;border:0;border-left:1px solid #c4c7c8;border-right:1px solid #c4c7c8;text-align:center;font-family:'Martian Mono',monospace;font-size:16px;outline:none;-moz-appearance:textfield;color:#15171a;background:#ffffff">
+                    <button type="button" onClick="{{ inc }}" aria-label="Increase quantity" style="width:50px;border:0;background:transparent;font-size:20px;cursor:pointer;color:#15171a">+</button>
+                  </div>
+                </div>
+                <label style="flex:1 1 240px;display:flex;flex-direction:column;gap:8px"><span style="font-size:14px;font-weight:600">Part number <span style="font-family:'Martian Mono',monospace;font-size:10px;font-weight:400;color:#6c7278;letter-spacing:0.06em">OPTIONAL</span></span><input value="{{ f.partNo }}" onChange="{{ on.partNo }}" placeholder="StudSport, OEM or number on the old part" style="height:50px;padding:0 14px;border:1px solid #c4c7c8;border-radius:2px;font-size:16px;outline:none;font-family:'Martian Mono',monospace;color:#15171a;background:#ffffff" style-focus="border-color:#15171a"></label>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:14px;padding:18px;background:#f6f6f4;border:1px solid #e3e5e4">
+                <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline">
+                  <span style="font-size:15px;font-weight:700">Measurements <span style="font-family:'Martian Mono',monospace;font-size:10px;font-weight:400;color:#6c7278;letter-spacing:0.06em">OPTIONAL · MM</span></span>
+                  <button type="button" onClick="{{ toggleGuide }}" style="border:0;background:none;padding:0;font-size:13.5px;text-decoration:underline;text-underline-offset:3px;cursor:pointer;color:#15171a">{{ guideLabel }}</button>
+                </div>
+                <sc-if value="{{ showGuide }}" hint-placeholder-val="{{ false }}">
+                  <div style="background:#ffffff;border:1px solid #e3e5e4;padding:12px">
+                    <x-import component-from-global-scope="ss-drawing" sku="ss-1001" labels="generic" views="side" layout="wide" min-px="11" max-px="14" style="width:100%" hint-size="100%,200px"></x-import>
+                  </div>
+                </sc-if>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:12px">
+                  <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;font-weight:600">Overall length L</span><input value="{{ f.len }}" onChange="{{ on.len }}" inputmode="decimal" placeholder="mm" style="height:46px;padding:0 12px;border:1px solid #c4c7c8;border-radius:2px;font-size:15px;outline:none;font-family:'Martian Mono',monospace;color:#15171a;background:#ffffff" style-focus="border-color:#15171a"></label>
+                  <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;font-weight:600">Thread Ø</span>
+                    <select value="{{ f.dia }}" onChange="{{ on.dia }}" style="height:46px;padding:0 10px;border:1px solid #c4c7c8;border-radius:2px;font-size:15px;font-family:'Martian Mono',monospace;color:#15171a;background:#ffffff">
+                      <option value="">Not sure</option><option>M12</option><option>M14</option><option>M16</option><option>M18</option><option>M20</option><option>M22</option><option>M24</option>
+                    </select></label>
+                  <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;font-weight:600">Pitch</span>
+                    <select value="{{ f.pitch }}" onChange="{{ on.pitch }}" style="height:46px;padding:0 10px;border:1px solid #c4c7c8;border-radius:2px;font-size:15px;font-family:'Martian Mono',monospace;color:#15171a;background:#ffffff">
+                      <option value="">Not sure</option><option>1.25</option><option>1.5</option><option>2.0</option>
+                    </select></label>
+                  <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;font-weight:600">Knurl Ø</span><input value="{{ f.knurl }}" onChange="{{ on.knurl }}" inputmode="decimal" placeholder="mm" style="height:46px;padding:0 12px;border:1px solid #c4c7c8;border-radius:2px;font-size:15px;outline:none;font-family:'Martian Mono',monospace;color:#15171a;background:#ffffff" style-focus="border-color:#15171a"></label>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center">
+                  <span style="font-size:13px;font-weight:600;margin-right:6px">Thread direction</span>
+                  <sc-for list="{{ dirOpts }}" as="o" hint-placeholder-count="3">
+                    <sc-if value="{{ o.on }}"><button type="button" aria-pressed="true" onClick="{{ o.pick }}" style="min-height:40px;padding:0 12px;border:1px solid #15171a;background:#15171a;color:#ffffff;font-size:13.5px;font-weight:600;border-radius:2px;cursor:pointer;white-space:nowrap">{{ o.label }}</button></sc-if>
+                    <sc-if value="{{ o.off }}"><button type="button" aria-pressed="false" onClick="{{ o.pick }}" style="min-height:40px;padding:0 12px;border:1px solid #c4c7c8;background:#ffffff;color:#15171a;font-size:13.5px;border-radius:2px;cursor:pointer;white-space:nowrap" style-hover="border-color:#15171a">{{ o.label }}</button></sc-if>
+                  </sc-for>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <span style="font-size:15px;font-weight:700">Photos of the old part <span style="font-family:'Martian Mono',monospace;font-size:10px;font-weight:400;color:#6c7278;letter-spacing:0.06em">OPTIONAL</span></span>
+                <label style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:20px;border:1.5px dashed #a9aeb2;background:#fafaf9;cursor:pointer" style-hover="border-color:#15171a">
+                  <span style="display:flex;flex-direction:column;gap:4px"><span style="font-size:15px;font-weight:600">Add photos</span><span style="font-size:13px;color:#6c7278">Lay the part next to a ruler or tape measure. JPG or PNG.</span></span>
+                  <span style="height:42px;padding:0 16px;display:inline-flex;align-items:center;border:1px solid #15171a;font-size:14px;font-weight:600;border-radius:2px">Choose files</span>
+                  <input type="file" accept="image/*" multiple="" onChange="{{ onFiles }}" style="position:absolute;width:1px;height:1px;opacity:0">
+                </label>
+                <sc-if value="{{ hasPhotos }}">
+                  <div style="display:flex;flex-wrap:wrap;gap:8px">
+                    <sc-for list="{{ photos }}" as="ph">
+                      <div style="position:relative;width:96px;height:96px;border:1px solid #d9dbda;background:#f1f1ef">
+                        <img src="{{ ph.url }}" alt="{{ ph.name }}" style="width:100%;height:100%;object-fit:cover;display:block">
+                        <button type="button" onClick="{{ ph.remove }}" aria-label="Remove photo" style="position:absolute;top:4px;right:4px;width:26px;height:26px;border:0;background:rgba(18,20,22,0.8);color:#ffffff;font-size:14px;cursor:pointer;border-radius:2px">×</button>
+                      </div>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+              <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:14px;font-weight:600">Anything else? <span style="font-family:'Martian Mono',monospace;font-size:10px;font-weight:400;color:#6c7278;letter-spacing:0.06em">OPTIONAL</span></span><textarea value="{{ f.notes }}" onChange="{{ on.notes }}" rows="3" placeholder="e.g. need 12 for the rear axle, old studs are stripped" style="padding:12px 14px;border:1px solid #c4c7c8;border-radius:2px;font-size:15.5px;outline:none;resize:vertical;color:#15171a;background:#ffffff" style-focus="border-color:#15171a"></textarea></label>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ step3 }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:clamp(20px,3vw,36px);display:flex;flex-direction:column;gap:24px;animation:ssIn .35s ease both">
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px">
+                <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:14px;font-weight:600">Name <span style="font-weight:400;color:#b02a1a">*</span></span><input value="{{ f.name }}" onChange="{{ on.name }}" autocomplete="name" style="height:50px;padding:0 14px;border:1px solid #c4c7c8;border-radius:2px;font-size:16px;outline:none;color:#15171a;background:#ffffff" style-focus="border-color:#15171a"><sc-if value="{{ err.name }}"><span role="alert" style="font-size:13px;color:#b02a1a">Please add your name.</span></sc-if></label>
+                <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:14px;font-weight:600">Business <span style="font-family:'Martian Mono',monospace;font-size:10px;font-weight:400;color:#6c7278;letter-spacing:0.06em">OPTIONAL</span></span><input value="{{ f.business }}" onChange="{{ on.business }}" autocomplete="organization" placeholder="Workshop, fleet or shop" style="height:50px;padding:0 14px;border:1px solid #c4c7c8;border-radius:2px;font-size:16px;outline:none;color:#15171a;background:#ffffff" style-focus="border-color:#15171a"></label>
+                <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:14px;font-weight:600">Phone / WhatsApp <span style="font-weight:400;color:#b02a1a">{{ phoneReq }}</span></span><input value="{{ f.phone }}" onChange="{{ on.phone }}" type="tel" autocomplete="tel" placeholder="+263" style="height:50px;padding:0 14px;border:1px solid #c4c7c8;border-radius:2px;font-size:16px;outline:none;font-family:'Martian Mono',monospace;color:#15171a;background:#ffffff" style-focus="border-color:#15171a"><sc-if value="{{ err.phone }}"><span role="alert" style="font-size:13px;color:#b02a1a">Add a phone number so we can reply.</span></sc-if></label>
+                <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:14px;font-weight:600">Email <span style="font-weight:400;color:#b02a1a">{{ emailReq }}</span></span><input value="{{ f.email }}" onChange="{{ on.email }}" type="email" autocomplete="email" style="height:50px;padding:0 14px;border:1px solid #c4c7c8;border-radius:2px;font-size:16px;outline:none;color:#15171a;background:#ffffff" style-focus="border-color:#15171a"><sc-if value="{{ err.email }}"><span role="alert" style="font-size:13px;color:#b02a1a">Add an email address, or choose another contact method.</span></sc-if></label>
+              </div>
+              <fieldset style="border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px">
+                <legend style="padding:0;margin-bottom:10px;font-size:14px;font-weight:600">Preferred contact</legend>
+                <div style="display:flex;flex-wrap:wrap;gap:6px">
+                  <sc-for list="{{ methodOpts }}" as="o" hint-placeholder-count="3">
+                    <sc-if value="{{ o.on }}"><button type="button" aria-pressed="true" onClick="{{ o.pick }}" style="min-height:44px;padding:0 16px;border:1px solid #15171a;background:#15171a;color:#ffffff;font-size:14px;font-weight:600;border-radius:2px;cursor:pointer;white-space:nowrap">{{ o.label }}</button></sc-if>
+                    <sc-if value="{{ o.off }}"><button type="button" aria-pressed="false" onClick="{{ o.pick }}" style="min-height:44px;padding:0 16px;border:1px solid #c4c7c8;background:#ffffff;color:#15171a;font-size:14px;border-radius:2px;cursor:pointer;white-space:nowrap" style-hover="border-color:#15171a">{{ o.label }}</button></sc-if>
+                  </sc-for>
+                </div>
+              </fieldset>
+              <fieldset style="border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px">
+                <legend style="padding:0;margin-bottom:10px;font-size:14px;font-weight:600">Collection or delivery</legend>
+                <div style="display:flex;flex-wrap:wrap;gap:6px">
+                  <sc-for list="{{ fulfilOpts }}" as="o" hint-placeholder-count="2">
+                    <sc-if value="{{ o.on }}"><button type="button" aria-pressed="true" onClick="{{ o.pick }}" style="min-height:44px;padding:0 16px;border:1px solid #15171a;background:#15171a;color:#ffffff;font-size:14px;font-weight:600;border-radius:2px;cursor:pointer;white-space:nowrap">{{ o.label }}</button></sc-if>
+                    <sc-if value="{{ o.off }}"><button type="button" aria-pressed="false" onClick="{{ o.pick }}" style="min-height:44px;padding:0 16px;border:1px solid #c4c7c8;background:#ffffff;color:#15171a;font-size:14px;border-radius:2px;cursor:pointer;white-space:nowrap" style-hover="border-color:#15171a">{{ o.label }}</button></sc-if>
+                  </sc-for>
+                </div>
+                <sc-if value="{{ isDelivery }}">
+                  <input value="{{ f.town }}" onChange="{{ on.town }}" placeholder="Town or suburb for delivery" style="height:50px;padding:0 14px;border:1px solid #c4c7c8;border-radius:2px;font-size:16px;outline:none;max-width:420px;color:#15171a;background:#ffffff" style-focus="border-color:#15171a">
+                </sc-if>
+              </fieldset>
+              <p style="margin:0;font-size:13px;line-height:1.55;color:#6c7278">We only use these details to reply to this enquiry. Prototype: nothing is sent.</p>
+            </div>
+          </sc-if>
+
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:16px clamp(20px,3vw,36px);border-top:1px solid #e3e5e4;background:#fafaf9">
+            <sc-if value="{{ canBack }}" hint-placeholder-val="{{ false }}">
+              <button type="button" onClick="{{ back }}" style="height:50px;padding:0 18px;border:1px solid #c4c7c8;background:#ffffff;color:#15171a;font-size:15px;font-weight:600;border-radius:2px;cursor:pointer">← Back</button>
+            </sc-if>
+            <sc-if value="{{ noBack }}" hint-placeholder-val="{{ true }}"><span style="font-family:'Martian Mono',monospace;font-size:11px;color:#6c7278">Step {{ step }} of 3</span></sc-if>
+            <sc-if value="{{ notLast }}" hint-placeholder-val="{{ true }}">
+              <button type="button" onClick="{{ next }}" style="height:50px;padding:0 24px;border:0;background:#15171a;color:#ffffff;font-size:15px;font-weight:600;border-radius:2px;cursor:pointer;display:inline-flex;align-items:center;gap:10px" style-hover="background:#2a2e32">Continue <span style="font-family:'Martian Mono',monospace">→</span></button>
+            </sc-if>
+            <sc-if value="{{ isLast }}" hint-placeholder-val="{{ false }}">
+              <button type="submit" disabled="{{ sending }}" style="height:50px;padding:0 24px;border:0;background:oklch(0.68 0.17 45);color:#121416;font-size:15px;font-weight:700;border-radius:2px;cursor:pointer;display:inline-flex;align-items:center;gap:10px" style-hover="background:oklch(0.74 0.16 50)">
+                <sc-if value="{{ sending }}"><span style="width:14px;height:14px;border:2px solid rgba(18,20,22,0.3);border-top-color:#121416;border-radius:50%;animation:ssSpin .7s linear infinite"></span></sc-if>
+                {{ submitLabel }}
+              </button>
+            </sc-if>
+          </div>
+        </form>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ done }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:1.8 1 520px;min-width:0;background:#ffffff;border:1px solid #d9dbda;animation:ssIn .45s ease both">
+        <div style="padding:clamp(24px,4vw,44px);display:flex;flex-direction:column;gap:22px;border-bottom:1px solid #e3e5e4">
+          <span style="width:52px;height:52px;border-radius:50%;background:#15171a;display:flex;align-items:center;justify-content:center">
+            <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><polyline points="4,11.5 9,16 18,6" fill="none" stroke="oklch(0.74 0.15 50)" stroke-width="2.4"></polyline></svg>
+          </span>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <h2 style="margin:0;font-size:clamp(28px,3vw,38px);font-weight:800;letter-spacing:-0.03em;line-height:1.05">Enquiry received</h2>
+            <p style="margin:0;font-size:16px;line-height:1.55;color:#4b5157;max-width:56ch">Thanks, {{ firstName }}. The team will check the match and availability and reply by {{ methodLower }}. Your reference is below; quote it if you call or visit.</p>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline;padding:14px 16px;background:#f6f6f4;border:1px solid #e3e5e4">
+            <span style="font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:0.12em;color:#6c7278">REFERENCE</span>
+            <span style="font-family:'Martian Mono',monospace;font-size:20px;font-weight:600;letter-spacing:0.02em">{{ ref }}</span>
+            <span style="font-size:12.5px;color:#6c7278">Simulated submission · nothing was sent</span>
+          </div>
+        </div>
+        <div style="padding:clamp(20px,3vw,36px) clamp(24px,4vw,44px);display:flex;flex-wrap:wrap;gap:28px 48px">
+          <div style="flex:1 1 260px;display:flex;flex-direction:column;gap:0">
+            <h3 style="margin:0 0 8px;font-family:'Martian Mono',monospace;font-size:10.5px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#6c7278">Your enquiry</h3>
+            <sc-for list="{{ summary }}" as="r">
+              <div style="display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px solid #eceeee"><span style="font-size:14px;color:#4b5157">{{ r.k }}</span><span style="font-family:'Martian Mono',monospace;font-size:12px;text-align:right">{{ r.v }}</span></div>
+            </sc-for>
+          </div>
+          <div style="flex:1 1 240px;display:flex;flex-direction:column;gap:0">
+            <h3 style="margin:0 0 8px;font-family:'Martian Mono',monospace;font-size:10.5px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#6c7278">What happens next</h3>
+            <div style="display:flex;gap:14px;padding:10px 0"><span style="font-family:'Martian Mono',monospace;font-size:12px;color:oklch(0.55 0.16 45)">01</span><span style="font-size:14.5px;line-height:1.5">We check the part against your vehicle, photos and measurements.</span></div>
+            <div style="display:flex;gap:14px;padding:10px 0"><span style="font-family:'Martian Mono',monospace;font-size:12px;color:oklch(0.55 0.16 45)">02</span><span style="font-size:14.5px;line-height:1.5">We reply with the matched part, price and availability.</span></div>
+            <div style="display:flex;gap:14px;padding:10px 0"><span style="font-family:'Martian Mono',monospace;font-size:12px;color:oklch(0.55 0.16 45)">03</span><span style="font-size:14.5px;line-height:1.5">You confirm, then collect in Harare or we arrange delivery.</span></div>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;padding:16px clamp(24px,4vw,44px) clamp(24px,4vw,40px)">
+          <a href="Catalogue.dc.html" style="height:50px;padding:0 22px;display:inline-flex;align-items:center;background:#15171a;color:#ffffff;font-weight:600;font-size:15px;border-radius:2px" style-hover="background:#2a2e32">Back to products</a>
+          <a href="https://wa.me/263000000000" target="_blank" rel="noopener" style="height:50px;padding:0 20px;display:inline-flex;align-items:center;border:1px solid #15171a;color:#15171a;font-weight:600;font-size:15px;border-radius:2px">Follow up on WhatsApp</a>
+          <button onClick="{{ restart }}" style="height:50px;padding:0 16px;border:0;background:none;color:#15171a;font-size:15px;text-decoration:underline;text-underline-offset:3px;cursor:pointer">New enquiry</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <aside style="flex:1 1 280px;min-width:0;display:flex;flex-direction:column;gap:12px">
+      <sc-if value="{{ hasCtx }}" hint-placeholder-val="{{ false }}">
+        <a href="{{ ctx.href }}" style="display:flex;flex-direction:column;background:#ffffff;border:1px solid #d9dbda;color:#15171a" style-hover="border-color:#15171a">
+          <span style="position:relative;display:block;aspect-ratio:16/9;background:radial-gradient(ellipse 75% 70% at 50% 52%,#2b2f34 0%,#1a1d20 72%)">
+            <x-import component-from-global-scope="ss-thumb" sku="{{ ctx.sku }}" tone="dark" style="position:absolute;inset:0" hint-size="100%,100%"></x-import>
+          </span>
+          <span style="padding:14px 16px;display:flex;flex-direction:column;gap:4px">
+            <span style="font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:0.1em;color:#6c7278">QUOTE REQUEST FOR</span>
+            <span style="font-family:'Martian Mono',monospace;font-size:12px;font-weight:600;color:oklch(0.55 0.16 45)">{{ ctx.partNo }}</span>
+            <span style="font-size:15px;font-weight:700;line-height:1.3">{{ ctx.name }}</span>
+            <span style="font-family:'Martian Mono',monospace;font-size:11.5px;color:#4b5157">{{ ctx.dims }}</span>
+          </span>
+        </a>
+      </sc-if>
+      <div style="background:#15171a;color:#eceeef;padding:20px;display:flex;flex-direction:column;gap:14px">
+        <span style="font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#8b9298">Prefer to talk?</span>
+        <span style="font-size:15px;line-height:1.5;color:#d6d9db">Send a photo of the old stud on WhatsApp, or call the counter.</span>
+        <a href="https://wa.me/263000000000" target="_blank" rel="noopener" style="height:46px;display:flex;align-items:center;justify-content:center;border:1px solid #4a5056;color:#eceeef;font-weight:600;font-size:14.5px;border-radius:2px" style-hover="border-color:#a2a8ae">WhatsApp +263 [number]</a>
+        <span style="font-family:'Martian Mono',monospace;font-size:12px;color:#a2a8ae">Phone +263 [phone number]</span>
+      </div>
+      <div style="background:#ffffff;border:1px solid #d9dbda;padding:18px 20px;display:flex;flex-direction:column;gap:10px;font-size:14px;line-height:1.5;color:#4b5157">
+        <span style="font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#6c7278">Why we confirm first</span>
+        <span>Studs that look alike can differ in knurl diameter, length or thread direction. We check before you buy so the part fits first time.</span>
+      </div>
+    </aside>
+  </div>
+</main>
+<dc-import name="SiteFooter" hint-size="100%,420px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;startDone&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Preview&quot;}}">
+class Component extends DCLogic {
+  blank() { return { make: '', model: '', year: '', chassis: '', position: '', side: '', ptype: '', qty: 10, partNo: '', len: '', dia: '', pitch: '', dir: '', knurl: '', notes: '', name: '', business: '', phone: '', email: '', method: 'WhatsApp', fulfil: 'Collect in Harare', town: '' }; }
+  state = { ready: false, step: 1, done: false, sending: false, err: {}, f: this.blank(), photos: [], ctx: null, ref: '', guide: false };
+  componentDidMount() {
+    const t = () => (window.SS && window.SS.__loaded && window.SS_DATA) ? this.init() : setTimeout(t, 30); t();
+    if (this.props.startDone) this.setState({ done: true, ref: 'ENQ-2610-4821', f: { ...this.blank(), name: 'Tendai Moyo', make: 'Toyota Dyna', model: 'Dyna 300', qty: 12, phone: '+263 77 000 0000' } });
+  }
+  init() {
+    const SS = window.SS, u = new URLSearchParams(location.search), f = { ...this.state.f };
+    const part = SS.get(u.get('part'));
+    if (part) {
+      f.partNo = part.partNo; f.qty = parseInt(u.get('qty'), 10) || 10;
+      f.ptype = { 'wheel-stud': 'Wheel stud', 'hub-bolt': 'Hub bolt', 'double-ended': 'Double-ended bolt', 'wheel-nut': 'Wheel nut', 'stud-nut-set': 'Stud & nut set' }[part.type];
+      const t = SS.threadsOf(part)[0]; f.dia = 'M' + t.dia; f.pitch = String(t.pitch); f.dir = t.dir;
+      if (part.dims.overall && part.template !== 'wheel-nut') f.len = String(part.dims.overall);
+      const a = part.applications[0]; if (a) { f.make = SS.vehicle(a.vehicle).label; f.model = a.model; }
+    }
+    if (u.get('vehicle')) f.make = SS.vehicle(u.get('vehicle')).label;
+    if (u.get('q')) f.notes = `Searched for: ${u.get('q')}`;
+    this.setState({ ready: true, f, ctx: part ? part.slug : null });
+  }
+  setF(k, v) { this.setState(s => ({ f: { ...s.f, [k]: v }, err: { ...s.err, [k]: false } })); }
+  validate(step) {
+    const f = this.state.f, e = {};
+    if (step === 1 && !f.make) e.make = true;
+    if (step === 3) { if (!f.name.trim()) e.name = true; if (f.method === 'Email') { if (!/.+@.+\..+/.test(f.email)) e.email = true; } else if (f.phone.replace(/\D/g, '').length < 6) e.phone = true; }
+    this.setState({ err: e }); return !Object.keys(e).length;
+  }
+  renderVals() {
+    const st = this.state, f = st.f, SS = window.SS;
+    const opts = (k, list) => list.map(v => ({ label: v, on: f[k] === v, off: f[k] !== v, pick: () => this.setF(k, f[k] === v ? '' : v) }));
+    const on = {}; Object.keys(f).forEach(k => on[k] = e => this.setF(k, k === 'qty' ? Math.max(1, parseInt(e.target.value, 10) || 1) : e.target.value));
+    const vehicles = st.ready ? window.SS_DATA.vehicles.map(v => v.label) : [];
+    const ctxP = st.ready && st.ctx ? SS.get(st.ctx) : null;
+    const summary = [['Vehicle', [f.make, f.model].filter(Boolean).join(' ')], ['Year / chassis', [f.year, f.chassis].filter(Boolean).join(' · ')], ['Position', [f.position, f.side].filter(Boolean).join(' · ')], ['Part', f.ptype], ['Quantity', String(f.qty)], ['Part number', f.partNo], ['Thread', [f.dia, f.pitch && '× ' + f.pitch, f.dir].filter(Boolean).join(' ')], ['Overall length', f.len && f.len + ' mm'], ['Knurl Ø', f.knurl && f.knurl + ' mm'], ['Photos', st.photos.length ? String(st.photos.length) : ''], ['Fulfilment', f.fulfil + (f.fulfil === 'Delivery' && f.town ? ' · ' + f.town : '')]]
+      .filter(r => r[1]).map(([k, v]) => ({ k, v }));
+    return {
+      title: ctxP ? 'Request a quote' : 'Find my part',
+      f, on, err: st.err, step: st.step,
+      step1: !st.done && st.step === 1, step2: !st.done && st.step === 2, step3: !st.done && st.step === 3,
+      notDone: !st.done, done: st.done,
+      steps: [['Vehicle', 1], ['Part details', 2], ['Contact', 3]].map(([label, n]) => ({ label, n, reached: st.step >= n, ahead: st.step < n })),
+      makeOpts: opts('make', [...vehicles, 'Other', "I'm not sure"]),
+      posOpts: opts('position', ['Front', 'Rear', 'Front & rear', "I'm not sure"]),
+      sideOpts: opts('side', ['Left', 'Right', 'Both', "I'm not sure"]),
+      typeOpts: opts('ptype', ['Wheel stud', 'Hub bolt', 'Double-ended bolt', 'Wheel nut', 'Stud & nut set', "I'm not sure"]),
+      dirOpts: opts('dir', ['RH', 'LH', "I'm not sure"]),
+      methodOpts: opts('method', ['WhatsApp', 'Phone call', 'Email']).map(o => ({ ...o, pick: () => this.setF('method', o.label) })),
+      fulfilOpts: opts('fulfil', ['Collect in Harare', 'Delivery']).map(o => ({ ...o, pick: () => this.setF('fulfil', o.label) })),
+      isDelivery: f.fulfil === 'Delivery',
+      phoneReq: f.method === 'Email' ? '' : '*', emailReq: f.method === 'Email' ? '*' : '',
+      dec: () => this.setF('qty', Math.max(1, f.qty - 1)), inc: () => this.setF('qty', f.qty + 1),
+      showGuide: st.guide, guideLabel: st.guide ? 'Hide measuring guide' : 'Where do I measure?', toggleGuide: () => this.setState(s => ({ guide: !s.guide })),
+      onFiles: e => { const files = [...(e.target.files || [])].slice(0, 6); this.setState(s => ({ photos: [...s.photos, ...files.map(fl => ({ url: URL.createObjectURL(fl), name: fl.name }))].slice(0, 6) })); e.target.value = ''; },
+      photos: st.photos.map((ph, i) => ({ ...ph, remove: () => this.setState(s => ({ photos: s.photos.filter((_, j) => j !== i) })) })),
+      hasPhotos: st.photos.length > 0,
+      canBack: st.step > 1, noBack: st.step === 1, notLast: st.step < 3, isLast: st.step === 3,
+      back: () => this.setState(s => ({ step: Math.max(1, s.step - 1) })),
+      next: () => { if (this.validate(st.step)) { this.setState(s => ({ step: s.step + 1 })); window.scrollTo({ top: 0, behavior: 'smooth' }); } },
+      onSubmit: e => { e.preventDefault(); if (st.step < 3) return; if (!this.validate(3)) return; this.setState({ sending: true }); setTimeout(() => { const d = new Date(); this.setState({ sending: false, done: true, ref: `ENQ-${String(d.getDate()).padStart(2, '0')}${String(d.getMonth() + 1).padStart(2, '0')}-${Math.floor(1000 + Math.random() * 9000)}` }); window.scrollTo({ top: 0, behavior: 'smooth' }); }, 1100); },
+      sending: st.sending, submitLabel: st.sending ? 'Sending…' : 'Send enquiry',
+      restart: () => this.setState({ done: false, step: 1, f: this.blank(), photos: [], err: {}, ctx: null }),
+      ref: st.ref, firstName: (f.name || 'there').split(' ')[0], methodLower: f.method === 'Phone call' ? 'phone' : f.method === 'Email' ? 'email' : 'WhatsApp',
+      summary,
+      hasCtx: !!ctxP,
+      ctx: ctxP ? { href: SS.href(ctxP), sku: ctxP.slug, partNo: ctxP.partNo, name: ctxP.name, dims: SS.keyDims(ctxP).map(d => `${d.k} ${d.v}`).join(' · ') } : {}
+    };
+  }
+}
+</script>
+</body>
+</html>

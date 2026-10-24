@@ -1,0 +1,9 @@
+.stepper { display: flex; align-items: stretch; border-radius: 2px; }
+.stepper button { border: 0; background: transparent; font-size: 20px; cursor: pointer; color: inherit; }
+.stepper input { border: 0; text-align: center; font-family: var(--font-mono), monospace; outline: none; background: transparent; color: inherit; }
+.dark { height: 48px; border: 1px solid var(--rule-d3); color: var(--on-dark); }
+.dark button { width: 48px; }
+.dark input { width: 64px; border-left: 1px solid var(--rule-d3); border-right: 1px solid var(--rule-d3); color: #fff; font-size: 15px; }
+.light { height: 50px; border: 1px solid var(--ink); color: var(--ink); }
+.light button { width: 50px; }
+.light input { width: 70px; border-left: 1px solid var(--rule-input); border-right: 1px solid var(--rule-input); font-size: 16px; background: var(--sheet); }

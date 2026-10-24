@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Product · StudSport</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@300;400;500;600&amp;family=Schibsted+Grotesk:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<script src="data/catalogue.js"></script>
+<script src="lib/studsport.js"></script>
+<style>
+html,body{margin:0;background:#121416}
+body{font-family:'Schibsted Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased;color:#15171a}
+*{box-sizing:border-box}
+a{color:inherit;text-decoration:none}
+a:hover{color:inherit}
+button,input,select,textarea{font:inherit}
+::selection{background:oklch(0.68 0.17 45);color:#121416}
+input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+</style>
+</helmet>
+<dc-import name="SiteHeader" active="catalogue" hint-size="100%,68px"></dc-import>
+<main style="background:#121416;color:#eceeef">
+  <div style="max-width:1440px;margin:0 auto;padding:20px clamp(16px,3vw,40px) clamp(32px,5vw,64px)">
+    <nav aria-label="Breadcrumb" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:0.04em;color:#8b9298;margin-bottom:20px">
+      <a href="Home.dc.html" style="color:#a2a8ae" style-hover="color:#ffffff">Home</a><span>/</span>
+      <a href="Catalogue.dc.html" style="color:#a2a8ae" style-hover="color:#ffffff">Products</a><span>/</span>
+      <a href="{{ p.typeHref }}" style="color:#a2a8ae" style-hover="color:#ffffff">{{ p.typePlural }}</a><span>/</span>
+      <span style="color:#eceeef">{{ p.partNo }}</span>
+    </nav>
+    <div style="display:flex;flex-wrap:wrap;gap:clamp(24px,3vw,48px);align-items:flex-start">
+      <section aria-label="Product viewer" style="flex:1.75 1 560px;min-width:0;display:flex;flex-direction:column;gap:12px">
+        <div role="tablist" aria-label="View" style="display:flex;gap:4px;flex-wrap:wrap">
+          <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3">
+            <sc-if value="{{ t.active }}">
+              <button role="tab" aria-selected="true" onClick="{{ t.go }}" style="height:40px;padding:0 16px;border:1px solid oklch(0.68 0.17 45);background:#1d2023;color:#ffffff;font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;border-radius:2px;cursor:pointer;white-space:nowrap">{{ t.label }}</button>
+            </sc-if>
+            <sc-if value="{{ t.inactive }}">
+              <button role="tab" aria-selected="false" onClick="{{ t.go }}" style="height:40px;padding:0 16px;border:1px solid #2c3034;background:transparent;color:#a2a8ae;font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;border-radius:2px;cursor:pointer;white-space:nowrap" style-hover="color:#ffffff;border-color:#4a5056">{{ t.label }}</button>
+            </sc-if>
+          </sc-for>
+        </div>
+        <div style="position:relative;height:clamp(360px,46vw,640px);background:radial-gradient(ellipse 70% 62% at 50% 46%,#2b2f34 0%,#1a1d20 58%,#141618 100%);border:1px solid #25292d;overflow:hidden">
+          <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.028) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.028) 1px,transparent 1px);background-size:32px 32px;pointer-events:none"></div>
+          <div style="position:absolute;left:10px;top:10px;width:14px;height:14px;border-left:1px solid #4a5056;border-top:1px solid #4a5056;pointer-events:none"></div>
+          <div style="position:absolute;right:10px;top:10px;width:14px;height:14px;border-right:1px solid #4a5056;border-top:1px solid #4a5056;pointer-events:none"></div>
+          <div style="position:absolute;left:10px;bottom:10px;width:14px;height:14px;border-left:1px solid #4a5056;border-bottom:1px solid #4a5056;pointer-events:none"></div>
+          <div style="position:absolute;right:10px;bottom:10px;width:14px;height:14px;border-right:1px solid #4a5056;border-bottom:1px solid #4a5056;pointer-events:none"></div>
+          <div style="position:absolute;right:20px;top:16px;font-family:'Martian Mono',monospace;font-size:9.5px;letter-spacing:0.12em;color:#6f767c;text-transform:uppercase;pointer-events:none">{{ p.partNo }} · Rev {{ p.rev }}</div>
+          <sc-if value="{{ show3d }}" hint-placeholder-val="{{ false }}">
+            <x-import component-from-global-scope="ss-viewer" sku="{{ p.slug }}" variant="pdp" style="position:absolute;inset:0" hint-size="100%,100%"></x-import>
+          </sc-if>
+          <sc-if value="{{ tabPhotos }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;inset:0;padding:48px 20px 20px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:1fr;gap:10px">
+              <sc-for list="{{ photos }}" as="ph" hint-placeholder-count="4">
+                <div style="position:relative;background:repeating-linear-gradient(135deg,#1e2124 0 10px,#1a1d20 10px 20px);border:1px solid #2a2e32;display:flex;align-items:flex-end;padding:12px;min-height:0">
+                  <span style="font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:0.06em;color:#a2a8ae;line-height:1.5">PRODUCT PHOTO<br>{{ ph }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ showDrawingTab }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;inset:0;padding:44px clamp(12px,3vw,40px) 20px;display:flex;align-items:center;justify-content:center;overflow:auto">
+              <x-import component-from-global-scope="ss-drawing" sku="{{ p.slug }}" theme="dark" layout="auto" style="width:100%" hint-size="100%,300px"></x-import>
+            </div>
+          </sc-if>
+        </div>
+        <p style="margin:0;font-family:'Martian Mono',monospace;font-size:10.5px;line-height:1.6;color:#8b9298">3D model and thread form are simplified for display. Dimensions are taken from the drawing and specification table below.</p>
+      </section>
+      <section aria-label="Product summary" style="flex:1 1 340px;min-width:0;display:flex;flex-direction:column;gap:22px">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;font-family:'Martian Mono',monospace;font-size:12px;letter-spacing:0.04em">
+            <span style="color:oklch(0.74 0.15 50);font-weight:600">{{ p.partNo }}</span>
+            <span style="color:#6f767c">/</span>
+            <span style="color:#a2a8ae">{{ p.typeLabel }}</span>
+            <sc-if value="{{ p.lh }}"><span style="padding:3px 7px;border:1px solid oklch(0.68 0.17 45);color:#ffffff;font-size:10px;letter-spacing:0.08em">LEFT-HAND THREAD</span></sc-if>
+          </div>
+          <h1 style="margin:0;font-size:clamp(28px,3.2vw,42px);line-height:1.04;font-weight:800;letter-spacing:-0.03em;text-wrap:balance">{{ p.name }}</h1>
+          <p style="margin:0;font-size:16px;line-height:1.55;color:#b9bec2;text-wrap:pretty;max-width:52ch">{{ p.summary }}</p>
+        </div>
+        <sc-if value="{{ hasVariants }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <span style="font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#8b9298">Variants</span>
+            <div style="display:flex;flex-wrap:wrap;gap:6px">
+              <sc-for list="{{ variants }}" as="v" hint-placeholder-count="2">
+                <sc-if value="{{ v.current }}">
+                  <span style="min-height:44px;padding:6px 12px;display:inline-flex;flex-direction:column;justify-content:center;gap:2px;border:1px solid oklch(0.68 0.17 45);background:#1d2023;border-radius:2px">
+                    <span style="font-size:13px;font-weight:600;color:#ffffff">{{ v.label }}</span>
+                    <span style="font-family:'Martian Mono',monospace;font-size:9.5px;color:#a2a8ae">{{ v.partNo }}</span>
+                  </span>
+                </sc-if>
+                <sc-if value="{{ v.other }}">
+                  <a href="{{ v.href }}" style="min-height:44px;padding:6px 12px;display:inline-flex;flex-direction:column;justify-content:center;gap:2px;border:1px solid #33383d;border-radius:2px" style-hover="border-color:#6f767c">
+                    <span style="font-size:13px;font-weight:600;color:#d6d9db">{{ v.label }}</span>
+                    <span style="font-family:'Martian Mono',monospace;font-size:9.5px;color:#8b9298">{{ v.partNo }}</span>
+                  </a>
+                </sc-if>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+        <dl style="margin:0;display:flex;flex-direction:column;border-top:1px solid #2a2e32">
+          <sc-for list="{{ keySpecs }}" as="s" hint-placeholder-count="7">
+            <div style="display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-bottom:1px solid #2a2e32">
+              <dt style="font-size:14px;color:#a2a8ae">{{ s.k }}</dt>
+              <dd style="margin:0;font-family:'Martian Mono',monospace;font-size:12.5px;color:#eceeef;text-align:right">{{ s.v }}</dd>
+            </div>
+          </sc-for>
+        </dl>
+        <div style="display:flex;flex-direction:column;gap:6px;padding:14px 16px;background:#1a1d20;border:1px solid #2a2e32">
+          <span style="display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px"><span style="width:8px;height:8px;border-radius:50%;background:{{ avail.color }};flex:none"></span>{{ avail.label }}</span>
+          <span style="font-size:13.5px;color:#a2a8ae;line-height:1.5">{{ avail.note }} · Collection in Harare or delivery arranged on quote.</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:16px">
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <label for="qty" style="font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#8b9298">Quantity</label>
+            <div style="display:flex;align-items:stretch;height:48px;border:1px solid #3a3f44;border-radius:2px">
+              <button onClick="{{ dec }}" aria-label="Decrease quantity" style="width:48px;border:0;background:transparent;color:#eceeef;font-size:20px;cursor:pointer">−</button>
+              <input id="qty" type="number" min="1" value="{{ qty }}" onChange="{{ onQty }}" style="width:64px;border:0;border-left:1px solid #3a3f44;border-right:1px solid #3a3f44;background:transparent;color:#ffffff;text-align:center;font-family:'Martian Mono',monospace;font-size:15px;-moz-appearance:textfield;outline:none">
+              <button onClick="{{ inc }}" aria-label="Increase quantity" style="width:48px;border:0;background:transparent;color:#eceeef;font-size:20px;cursor:pointer">+</button>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px;padding-bottom:4px">
+            <span style="font-family:'Martian Mono',monospace;font-size:15px;color:#ffffff">{{ priceLine }}</span>
+            <span style="font-size:12.5px;color:#8b9298">{{ estLine }}</span>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <a href="{{ quoteHref }}" style="flex:1 1 200px;height:54px;display:flex;align-items:center;justify-content:center;gap:10px;background:oklch(0.68 0.17 45);color:#121416;font-weight:700;font-size:16px;border-radius:2px" style-hover="background:oklch(0.74 0.16 50)">Request a quote <span style="font-family:'Martian Mono',monospace">→</span></a>
+          <a href="{{ waHref }}" target="_blank" rel="noopener" style="flex:1 1 180px;height:54px;display:flex;align-items:center;justify-content:center;gap:10px;border:1px solid #4a5056;color:#eceeef;font-weight:600;font-size:16px;border-radius:2px" style-hover="border-color:#a2a8ae">Ask on WhatsApp</a>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px 20px;font-family:'Martian Mono',monospace;font-size:11px;color:#8b9298">
+          <a href="{{ sheetHref }}" style="color:#d6d9db;text-decoration:underline;text-underline-offset:3px" style-hover="color:#ffffff">Spec sheet (A4)</a>
+          <span>Rev {{ p.rev }} · {{ p.revDate }}</span>
+          <span>Data: illustrative sample</span>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<div style="background:#f1f1ef;color:#15171a;padding-bottom:{{ bottomPad }}">
+  <div style="max-width:1440px;margin:0 auto;padding:clamp(32px,5vw,72px) clamp(16px,3vw,40px);display:flex;flex-direction:column;gap:clamp(36px,5vw,64px)">
+
+    <section id="drawing" style="display:flex;flex-direction:column;gap:18px">
+      <button onClick="{{ tgDrawing }}" aria-expanded="{{ open.drawing }}" style="display:flex;align-items:baseline;gap:16px;background:none;border:0;padding:0;text-align:left;cursor:pointer;color:#15171a;width:100%">
+        <span style="font-family:'Martian Mono',monospace;font-size:12px;color:oklch(0.55 0.16 45)">01</span>
+        <h2 style="margin:0;font-size:clamp(24px,2.6vw,34px);font-weight:800;letter-spacing:-0.025em;flex:1">Technical drawing</h2>
+        <span style="font-family:'Martian Mono',monospace;font-size:18px;color:#6c7278">{{ sign.drawing }}</span>
+      </button>
+      <sc-if value="{{ open.drawing }}" hint-placeholder-val="{{ true }}">
+        <div style="background:#ffffff;border:1px solid #d9dbda">
+          <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;padding:14px 18px;border-bottom:1px solid #e3e5e4;font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:0.04em;color:#4b5157">
+            <span><span style="color:#15171a;font-weight:600">{{ p.partNo }}</span> · {{ p.name }}</span>
+            <span>All dimensions in mm · Not to scale · Rev {{ p.rev }}</span>
+          </div>
+          <div style="padding:clamp(12px,3vw,36px) clamp(8px,2.5vw,32px)">
+            <x-import component-from-global-scope="ss-drawing" sku="{{ p.slug }}" layout="auto" grid="true" style="width:100%" hint-size="100%,320px"></x-import>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px 28px;padding:14px 18px;border-top:1px solid #e3e5e4;background:#fafaf9">
+            <sc-for list="{{ legend }}" as="lg" hint-placeholder-count="5">
+              <span style="display:flex;gap:8px;align-items:baseline;font-size:13px;color:#4b5157"><span style="font-family:'Martian Mono',monospace;font-size:11.5px;font-weight:600;color:#15171a;min-width:22px">{{ lg.k }}</span>{{ lg.v }}</span>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+    </section>
+
+    <section id="specs" style="display:flex;flex-direction:column;gap:18px">
+      <button onClick="{{ tgSpecs }}" aria-expanded="{{ open.specs }}" style="display:flex;align-items:baseline;gap:16px;background:none;border:0;padding:0;text-align:left;cursor:pointer;color:#15171a;width:100%">
+        <span style="font-family:'Martian Mono',monospace;font-size:12px;color:oklch(0.55 0.16 45)">02</span>
+        <h2 style="margin:0;font-size:clamp(24px,2.6vw,34px);font-weight:800;letter-spacing:-0.025em;flex:1">Specifications</h2>
+        <span style="font-family:'Martian Mono',monospace;font-size:18px;color:#6c7278">{{ sign.specs }}</span>
+      </button>
+      <sc-if value="{{ open.specs }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:28px 48px">
+          <sc-for list="{{ specGroups }}" as="g" hint-placeholder-count="4">
+            <div style="display:flex;flex-direction:column">
+              <h3 style="margin:0 0 6px;font-family:'Martian Mono',monospace;font-size:10.5px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#6c7278">{{ g.group }}</h3>
+              <sc-for list="{{ g.rows }}" as="r">
+                <div style="display:flex;justify-content:space-between;gap:20px;padding:10px 0;border-bottom:1px solid #dcdedd">
+                  <span style="font-size:14.5px;color:#4b5157">{{ r.k }}</span>
+                  <span style="font-family:'Martian Mono',monospace;font-size:12.5px;color:#15171a;text-align:right">{{ r.v }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+    </section>
+
+    <section id="applications" style="display:flex;flex-direction:column;gap:18px">
+      <button onClick="{{ tgApps }}" aria-expanded="{{ open.apps }}" style="display:flex;align-items:baseline;gap:16px;background:none;border:0;padding:0;text-align:left;cursor:pointer;color:#15171a;width:100%">
+        <span style="font-family:'Martian Mono',monospace;font-size:12px;color:oklch(0.55 0.16 45)">03</span>
+        <h2 style="margin:0;font-size:clamp(24px,2.6vw,34px);font-weight:800;letter-spacing:-0.025em;flex:1">Vehicle applications</h2>
+        <span style="font-family:'Martian Mono',monospace;font-size:18px;color:#6c7278">{{ sign.apps }}</span>
+      </button>
+      <sc-if value="{{ open.apps }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:10px">
+            <sc-for list="{{ apps }}" as="a" hint-placeholder-count="2">
+              <div style="background:#ffffff;border:1px solid #d9dbda;padding:16px 18px;display:flex;flex-direction:column;gap:12px">
+                <div style="display:flex;flex-direction:column;gap:2px">
+                  <span style="font-size:18px;font-weight:700;letter-spacing:-0.01em">{{ a.vehicle }}</span>
+                  <span style="font-size:14px;color:#4b5157">{{ a.model }}</span>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;font-family:'Martian Mono',monospace;font-size:11px">
+                  <span style="display:flex;flex-direction:column;gap:3px"><span style="color:#6c7278;font-size:9.5px;letter-spacing:0.1em">YEARS</span>{{ a.years }}</span>
+                  <span style="display:flex;flex-direction:column;gap:3px"><span style="color:#6c7278;font-size:9.5px;letter-spacing:0.1em">POSITION</span>{{ a.position }}</span>
+                  <span style="display:flex;flex-direction:column;gap:3px"><span style="color:#6c7278;font-size:9.5px;letter-spacing:0.1em">SIDE</span>{{ a.side }}</span>
+                </div>
+                <span style="font-size:13px;color:#6c7278">{{ a.notes }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <p style="margin:0;font-size:13.5px;color:#4b5157;display:flex;gap:10px;align-items:flex-start"><span style="flex:none;margin-top:5px;width:6px;height:6px;background:oklch(0.80 0.13 85)"></span>Example applications only. Send your vehicle details or the old part and we will confirm the match before you order.</p>
+        </div>
+      </sc-if>
+    </section>
+
+    <section id="included" style="display:flex;flex-direction:column;gap:18px">
+      <button onClick="{{ tgIncl }}" aria-expanded="{{ open.incl }}" style="display:flex;align-items:baseline;gap:16px;background:none;border:0;padding:0;text-align:left;cursor:pointer;color:#15171a;width:100%">
+        <span style="font-family:'Martian Mono',monospace;font-size:12px;color:oklch(0.55 0.16 45)">04</span>
+        <h2 style="margin:0;font-size:clamp(24px,2.6vw,34px);font-weight:800;letter-spacing:-0.025em;flex:1">What's included</h2>
+        <span style="font-family:'Martian Mono',monospace;font-size:18px;color:#6c7278">{{ sign.incl }}</span>
+      </button>
+      <sc-if value="{{ open.incl }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-wrap:wrap;gap:clamp(16px,2vw,24px);align-items:stretch">
+          <div style="flex:2 1 460px;min-width:0;display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;flex-wrap:wrap;gap:6px">
+              <sc-for list="{{ inclOptions }}" as="o" hint-placeholder-count="3">
+                <sc-if value="{{ o.active }}"><span style="height:36px;padding:0 14px;display:inline-flex;align-items:center;gap:8px;background:#15171a;color:#ffffff;font-size:13.5px;font-weight:600;border-radius:2px;white-space:nowrap"><span style="width:6px;height:6px;background:oklch(0.68 0.17 45)"></span>{{ o.label }}</span></sc-if>
+                <sc-if value="{{ o.inactive }}"><span style="height:36px;padding:0 14px;display:inline-flex;align-items:center;border:1px solid #d0d3d2;color:#8a9096;font-size:13.5px;border-radius:2px;text-decoration:line-through;text-decoration-color:#c4c7c8;white-space:nowrap">{{ o.label }}</span></sc-if>
+              </sc-for>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:10px">
+              <sc-for list="{{ components }}" as="c" hint-placeholder-count="1">
+                <a href="{{ c.href }}" style="display:flex;align-items:center;gap:14px;background:#ffffff;border:1px solid #d9dbda;padding:10px;color:#15171a" style-hover="border-color:#8a9096">
+                  <span style="position:relative;width:96px;height:64px;flex:none;background:#1b1e21">
+                    <x-import component-from-global-scope="ss-thumb" sku="{{ c.sku }}" tone="dark" w="480" h="320" style="position:absolute;inset:0" hint-size="96px,64px"></x-import>
+                  </span>
+                  <span style="display:flex;flex-direction:column;gap:3px;min-width:0">
+                    <span style="font-family:'Martian Mono',monospace;font-size:11px;color:oklch(0.55 0.16 45)">{{ c.qty }} · {{ c.partNo }}</span>
+                    <span style="font-size:14.5px;font-weight:600;line-height:1.3">{{ c.label }}</span>
+                  </span>
+                </a>
+              </sc-for>
+            </div>
+            <sc-if value="{{ hasNut }}" hint-placeholder-val="{{ false }}">
+              <p style="margin:0;font-size:14px;color:#4b5157;line-height:1.5">Matching nut sold separately: <a href="{{ nut.href }}" style="color:#15171a;font-weight:600;text-decoration:underline;text-underline-offset:3px">{{ nut.partNo }} · {{ nut.name }} →</a></p>
+            </sc-if>
+            <sc-if value="{{ hasFits }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:14px;color:#4b5157">Fits studs:
+                <sc-for list="{{ fits }}" as="f"><a href="{{ f.href }}" style="font-family:'Martian Mono',monospace;font-size:12px;color:#15171a;border:1px solid #c4c7c8;padding:6px 9px" style-hover="border-color:#15171a">{{ f.partNo }}</a></sc-for>
+              </div>
+            </sc-if>
+          </div>
+          <a href="{{ sheetHref }}" style="flex:1 1 280px;min-width:0;display:flex;flex-direction:column;justify-content:space-between;gap:28px;background:#15171a;color:#eceeef;padding:22px;min-height:200px" style-hover="background:#1d2023">
+            <span style="display:flex;justify-content:space-between;gap:12px;font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#8b9298"><span>A4 · Printable</span><span>Rev {{ p.rev }}</span></span>
+            <span style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:22px;font-weight:800;letter-spacing:-0.02em;line-height:1.1">Product specification sheet</span>
+              <span style="font-size:14px;color:#a2a8ae;line-height:1.5">Drawing, specifications, applications and contact details on one page. Print or save as PDF.</span>
+            </span>
+            <span style="display:inline-flex;align-items:center;gap:10px;font-weight:700;color:oklch(0.74 0.15 50)">Open spec sheet <span style="font-family:'Martian Mono',monospace">↗</span></span>
+          </a>
+        </div>
+      </sc-if>
+    </section>
+
+    <sc-if value="{{ hasCompare }}" hint-placeholder-val="{{ true }}">
+      <section id="variants" style="display:flex;flex-direction:column;gap:18px">
+        <button onClick="{{ tgCmp }}" aria-expanded="{{ open.cmp }}" style="display:flex;align-items:baseline;gap:16px;background:none;border:0;padding:0;text-align:left;cursor:pointer;color:#15171a;width:100%">
+          <span style="font-family:'Martian Mono',monospace;font-size:12px;color:oklch(0.55 0.16 45)">05</span>
+          <h2 style="margin:0;font-size:clamp(24px,2.6vw,34px);font-weight:800;letter-spacing:-0.025em;flex:1">Related variants</h2>
+          <span style="font-family:'Martian Mono',monospace;font-size:18px;color:#6c7278">{{ sign.cmp }}</span>
+        </button>
+        <sc-if value="{{ open.cmp }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <p style="margin:0;font-size:14px;color:#4b5157;display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="display:inline-block;width:28px;height:14px;background:oklch(0.93 0.05 62);border-bottom:2px solid oklch(0.68 0.17 45)"></span><span>Highlighted values differ from {{ p.partNo }}.</span></p>
+            <div style="overflow-x:auto;background:#ffffff;border:1px solid #d9dbda">
+              <div style="min-width:720px;display:flex;flex-direction:column">
+                <div style="display:flex;border-bottom:1px solid #d9dbda">
+                  <div style="flex:0 0 190px;padding:14px 16px;font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:0.12em;color:#6c7278;display:flex;align-items:flex-end">COMPARE</div>
+                  <sc-for list="{{ cmpCols }}" as="c" hint-placeholder-count="3">
+                    <a href="{{ c.href }}" style="flex:1 1 0;min-width:170px;padding:12px;border-left:1px solid #e3e5e4;display:flex;flex-direction:column;gap:8px;color:#15171a" style-hover="background:#fafaf9">
+                      <span style="position:relative;display:block;aspect-ratio:16/9;background:#1b1e21">
+                        <x-import component-from-global-scope="ss-thumb" sku="{{ c.sku }}" tone="dark" w="640" h="360" style="position:absolute;inset:0" hint-size="100%,100%"></x-import>
+                      </span>
+                      <span style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+                        <span style="font-family:'Martian Mono',monospace;font-size:12px;font-weight:600">{{ c.partNo }}</span>
+                        <sc-if value="{{ c.self }}"><span style="font-family:'Martian Mono',monospace;font-size:9px;letter-spacing:0.1em;padding:3px 6px;background:#15171a;color:#ffffff">THIS PART</span></sc-if>
+                      </span>
+                      <span style="font-size:13.5px;font-weight:600;line-height:1.3">{{ c.label }}</span>
+                    </a>
+                  </sc-for>
+                </div>
+                <sc-for list="{{ cmpRows }}" as="r" hint-placeholder-count="5">
+                  <div style="display:flex;border-bottom:1px solid #e9eaea">
+                    <div style="flex:0 0 190px;padding:11px 16px;font-size:13.5px;color:#4b5157">{{ r.k }}</div>
+                    <sc-for list="{{ r.cells }}" as="cell">
+                      <sc-if value="{{ cell.diff }}"><div style="flex:1 1 0;min-width:170px;padding:11px 12px;border-left:1px solid #e3e5e4;background:oklch(0.95 0.035 62);box-shadow:inset 0 -2px 0 oklch(0.68 0.17 45);font-family:'Martian Mono',monospace;font-size:12px;font-weight:600;color:#15171a">{{ cell.v }}</div></sc-if>
+                      <sc-if value="{{ cell.same }}"><div style="flex:1 1 0;min-width:170px;padding:11px 12px;border-left:1px solid #e3e5e4;font-family:'Martian Mono',monospace;font-size:12px;color:#4b5157">{{ cell.v }}</div></sc-if>
+                    </sc-for>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+      </section>
+    </sc-if>
+  </div>
+</div>
+<dc-import name="SiteFooter" hint-size="100%,420px"></dc-import>
+<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;left:0;right:0;bottom:0;z-index:70;background:rgba(15,17,19,0.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid #2a2e32;padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:flex;gap:8px;align-items:center">
+    <span style="display:flex;flex-direction:column;gap:2px;flex:1;min-width:0">
+      <span style="font-family:'Martian Mono',monospace;font-size:11px;color:#eceeef">{{ p.partNo }} × {{ qty }}</span>
+      <span style="font-size:11.5px;color:#8b9298;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ avail.label }}</span>
+    </span>
+    <a href="{{ waHref }}" target="_blank" rel="noopener" aria-label="Ask on WhatsApp" style="height:48px;padding:0 14px;display:flex;align-items:center;border:1px solid #4a5056;color:#eceeef;font-size:14px;font-weight:600;border-radius:2px">WhatsApp</a>
+    <a href="{{ quoteHref }}" style="height:48px;padding:0 16px;display:flex;align-items:center;background:oklch(0.68 0.17 45);color:#121416;font-size:14px;font-weight:700;border-radius:2px">Request quote</a>
+  </div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;sku&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;ss-1001&quot;,&quot;ss-1002&quot;,&quot;ss-1003&quot;,&quot;ss-1010&quot;,&quot;ss-1011&quot;,&quot;ss-1020&quot;,&quot;ss-1030&quot;,&quot;ss-1040&quot;,&quot;ss-1041&quot;,&quot;ss-2001&quot;,&quot;ss-2002&quot;,&quot;ss-2003&quot;],&quot;default&quot;:&quot;ss-1001&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Preview&quot;}}">
+class Component extends DCLogic {
+  state = { ready: false, slug: null, tab: '3d', qty: 10, mobile: false, open: { drawing: true, specs: true, apps: true, incl: true, cmp: true } };
+  componentDidMount() {
+    this.mq = window.matchMedia('(max-width: 760px)');
+    this.onMq = () => this.setState({ mobile: this.mq.matches });
+    this.mq.addEventListener('change', this.onMq);
+    if (this.mq.matches) this.setState({ mobile: true, open: { drawing: true, specs: false, apps: false, incl: false, cmp: false } });
+    const t = () => (window.SS && window.SS.__loaded && window.SS_DATA) ? this.init() : setTimeout(t, 30); t();
+  }
+  componentWillUnmount() { this.mq && this.mq.removeEventListener('change', this.onMq); }
+  init() {
+    const q = new URLSearchParams(location.search);
+    const p = window.SS.get(q.get('p')) || window.SS.get(this.props.sku) || window.SS.get('ss-1001');
+    const qty = parseInt(q.get('qty'), 10);
+    this.setState({ ready: true, slug: p.slug, qty: qty > 0 ? qty : (p.template === 'wheel-nut' ? 20 : 10) });
+    document.title = `${p.partNo} · ${p.name} · StudSport`;
+  }
+  setQty(v) { v = Math.max(1, Math.min(9999, parseInt(v, 10) || 1)); this.setState({ qty: v }); }
+  toggle(k) { this.setState(s => ({ open: { ...s.open, [k]: !s.open[k] } })); }
+  renderVals() {
+    const st = this.state, SS = window.SS;
+    const tabs = [['3d', '3D view'], ['photos', 'Product photos'], ['drawing', 'Technical drawing']].map(([id, label]) => ({ label, active: st.tab === id, inactive: st.tab !== id, go: () => this.setState({ tab: id }) }));
+    const sign = {}; Object.keys(st.open).forEach(k => sign[k] = st.open[k] ? '−' : '+');
+    const base = {
+      tabs, qty: st.qty, isMobile: st.mobile, open: st.open, sign,
+      tabPhotos: st.tab === 'photos', show3d: st.ready && st.tab === '3d', showDrawingTab: st.ready && st.tab === 'drawing',
+      bottomPad: st.mobile ? '72px' : '0px',
+      dec: () => this.setQty(st.qty - 1), inc: () => this.setQty(st.qty + 1), onQty: e => this.setQty(e.target.value),
+      tgDrawing: () => this.toggle('drawing'), tgSpecs: () => this.toggle('specs'), tgApps: () => this.toggle('apps'), tgIncl: () => this.toggle('incl'), tgCmp: () => this.toggle('cmp')
+    };
+    if (!st.ready) return base;
+    const D = window.SS_DATA, p = SS.get(st.slug), av = SS.avail(p);
+    const isNut = q => q.template === 'wheel-nut';
+    const legendMap = {
+      'press-in-stud': [['L', 'Overall length, includes head'], ['Lu', 'Length under head'], ['H', 'Head thickness'], ['K', 'Knurl length'], ['S', 'Shoulder length'], ['T', 'Threaded length']],
+      'stud-nut': [['L', 'Overall stud length, includes head'], ['Lu', 'Length under head'], ['H', 'Head thickness'], ['K', 'Knurl length'], ['S', 'Shoulder length'], ['T', 'Threaded length'], ['Hn', 'Nut height (shown at reference clamp length)']],
+      'double-ended': [['L', 'Overall length'], ['A', 'End A thread length'], ['C', 'Collar length'], ['B', 'End B thread length']],
+      'wheel-nut': [['H', 'Nut height'], ['s', 'Seat height'], ['AF', 'Width across flats']]
+    };
+    const others = [...SS.variants(p), ...SS.related(p)].filter((q, i, a) => a.indexOf(q) === i && q !== p && isNut(q) === isNut(p));
+    const cmpList = [p, ...others].slice(0, 4);
+    const inc = p.includes;
+    const inclOptions = (isNut(p) ? [['nut', 'Nut only'], ['stud-nut', 'Stud and nut'], ['assembly', 'Complete assembly']] : [['stud', 'Stud only'], ['stud-nut', 'Stud and nut'], ['assembly', 'Complete assembly']]).map(([k, label]) => ({ label, active: k === inc, inactive: k !== inc }));
+    const nut = p.includes === 'stud' && p.matchingNut ? SS.get(p.matchingNut) : null;
+    const fits = isNut(p) ? D.products.filter(q => q.matchingNut === p.partNo && q.includes === 'stud') : [];
+    const price = p.price ? p.price.amount : null;
+    return {
+      ...base,
+      p: { partNo: p.partNo, name: p.name, slug: p.slug, summary: p.summary, typeLabel: SS.typeLabel(p), typePlural: D.productTypes[p.type].plural, typeHref: 'Catalogue.dc.html?type=' + p.type, rev: p.spec.revision, revDate: p.spec.date, lh: SS.isLH(p) },
+      photos: p.media.photos,
+      avail: av,
+      keySpecs: SS.keySpecs(p),
+      variants: SS.variants(p).map(q => ({ label: q.variantLabel, partNo: q.partNo, href: SS.href(q), current: q === p, other: q !== p })),
+      hasVariants: SS.variants(p).length > 1,
+      priceLine: price != null ? `$${price.toFixed(2)} ${p.price.unit}` : 'Price on quote',
+      estLine: price != null ? `≈ $${(price * st.qty).toFixed(2)} for ${st.qty} pcs · illustrative price` : 'We confirm price and availability by reply',
+      quoteHref: `FindMyPart.dc.html?part=${p.partNo}&qty=${st.qty}`,
+      waHref: SS.whatsapp(p, st.qty),
+      sheetHref: 'SpecSheet.dc.html?p=' + p.slug,
+      legend: legendMap[p.template].map(([k, v]) => ({ k, v })),
+      specGroups: SS.specGroups(p),
+      apps: p.applications.map(a => ({ vehicle: SS.vehicle(a.vehicle).label, model: a.model, years: a.years, position: a.position, side: a.side, notes: a.notes || 'No additional notes' })),
+      inclOptions,
+      components: p.components.map(c => { const q = SS.get(c.partNo); return { qty: '×' + c.qty, label: c.label, partNo: c.partNo, sku: q.slug, href: SS.href(q) }; }),
+      hasNut: !!nut, nut: nut ? { partNo: nut.partNo, name: nut.name, href: SS.href(nut) } : {},
+      hasFits: fits.length > 0, fits: fits.map(q => ({ partNo: q.partNo, href: SS.href(q) })),
+      hasCompare: cmpList.length > 1,
+      cmpCols: cmpList.map(q => ({ partNo: q.partNo, label: q.name, href: SS.href(q), sku: q.slug, self: q === p })),
+      cmpRows: SS.compare(p, cmpList).map(r => ({ k: r.k, cells: r.cells.map(c => ({ v: c.v, diff: c.diff, same: !c.diff })) }))
+    };
+  }
+}
+</script>
+</body>
+</html>
