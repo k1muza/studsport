@@ -17,13 +17,28 @@ export function inspectModels(doc) {
     if (!/^SS-\d+$/.test(tag)) issues.push(`${tag}: invalid part number`);
     if (seen.has(tag)) issues.push(`${tag}: duplicate model`);
     seen.add(tag);
-    if (!['press-in-stud','stud-nut','double-ended','wheel-nut'].includes(m?.template)) {issues.push(`${tag}: invalid template`);continue;}
+    if (!['press-in-stud','stud-nut','double-ended','wheel-nut','profiled-fastener'].includes(m?.template)) {issues.push(`${tag}: invalid template`);continue;}
     if (!['illustrative','supplier-declared','verified'].includes(m?.verification?.status)) issues.push(`${tag}: invalid status`);
     if (!m?.source?.reference || !m?.source?.kind) issues.push(`${tag}: source provenance required`);
     if (m?.verification?.status === 'verified' && !(m.verification.geometryApproved && m.verification.fitmentApproved)) issues.push(`${tag}: verification approvals required`);
     const d=m.dimensions;
     if (!d || !positive(d.overall)) {issues.push(`${tag}: invalid dimensions`);continue;}
-    if (m.template === 'press-in-stud' || m.template === 'stud-nut') {
+    if (m.template === 'profiled-fastener') {
+      if (m.verification?.status !== 'supplier-declared') issues.push(`${tag}: supplier profile must remain supplier-declared until engineering approval`);
+      if (!Array.isArray(d.sections) || !d.sections.length) {issues.push(`${tag}: missing profile sections`);continue;}
+      const sum=d.sections.reduce((a,s)=>a+(s.length||0),0);
+      if (!close(sum,d.overall)) issues.push(`${tag}: profile section lengths do not sum to overall`);
+      if (!Array.isArray(d.uncertainties) || !Array.isArray(d.measurements)) issues.push(`${tag}: provenance and uncertainty notes required`);
+      for (const [i,s] of d.sections.entries()) {
+        if (!positive(s.length) || !positive(s.dia) || !['drawing','derived','schematic'].includes(s.basis)) issues.push(`${tag} section ${i}: invalid dimensions or basis`);
+        if (!['head','knurl','plain','thread','hex','collar'].includes(s.kind)) issues.push(`${tag} section ${i}: invalid kind`);
+        if (s.kind === 'thread') {
+          const t=s.thread;
+          if (!t || !positive(t.dia) || !positive(t.pitch) || !['RH','LH','UNSPECIFIED'].includes(t.dir) || !t.cls || t.dia !== s.dia) issues.push(`${tag} section ${i}: invalid thread`);
+        }
+        if (s.kind === 'head' && s.headShape === 'double-flat' && !(positive(s.flatAcross) && s.flatAcross<s.dia)) issues.push(`${tag} section ${i}: invalid double-flat`);
+      }
+    } else if (m.template === 'press-in-stud' || m.template === 'stud-nut') {
       const h=d.head,k=d.knurl,s=d.shoulder,t=d.thread;
       if (!h || !positive(h.dia) || !positive(h.thickness) || !['d-flat','round'].includes(h.shape)) issues.push(`${tag}: invalid head`);
       if (h?.shape === 'd-flat' && !(positive(h.flatAcross) && h.flatAcross > h.dia/2 && h.flatAcross < h.dia)) issues.push(`${tag}: invalid flat dimension`);

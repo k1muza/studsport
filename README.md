@@ -49,3 +49,18 @@ Templates: `press-in-stud`, `stud-nut`, `double-ended`, `wheel-nut`. The engine 
 Run `npm run check:models` to validate dimensions, lengths, part keys, and required metadata; `npm run test:models` covers success and failure cases. Both run before `npm run build`. The existing build catalogue check also checks that every catalogue part has a matching JSON model and no orphaned models remain.
 
 **Safety:** all 12 migrated models are still **illustrative**. Moving a model to JSON does *not* validate its dimensions, vehicle fitment, thread tolerance, strength, or inventory. Do not change the model's verification state without genuine supplier/OEM evidence and engineering review. The six supplier drawings have been indexed only as pending records in `src/data/supplier-drawings.review.json` (including a 72 mm vs 66 mm inconsistency on the Mazda Rear drawing); they were not silently mapped onto invented SS product records.
+
+## Six Quanzhou Litai drawing-based references (SS-3001 to SS-3006)
+
+The supplier pages are in `DRAWINGS.pdf` (not redistributed in this repo). Supplier records are separate from the 12 invented prototype records because **none matched in full geometry**. New `profiled-fastener` models represent a chain of axial sections annotated with `basis: drawing | derived | schematic` so unprovided geometry is never mistaken for a measured dimension. Unknown handedness is deliberately rendered as a smooth nominal thread cylinder (NOT fabricated right-hand helical thread), and unknown spline count is left smooth. The live model is a visualization, not a validated manufacturing drawing.
+
+| SKU | Supplier sheet | Model length | Status |
+|---|---|---:|---|
+| SS-3001 | Mazda Front (p1) | 80.5 mm incl. head | Source declared; transitions approximate |
+| SS-3002 | Mazda Rear (p2) | 76.5 mm provisional incl. head | **HOLD**: header 72 mm vs drawing 66 mm under-head |
+| SS-3003 | Hino GH Rear (p3) | 118.5 mm incl. head | Source declared; shoulder transition simplified |
+| SS-3004 | Toyota Dynaps Rear (p4) | 54 mm incl. head | Schematic head diameter; OEM model unclear |
+| SS-3005 | Toyota Rino Rear (p5) | 75 mm | Segment lengths schematic where unspecified |
+| SS-3006 | Hino Durton Rear (p6) | 91 mm | Source-declared sections; drive detail simplified |
+
+Supplier marking R/L does not select a handed variant, so it stays **UNSPECIFIED**. These references have no confirmed prices or stock and no verified vehicle fitment. The original supplier drawing must be reconciled for installation, fitment, load grade and supply quality. Replacing the old 12 sample geometry records is inappropriate without exact source/part-number match.
