@@ -60,7 +60,10 @@ The supplier pages are in `DRAWINGS.pdf` (not redistributed in this repo). Suppl
 | SS-3002 | Mazda Rear (p2) | 76.5 mm provisional incl. head | **HOLD**: header 72 mm vs drawing 66 mm under-head |
 | SS-3003 | Hino GH Rear (p3) | 118.5 mm incl. head | Source declared; shoulder transition simplified |
 | SS-3004 | Toyota Dynaps Rear (p4) | 54 mm incl. head | Schematic head diameter; OEM model unclear |
-| SS-3005 | Toyota Rino Rear (p5) | 75 mm | Segment lengths schematic where unspecified |
+| SS-3005 | Toyota Rino Rear (p5) | 75 mm | 37/38 mm split; Ø20.8 × 8.5 mm nominal 50-spline knurl; flange Ø and some transitions schematic |
 | SS-3006 | Hino Durton Rear (p6) | 91 mm | Source-declared sections; drive detail simplified |
 
 Supplier marking R/L does not select a handed variant, so it stays **UNSPECIFIED**. These references have no confirmed prices or stock and no verified vehicle fitment. The original supplier drawing must be reconciled for installation, fitment, load grade and supply quality. Replacing the old 12 sample geometry records is inappropriate without exact source/part-number match.
+
+### SS-3005 drawing recheck
+The supplier image confirms 75 mm nominal overall, 37 ±0.5 mm to the flange-right face and 38 ±0.5 mm afterward. The 10 mm section following the flange contains the 8.5 mm spline band, and the 16 (0/-0.7) mm span to the RH thread shoulder leaves a 22 mm **nominal** right-end thread span. Left threaded span is only labelled `min27`. Use nominal `Z50` splines for a visual mesh, with the drawing's `Z50±1, t1.3` retained as authoritative. Flange outside diameter is NOT dimensioned in the supplied image: `dia:30` is explicitly a schematic placeholder, not an asserted source dimension. Tip chamfers and R3/R0.6 transitions remain schematic. This reference is NOT fitment-verified or manufacturing CAD.

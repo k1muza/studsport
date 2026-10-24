@@ -32,6 +32,9 @@ export function inspectModels(doc) {
       for (const [i,s] of d.sections.entries()) {
         if (!positive(s.length) || !positive(s.dia) || !['drawing','derived','schematic'].includes(s.basis)) issues.push(`${tag} section ${i}: invalid dimensions or basis`);
         if (!['head','knurl','plain','thread','hex','collar'].includes(s.kind)) issues.push(`${tag} section ${i}: invalid kind`);
+        if (s.kind === 'knurl' && s.visualDepthMm != null &&
+            (!(s.visualDepthMm > 0) || s.visualDepthMm >= s.dia / 2)) issues.push(`${tag} section ${i}: invalid visual knurl depth`);
+        if (s.kind === 'knurl' && (!Number.isInteger(s.splines) || s.splines < 0)) issues.push(`${tag} section ${i}: invalid spline count`);
         if (s.kind === 'thread') {
           const t=s.thread;
           if (!t || !positive(t.dia) || !positive(t.pitch) || !['RH','LH','UNSPECIFIED'].includes(t.dir) || !t.cls || t.dia !== s.dia) issues.push(`${tag} section ${i}: invalid thread`);

@@ -87,7 +87,7 @@ export function geom(p: Product): Geom {
         const flat = shape === 'd-flat' ? s.flatAcross! - r : shape === 'double-flat' ? s.flatAcross! / 2 : null;
         segs.push(seg({ kind: 'head', y0, y1, r, shape, f: flat, c: Math.min(0.8, s.length / 6), basis: s.basis }));
       } else if (s.kind === 'knurl') {
-        segs.push(seg({kind:'knurl',y0,y1,r,rIn: s.splines ? r - 0.5 : r,splines:s.splines || 0,
+        segs.push(seg({kind:'knurl',y0,y1,r,rIn: s.splines ? r - (s.visualDepthMm ?? 0.5) : r,splines:s.splines || 0,
           taper: Math.min(1.5,s.length * .12),rNext:(next?.dia || s.dia)/2,basis:s.basis}));
       } else if (s.kind === 'thread') {
         const t = { ...s.thread!, length:s.length };

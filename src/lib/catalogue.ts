@@ -48,6 +48,8 @@ export interface ProfileSection {
   flatAcross?: number;
   af?: number;
   splines?: number;
+  /** Rendering-only spline depth (mm); not a manufacturing specification. */
+  visualDepthMm?: number;
   thread?: Thread;
 }
 export interface ProfiledDims {
@@ -457,7 +459,7 @@ export const products: Product[] = [
     id: 'lt005', slug: 'ss-3005', partNo: 'SS-3005',
     name: "Toyota Rino Rear — supplier drawing",
     type: 'double-ended', template: 'profiled-fastener',
-    summary: "Supplier drawing reference, not confirmed for installation. Both thread lengths and intermediate feature placement need clarification; visible profile is schematic.",
+    summary: "Supplier drawing reference. 75 mm overall; two M20 × 1.5 ends, central flange and Ø20.8 / 50-tooth knurl. Flange diameter and several transitions remain schematic; OEM fitment unconfirmed.",
     positions: ['Rear'],
     applications: [{ vehicle: 'toyota-rino', model: "Rino Rear (name as printed)", years: 'Not specified', position: 'Rear', side: 'Confirm', notes: 'Supplier drawing label only — OEM fitment not verified' }],
     dims: modelDims('SS-3005', 'profiled-fastener'),

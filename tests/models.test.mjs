@@ -84,3 +84,32 @@ test('original first-end heads remain capped and chamfered within their section'
   assert.deepEqual(rings[rings.length-1], [11,8]);
   assert.ok(rings.every(([,y]) => y >= 0 && y <= 8));
 });
+
+test('SS-3005 model follows supplier axial dimension chains and nominal spline count', () => {
+  const part=doc.models.find(m=>m.sku==='SS-3005');
+  const sections=part.dimensions.sections;
+  assert.deepEqual(sections.map(s=>s.kind),
+    ['thread','plain','collar','plain','knurl','plain','thread']);
+  assert.equal(sections.reduce((n,s)=>n+s.length,0),75);
+  assert.equal(sections.slice(0,3).reduce((n,s)=>n+s.length,0),37);
+  assert.equal(sections.slice(3).reduce((n,s)=>n+s.length,0),38);
+  assert.equal(sections.slice(3,5).reduce((n,s)=>n+s.length,0),10);
+  assert.equal(sections.slice(3,6).reduce((n,s)=>n+s.length,0),16);
+  assert.equal(sections[4].length,8.5);
+  assert.equal(sections[4].dia,20.8);
+  assert.equal(sections[4].splines,50);
+  assert.equal(sections[4].visualDepthMm,0.175);
+});
+test('SS-3005 profile does not present schematic flange diameter as verified', () => {
+  const d=doc.models.find(m=>m.sku==='SS-3005').dimensions;
+  const flange=d.sections.find(s=>s.kind==='collar');
+  assert.equal(flange.basis,'schematic');
+  assert.match(flange.note,/NOT specified/);
+  assert.match(d.uncertainties.join(' '),/outside diameter.*not dimensioned/);
+  assert.match(d.measurements.map(m=>m.value).join(' '),/minimum 27 mm/);
+});
+test('supplier knurl visual depth is validated', () => {
+  const d=copy();
+  d.models.find(m=>m.sku==='SS-3005').dimensions.sections.find(s=>s.kind==='knurl').visualDepthMm=100;
+  assert.match(inspectModels(d).join(' '),/invalid visual knurl depth/);
+});
