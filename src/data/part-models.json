@@ -439,6 +439,569 @@
         },
         "idGroove": true
       }
+    },
+    {
+      "sku": "SS-3001",
+      "template": "profiled-fastener",
+      "verification": {
+        "status": "supplier-declared",
+        "geometryApproved": false,
+        "fitmentApproved": false
+      },
+      "source": {
+        "kind": "supplier-drawing",
+        "reference": "DRAWINGS.pdf, page 1",
+        "note": "Quanzhou Litai Auto-Parts Mfg. Co., Ltd. Drawing ref blank. Unconfirmed OEM fitment; schematic portions identified."
+      },
+      "dimensions": {
+        "overall": 80.5,
+        "sections": [
+          {
+            "kind": "head",
+            "length": 8.5,
+            "dia": 36,
+            "headShape": "d-flat",
+            "flatAcross": 32,
+            "basis": "drawing"
+          },
+          {
+            "kind": "plain",
+            "length": 4.5,
+            "dia": 22.8,
+            "basis": "schematic",
+            "note": "Neck diameter not separately specified; approximate for visual continuity"
+          },
+          {
+            "kind": "knurl",
+            "length": 16,
+            "dia": 22.8,
+            "splines": 0,
+            "basis": "drawing",
+            "note": "Drawing calls out Ø22.8 × 1.5 × 16; spline tooth count not given"
+          },
+          {
+            "kind": "plain",
+            "length": 21.5,
+            "dia": 22.8,
+            "basis": "schematic",
+            "note": "Remaining unthreaded region sized to stated under-head length; local profile approximate"
+          },
+          {
+            "kind": "thread",
+            "length": 30,
+            "dia": 18,
+            "basis": "drawing",
+            "thread": {
+              "dia": 18,
+              "pitch": 1.5,
+              "dir": "UNSPECIFIED",
+              "cls": "6g"
+            }
+          }
+        ],
+        "uncertainties": [
+          "R/L marking does not identify which handed variant this record represents.",
+          "Full intermediate shank contour and knurl tooth count are not specified.",
+          "Exact Mazda model and OEM part number not supplied."
+        ],
+        "measurements": [
+          {
+            "label": "Length under head",
+            "value": "72 mm",
+            "basis": "drawing"
+          },
+          {
+            "label": "Head thickness",
+            "value": "8.5 mm",
+            "basis": "drawing"
+          },
+          {
+            "label": "Head diameter / flat height",
+            "value": "Ø36 / 32 mm",
+            "basis": "drawing"
+          },
+          {
+            "label": "Knurl callout",
+            "value": "Ø22.8 × 1.5 × 16",
+            "basis": "drawing"
+          },
+          {
+            "label": "Thread",
+            "value": "M18 × 1.5, threaded length 30 mm",
+            "basis": "drawing"
+          },
+          {
+            "label": "Overall length",
+            "value": "80.5 mm (72 + 8.5)",
+            "basis": "derived"
+          }
+        ]
+      }
+    },
+    {
+      "sku": "SS-3002",
+      "template": "profiled-fastener",
+      "verification": {
+        "status": "supplier-declared",
+        "geometryApproved": false,
+        "fitmentApproved": false
+      },
+      "source": {
+        "kind": "supplier-drawing",
+        "reference": "DRAWINGS.pdf, page 2",
+        "note": "Quanzhou Litai Auto-Parts Mfg. Co., Ltd. Drawing ref blank. Unconfirmed OEM fitment; schematic portions identified."
+      },
+      "dimensions": {
+        "overall": 76.5,
+        "sections": [
+          {
+            "kind": "head",
+            "length": 10.5,
+            "dia": 38,
+            "headShape": "round",
+            "basis": "drawing"
+          },
+          {
+            "kind": "knurl",
+            "length": 16,
+            "dia": 22.5,
+            "splines": 0,
+            "basis": "drawing",
+            "note": "Knurl Ø22.5±0.02; tooth count not shown"
+          },
+          {
+            "kind": "plain",
+            "length": 21,
+            "dia": 22.1,
+            "basis": "schematic",
+            "note": "Unthreaded remainder modelled schematically; drawing also calls out Ø22.1±0.02 in this area"
+          },
+          {
+            "kind": "thread",
+            "length": 29,
+            "dia": 18,
+            "basis": "drawing",
+            "thread": {
+              "dia": 18,
+              "pitch": 1.5,
+              "dir": "UNSPECIFIED",
+              "cls": "6g"
+            }
+          }
+        ],
+        "uncertainties": [
+          "CRITICAL: drawing heading says 72 mm under head; detailed side view says 66 mm. Provisional model uses 66 mm; NOT an approved dimension.",
+          "R/L variants not identified by a specific SKU.",
+          "Vehicle fitment and head profile details require supplier confirmation."
+        ],
+        "measurements": [
+          {
+            "label": "Header under-head length",
+            "value": "72 mm (conflicts with view)",
+            "basis": "drawing"
+          },
+          {
+            "label": "Drawn under-head length",
+            "value": "66 mm",
+            "basis": "drawing"
+          },
+          {
+            "label": "Head thickness",
+            "value": "10.5 mm",
+            "basis": "drawing"
+          },
+          {
+            "label": "Thread",
+            "value": "M18 × 1.5; thread length 29 mm",
+            "basis": "drawing"
+          },
+          {
+            "label": "Knurl",
+            "value": "Ø22.5±0.02 × 16 mm",
+            "basis": "drawing"
+          },
+          {
+            "label": "Provisional model overall",
+            "value": "76.5 mm (drawn 66 + 10.5)",
+            "basis": "derived",
+            "note": "Awaiting supplier confirmation of contradictory title"
+          }
+        ]
+      }
+    },
+    {
+      "sku": "SS-3003",
+      "template": "profiled-fastener",
+      "verification": {
+        "status": "supplier-declared",
+        "geometryApproved": false,
+        "fitmentApproved": false
+      },
+      "source": {
+        "kind": "supplier-drawing",
+        "reference": "DRAWINGS.pdf, page 3",
+        "note": "Quanzhou Litai Auto-Parts Mfg. Co., Ltd. Drawing ref blank. Unconfirmed OEM fitment; schematic portions identified."
+      },
+      "dimensions": {
+        "overall": 118.5,
+        "sections": [
+          {
+            "kind": "head",
+            "length": 10.5,
+            "dia": 36,
+            "headShape": "d-flat",
+            "flatAcross": 34,
+            "basis": "drawing",
+            "note": "D-flat height derived from Ø36 and center-to-flat 16"
+          },
+          {
+            "kind": "plain",
+            "length": 40,
+            "dia": 25.5,
+            "basis": "drawing",
+            "note": "Ø25.5 (+0.08/+0.05), 40 mm section"
+          },
+          {
+            "kind": "plain",
+            "length": 27,
+            "dia": 25,
+            "basis": "derived",
+            "note": "Remaining shoulder section from 108 - 40 - 41; includes unspecified transition"
+          },
+          {
+            "kind": "thread",
+            "length": 41,
+            "dia": 22,
+            "basis": "drawing",
+            "thread": {
+              "dia": 22,
+              "pitch": 1.5,
+              "dir": "UNSPECIFIED",
+              "cls": "6g"
+            }
+          }
+        ],
+        "uncertainties": [
+          "R/L variants shown but direction for this listing is not selected.",
+          "The 27 mm transition is simplified and includes a taper that is not fully dimensioned.",
+          "Associated nut is shown but not independently added or confirmed compatible."
+        ],
+        "measurements": [
+          {
+            "label": "Length under head",
+            "value": "108 mm",
+            "basis": "drawing"
+          },
+          {
+            "label": "Head thickness",
+            "value": "10.5 mm",
+            "basis": "drawing"
+          },
+          {
+            "label": "Head diameter",
+            "value": "Ø36 mm with D-flat",
+            "basis": "drawing"
+          },
+          {
+            "label": "Press-fit shaft",
+            "value": "Ø25.5 (+0.08/+0.05) × 40 mm",
+            "basis": "drawing"
+          },
+          {
+            "label": "Thread",
+            "value": "M22 × 1.5, length 41 mm",
+            "basis": "drawing"
+          },
+          {
+            "label": "Overall length",
+            "value": "118.5 mm (108 + 10.5)",
+            "basis": "derived"
+          }
+        ]
+      }
+    },
+    {
+      "sku": "SS-3004",
+      "template": "profiled-fastener",
+      "verification": {
+        "status": "supplier-declared",
+        "geometryApproved": false,
+        "fitmentApproved": false
+      },
+      "source": {
+        "kind": "supplier-drawing",
+        "reference": "DRAWINGS.pdf, page 4",
+        "note": "Quanzhou Litai Auto-Parts Mfg. Co., Ltd. Drawing ref blank. Unconfirmed OEM fitment; schematic portions identified."
+      },
+      "dimensions": {
+        "overall": 54,
+        "sections": [
+          {
+            "kind": "head",
+            "length": 7,
+            "dia": 28,
+            "headShape": "round",
+            "basis": "schematic",
+            "note": "Head Ø28 is purely a visual placeholder; supplier does not dimension the head diameter"
+          },
+          {
+            "kind": "knurl",
+            "length": 11,
+            "dia": 20.5,
+            "splines": 0,
+            "basis": "schematic",
+            "note": "11 mm knurled zone shown; Ø20.5 callout nearby, exact knurl major diameter unverified"
+          },
+          {
+            "kind": "plain",
+            "length": 6,
+            "dia": 20.5,
+            "basis": "schematic",
+            "note": "Undimensioned transition, approximate"
+          },
+          {
+            "kind": "thread",
+            "length": 30,
+            "dia": 20,
+            "basis": "drawing",
+            "thread": {
+              "dia": 20,
+              "pitch": 1.5,
+              "dir": "UNSPECIFIED",
+              "cls": "6g"
+            }
+          }
+        ],
+        "uncertainties": [
+          "Supplier vehicle label 'Dynaps' requires OEM identification.",
+          "Head diameter and exact knurl geometry are missing; 3D head Ø28 is schematic only.",
+          "Finish and thread direction are unspecified."
+        ],
+        "measurements": [
+          {
+            "label": "Length under head",
+            "value": "47 mm",
+            "basis": "drawing"
+          },
+          {
+            "label": "Head thickness",
+            "value": "7 mm",
+            "basis": "drawing"
+          },
+          {
+            "label": "Knurled section axial length",
+            "value": "11 mm",
+            "basis": "drawing"
+          },
+          {
+            "label": "Thread",
+            "value": "M20 × 1.5, thread span 30 mm",
+            "basis": "drawing"
+          },
+          {
+            "label": "Overall length",
+            "value": "54 mm (47 + 7)",
+            "basis": "derived"
+          }
+        ]
+      }
+    },
+    {
+      "sku": "SS-3005",
+      "template": "profiled-fastener",
+      "verification": {
+        "status": "supplier-declared",
+        "geometryApproved": false,
+        "fitmentApproved": false
+      },
+      "source": {
+        "kind": "supplier-drawing",
+        "reference": "DRAWINGS.pdf, page 5",
+        "note": "Quanzhou Litai Auto-Parts Mfg. Co., Ltd. Drawing ref blank. Unconfirmed OEM fitment; schematic portions identified."
+      },
+      "dimensions": {
+        "overall": 75,
+        "sections": [
+          {
+            "kind": "thread",
+            "length": 27,
+            "dia": 20,
+            "basis": "schematic",
+            "thread": {
+              "dia": 20,
+              "pitch": 1.5,
+              "dir": "UNSPECIFIED",
+              "cls": "6h"
+            },
+            "note": "Left end minimum length 27 mm; depicted as 27 mm for visualization, not exact"
+          },
+          {
+            "kind": "plain",
+            "length": 10,
+            "dia": 20,
+            "basis": "schematic",
+            "note": "Intermediate geometry simplified from drawing"
+          },
+          {
+            "kind": "knurl",
+            "length": 8.5,
+            "dia": 20.8,
+            "splines": 0,
+            "basis": "drawing",
+            "note": "Ø20.8±0.05 with drawing note Z50±1, t1.3; placement schematic"
+          },
+          {
+            "kind": "plain",
+            "length": 2.5,
+            "dia": 20,
+            "basis": "schematic",
+            "note": "Transition simplified"
+          },
+          {
+            "kind": "thread",
+            "length": 27,
+            "dia": 20,
+            "basis": "schematic",
+            "thread": {
+              "dia": 20,
+              "pitch": 1.5,
+              "dir": "UNSPECIFIED",
+              "cls": "6h"
+            },
+            "note": "Right thread length not explicitly given, display placeholder"
+          }
+        ],
+        "uncertainties": [
+          "Both thread lengths and intermediate feature placement need clarification; visible profile is schematic.",
+          "Supplier model name 'Toyota Rino' and OEM reference not verified.",
+          "Finish and handedness not stated."
+        ],
+        "measurements": [
+          {
+            "label": "Overall length",
+            "value": "75 mm",
+            "basis": "drawing"
+          },
+          {
+            "label": "Both end threads",
+            "value": "M20 × 1.5",
+            "basis": "drawing"
+          },
+          {
+            "label": "Knurl",
+            "value": "Ø20.8±0.05; Z50±1, t1.3",
+            "basis": "drawing"
+          },
+          {
+            "label": "Left threaded segment",
+            "value": "Minimum 27 mm (not fixed length)",
+            "basis": "drawing"
+          }
+        ]
+      }
+    },
+    {
+      "sku": "SS-3006",
+      "template": "profiled-fastener",
+      "verification": {
+        "status": "supplier-declared",
+        "geometryApproved": false,
+        "fitmentApproved": false
+      },
+      "source": {
+        "kind": "supplier-drawing",
+        "reference": "DRAWINGS.pdf, page 6",
+        "note": "Quanzhou Litai Auto-Parts Mfg. Co., Ltd. Drawing ref blank. Unconfirmed OEM fitment; schematic portions identified."
+      },
+      "dimensions": {
+        "overall": 91,
+        "sections": [
+          {
+            "kind": "thread",
+            "length": 31,
+            "dia": 20,
+            "basis": "drawing",
+            "thread": {
+              "dia": 20,
+              "pitch": 1.5,
+              "dir": "UNSPECIFIED",
+              "cls": "6g"
+            }
+          },
+          {
+            "kind": "plain",
+            "length": 5,
+            "dia": 20,
+            "basis": "derived",
+            "note": "36 mm left section minus 31 mm thread"
+          },
+          {
+            "kind": "head",
+            "length": 5,
+            "dia": 32,
+            "headShape": "double-flat",
+            "flatAcross": 24,
+            "basis": "derived",
+            "note": "Collar width = 91 - 36 - 50; end view shows Ø32 and 24±0.2 across opposed flats"
+          },
+          {
+            "kind": "plain",
+            "length": 26,
+            "dia": 22,
+            "basis": "derived",
+            "note": "Right section 50 minus right-end thread span 24; centre barrel labelled Ø22"
+          },
+          {
+            "kind": "thread",
+            "length": 24,
+            "dia": 20,
+            "basis": "drawing",
+            "thread": {
+              "dia": 20,
+              "pitch": 1.5,
+              "dir": "UNSPECIFIED",
+              "cls": "6g"
+            }
+          }
+        ],
+        "uncertainties": [
+          "Supplier model name 'Hino Durton' requires confirmation.",
+          "Thread direction not identified.",
+          "Matching nut geometries shown separately require independent modelling and verification."
+        ],
+        "measurements": [
+          {
+            "label": "Overall length",
+            "value": "91 mm",
+            "basis": "drawing"
+          },
+          {
+            "label": "Left and right spans",
+            "value": "36 mm / 50 mm",
+            "basis": "drawing"
+          },
+          {
+            "label": "Threaded ends",
+            "value": "M20 × 1.5; 31 mm left and 24 mm right",
+            "basis": "drawing"
+          },
+          {
+            "label": "Central shank",
+            "value": "Ø22 mm",
+            "basis": "drawing"
+          },
+          {
+            "label": "Central drive profile",
+            "value": "Ø32 and 24±0.2 across flats",
+            "basis": "drawing"
+          },
+          {
+            "label": "Collar width",
+            "value": "5 mm (91 - 36 - 50)",
+            "basis": "derived"
+          }
+        ]
+      }
     }
   ]
 }
