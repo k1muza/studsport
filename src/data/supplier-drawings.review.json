@@ -1,0 +1,58 @@
+{
+  "description": "Extracted indexing notes only; not a verified public product catalogue. Do not feed directly to 3D model generation until ambiguities and OEM fitment are resolved.",
+  "source": {
+    "document": "DRAWINGS.pdf",
+    "issuer": "Quanzhou Litai Auto-Parts Mfg. Co., Ltd.",
+    "pages": 6
+  },
+  "records": [
+    {
+      "page": 1,
+      "label": "Mazda Front",
+      "thread": "M18 x 1.5",
+      "statedLengthMm": 72,
+      "lengthBasis": "under head",
+      "review": "Confirm exact model, OEM number, handedness and nut geometry."
+    },
+    {
+      "page": 2,
+      "label": "Mazda Rear",
+      "thread": "M18 x 1.5",
+      "statedLengthMm": 72,
+      "drawingUnderHeadLengthMm": 66,
+      "review": "Title and drawing differ (72 vs 66 mm); clarify before modeling."
+    },
+    {
+      "page": 3,
+      "label": "Hino GH Rear",
+      "thread": "M22 x 1.5",
+      "statedLengthMm": 108,
+      "lengthBasis": "under head",
+      "review": "Confirm full dimensional interpretation and OEM number."
+    },
+    {
+      "page": 4,
+      "label": "Toyota Dynaps Rear",
+      "thread": "M20 x 1.5",
+      "statedLengthMm": 47,
+      "lengthBasis": "under head",
+      "review": "Supplier vehicle designation needs confirmation."
+    },
+    {
+      "page": 5,
+      "label": "Toyota Rino Rear",
+      "thread": "M20 x 1.5 both ends",
+      "statedLengthMm": 75,
+      "lengthBasis": "overall",
+      "review": "Vehicle name and assembly cross-reference unclear."
+    },
+    {
+      "page": 6,
+      "label": "Hino Durton Rear",
+      "thread": "M20 x 1.5 both ends",
+      "statedLengthMm": 91,
+      "lengthBasis": "overall",
+      "review": "Vehicle name and OEM cross-reference require confirmation."
+    }
+  ]
+}

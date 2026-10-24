@@ -1,0 +1,444 @@
+{
+  "schemaVersion": 1,
+  "unit": "mm",
+  "description": "StudSport parametric models. Illustrative specimens only: not certified geometry or fitment.",
+  "models": [
+    {
+      "sku": "SS-1001",
+      "template": "press-in-stud",
+      "verification": {
+        "status": "illustrative",
+        "geometryApproved": false,
+        "fitmentApproved": false
+      },
+      "source": {
+        "kind": "prototype",
+        "reference": "src/lib/catalogue.ts",
+        "note": "Migrated unchanged from the original illustrative catalogue; not supplier verified."
+      },
+      "dimensions": {
+        "overall": 74,
+        "head": {
+          "shape": "d-flat",
+          "dia": 34,
+          "thickness": 8,
+          "flatAcross": 32
+        },
+        "knurl": {
+          "dia": 22.4,
+          "length": 14,
+          "splines": 36
+        },
+        "shoulder": {
+          "dia": 20,
+          "length": 6
+        },
+        "thread": {
+          "dia": 20,
+          "pitch": 1.5,
+          "dir": "RH",
+          "length": 46,
+          "cls": "6g"
+        }
+      }
+    },
+    {
+      "sku": "SS-1002",
+      "template": "press-in-stud",
+      "verification": {
+        "status": "illustrative",
+        "geometryApproved": false,
+        "fitmentApproved": false
+      },
+      "source": {
+        "kind": "prototype",
+        "reference": "src/lib/catalogue.ts",
+        "note": "Migrated unchanged from the original illustrative catalogue; not supplier verified."
+      },
+      "dimensions": {
+        "overall": 74,
+        "head": {
+          "shape": "d-flat",
+          "dia": 34,
+          "thickness": 8,
+          "flatAcross": 32
+        },
+        "knurl": {
+          "dia": 22.4,
+          "length": 14,
+          "splines": 36
+        },
+        "shoulder": {
+          "dia": 20,
+          "length": 6
+        },
+        "thread": {
+          "dia": 20,
+          "pitch": 1.5,
+          "dir": "LH",
+          "length": 46,
+          "cls": "6g"
+        }
+      }
+    },
+    {
+      "sku": "SS-1003",
+      "template": "press-in-stud",
+      "verification": {
+        "status": "illustrative",
+        "geometryApproved": false,
+        "fitmentApproved": false
+      },
+      "source": {
+        "kind": "prototype",
+        "reference": "src/lib/catalogue.ts",
+        "note": "Migrated unchanged from the original illustrative catalogue; not supplier verified."
+      },
+      "dimensions": {
+        "overall": 94,
+        "head": {
+          "shape": "d-flat",
+          "dia": 34,
+          "thickness": 8,
+          "flatAcross": 32
+        },
+        "knurl": {
+          "dia": 22.4,
+          "length": 14,
+          "splines": 36
+        },
+        "shoulder": {
+          "dia": 20,
+          "length": 10
+        },
+        "thread": {
+          "dia": 20,
+          "pitch": 1.5,
+          "dir": "RH",
+          "length": 62,
+          "cls": "6g"
+        }
+      }
+    },
+    {
+      "sku": "SS-1010",
+      "template": "press-in-stud",
+      "verification": {
+        "status": "illustrative",
+        "geometryApproved": false,
+        "fitmentApproved": false
+      },
+      "source": {
+        "kind": "prototype",
+        "reference": "src/lib/catalogue.ts",
+        "note": "Migrated unchanged from the original illustrative catalogue; not supplier verified."
+      },
+      "dimensions": {
+        "overall": 85,
+        "head": {
+          "shape": "round",
+          "dia": 40,
+          "thickness": 9
+        },
+        "knurl": {
+          "dia": 24.6,
+          "length": 16,
+          "splines": 40
+        },
+        "shoulder": {
+          "dia": 22,
+          "length": 8
+        },
+        "thread": {
+          "dia": 22,
+          "pitch": 1.5,
+          "dir": "RH",
+          "length": 52,
+          "cls": "6g"
+        }
+      }
+    },
+    {
+      "sku": "SS-1011",
+      "template": "press-in-stud",
+      "verification": {
+        "status": "illustrative",
+        "geometryApproved": false,
+        "fitmentApproved": false
+      },
+      "source": {
+        "kind": "prototype",
+        "reference": "src/lib/catalogue.ts",
+        "note": "Migrated unchanged from the original illustrative catalogue; not supplier verified."
+      },
+      "dimensions": {
+        "overall": 85,
+        "head": {
+          "shape": "round",
+          "dia": 40,
+          "thickness": 9
+        },
+        "knurl": {
+          "dia": 24.6,
+          "length": 16,
+          "splines": 40
+        },
+        "shoulder": {
+          "dia": 22,
+          "length": 8
+        },
+        "thread": {
+          "dia": 22,
+          "pitch": 1.5,
+          "dir": "LH",
+          "length": 52,
+          "cls": "6g"
+        }
+      }
+    },
+    {
+      "sku": "SS-1020",
+      "template": "press-in-stud",
+      "verification": {
+        "status": "illustrative",
+        "geometryApproved": false,
+        "fitmentApproved": false
+      },
+      "source": {
+        "kind": "prototype",
+        "reference": "src/lib/catalogue.ts",
+        "note": "Migrated unchanged from the original illustrative catalogue; not supplier verified."
+      },
+      "dimensions": {
+        "overall": 64,
+        "head": {
+          "shape": "d-flat",
+          "dia": 30,
+          "thickness": 7,
+          "flatAcross": 28
+        },
+        "knurl": {
+          "dia": 20.2,
+          "length": 12,
+          "splines": 32
+        },
+        "shoulder": {
+          "dia": 18,
+          "length": 5
+        },
+        "thread": {
+          "dia": 18,
+          "pitch": 1.5,
+          "dir": "RH",
+          "length": 40,
+          "cls": "6g"
+        }
+      }
+    },
+    {
+      "sku": "SS-1030",
+      "template": "stud-nut",
+      "verification": {
+        "status": "illustrative",
+        "geometryApproved": false,
+        "fitmentApproved": false
+      },
+      "source": {
+        "kind": "prototype",
+        "reference": "src/lib/catalogue.ts",
+        "note": "Migrated unchanged from the original illustrative catalogue; not supplier verified."
+      },
+      "dimensions": {
+        "overall": 108,
+        "head": {
+          "shape": "round",
+          "dia": 40,
+          "thickness": 10
+        },
+        "knurl": {
+          "dia": 24.6,
+          "length": 16,
+          "splines": 40
+        },
+        "shoulder": {
+          "dia": 22,
+          "length": 12
+        },
+        "thread": {
+          "dia": 22,
+          "pitch": 1.5,
+          "dir": "RH",
+          "length": 70,
+          "cls": "6g"
+        }
+      }
+    },
+    {
+      "sku": "SS-1040",
+      "template": "double-ended",
+      "verification": {
+        "status": "illustrative",
+        "geometryApproved": false,
+        "fitmentApproved": false
+      },
+      "source": {
+        "kind": "prototype",
+        "reference": "src/lib/catalogue.ts",
+        "note": "Migrated unchanged from the original illustrative catalogue; not supplier verified."
+      },
+      "dimensions": {
+        "overall": 84,
+        "threadA": {
+          "dia": 20,
+          "pitch": 1.5,
+          "dir": "RH",
+          "length": 30,
+          "cls": "6g",
+          "role": "Hub end"
+        },
+        "collar": {
+          "shape": "hex",
+          "af": 27,
+          "length": 10
+        },
+        "threadB": {
+          "dia": 20,
+          "pitch": 1.5,
+          "dir": "RH",
+          "length": 44,
+          "cls": "6g",
+          "role": "Wheel end"
+        }
+      }
+    },
+    {
+      "sku": "SS-1041",
+      "template": "double-ended",
+      "verification": {
+        "status": "illustrative",
+        "geometryApproved": false,
+        "fitmentApproved": false
+      },
+      "source": {
+        "kind": "prototype",
+        "reference": "src/lib/catalogue.ts",
+        "note": "Migrated unchanged from the original illustrative catalogue; not supplier verified."
+      },
+      "dimensions": {
+        "overall": 78,
+        "threadA": {
+          "dia": 18,
+          "pitch": 1.5,
+          "dir": "RH",
+          "length": 26,
+          "cls": "6g",
+          "role": "Flange end"
+        },
+        "collar": {
+          "shape": "round",
+          "dia": 24,
+          "length": 12
+        },
+        "threadB": {
+          "dia": 20,
+          "pitch": 1.5,
+          "dir": "RH",
+          "length": 40,
+          "cls": "6g",
+          "role": "Wheel end"
+        }
+      }
+    },
+    {
+      "sku": "SS-2001",
+      "template": "wheel-nut",
+      "verification": {
+        "status": "illustrative",
+        "geometryApproved": false,
+        "fitmentApproved": false
+      },
+      "source": {
+        "kind": "prototype",
+        "reference": "src/lib/catalogue.ts",
+        "note": "Migrated unchanged from the original illustrative catalogue; not supplier verified."
+      },
+      "dimensions": {
+        "overall": 24,
+        "thread": {
+          "dia": 20,
+          "pitch": 1.5,
+          "dir": "RH",
+          "cls": "6H"
+        },
+        "af": 32,
+        "height": 24,
+        "seat": {
+          "type": "cone60",
+          "dia": 28
+        },
+        "idGroove": false
+      }
+    },
+    {
+      "sku": "SS-2002",
+      "template": "wheel-nut",
+      "verification": {
+        "status": "illustrative",
+        "geometryApproved": false,
+        "fitmentApproved": false
+      },
+      "source": {
+        "kind": "prototype",
+        "reference": "src/lib/catalogue.ts",
+        "note": "Migrated unchanged from the original illustrative catalogue; not supplier verified."
+      },
+      "dimensions": {
+        "overall": 27,
+        "thread": {
+          "dia": 22,
+          "pitch": 1.5,
+          "dir": "RH",
+          "cls": "6H"
+        },
+        "af": 32,
+        "height": 27,
+        "seat": {
+          "type": "flat-flange",
+          "dia": 46,
+          "thickness": 4.5
+        },
+        "idGroove": false
+      }
+    },
+    {
+      "sku": "SS-2003",
+      "template": "wheel-nut",
+      "verification": {
+        "status": "illustrative",
+        "geometryApproved": false,
+        "fitmentApproved": false
+      },
+      "source": {
+        "kind": "prototype",
+        "reference": "src/lib/catalogue.ts",
+        "note": "Migrated unchanged from the original illustrative catalogue; not supplier verified."
+      },
+      "dimensions": {
+        "overall": 24,
+        "thread": {
+          "dia": 20,
+          "pitch": 1.5,
+          "dir": "LH",
+          "cls": "6H"
+        },
+        "af": 32,
+        "height": 24,
+        "seat": {
+          "type": "cone60",
+          "dia": 28
+        },
+        "idGroove": true
+      }
+    }
+  ]
+}

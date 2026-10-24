@@ -1,6 +1,7 @@
-/* StudSport sample catalogue — the single source of truth for every page, card, drawing and 3D model.
-   ILLUSTRATIVE DATA ONLY: names, dimensions, fitment, prices and availability are invented
-   and must be replaced by verified records before launch. See design/HANDOFF.md for the DB mapping. */
+import { modelDims } from './model-data';
+/* Illustrative product catalogue metadata. All 3D model dimensions live in
+   src/data/part-models.json, loaded and type-checked through model-data.ts.
+   None of the sample data establishes real inventory, fitment or compliance. */
 
 export type ThreadDir = 'RH' | 'LH';
 export type ProductType = 'wheel-stud' | 'hub-bolt' | 'double-ended' | 'stud-nut-set' | 'wheel-nut';
@@ -139,13 +140,7 @@ export const products: Product[] = [
       { vehicle: 'toyota-dyna', model: 'Dyna 200 / 300', years: '1995–2011', position: 'Front', side: 'Right side', notes: 'Single front wheel' },
       { vehicle: 'hino', model: 'Dutro', years: '2000–2011', position: 'Front', side: 'Right side', notes: '' }
     ],
-    dims: {
-      overall: 74,
-      head:     { shape: 'd-flat', dia: 34, thickness: 8, flatAcross: 32 },
-      knurl:    { dia: 22.4, length: 14, splines: 36 },
-      shoulder: { dia: 20, length: 6 },
-      thread:   { dia: 20, pitch: 1.5, dir: 'RH', length: 46, cls: '6g' }
-    },
+    dims: modelDims('SS-1001', 'press-in-stud'),
     material: 'Alloy steel, quenched & tempered', grade: '10.9', finish: 'zinc-yellow',
     includes: 'stud', components: [{ qty: 1, label: 'Wheel stud', partNo: 'SS-1001' }],
     matchingNut: 'SS-2001',
@@ -165,13 +160,7 @@ export const products: Product[] = [
       { vehicle: 'toyota-dyna', model: 'Dyna 200 / 300', years: '1995–2011', position: 'Front', side: 'Left side', notes: 'Single front wheel' },
       { vehicle: 'hino', model: 'Dutro', years: '2000–2011', position: 'Front', side: 'Left side', notes: '' }
     ],
-    dims: {
-      overall: 74,
-      head:     { shape: 'd-flat', dia: 34, thickness: 8, flatAcross: 32 },
-      knurl:    { dia: 22.4, length: 14, splines: 36 },
-      shoulder: { dia: 20, length: 6 },
-      thread:   { dia: 20, pitch: 1.5, dir: 'LH', length: 46, cls: '6g' }
-    },
+    dims: modelDims('SS-1002', 'press-in-stud'),
     material: 'Alloy steel, quenched & tempered', grade: '10.9', finish: 'zinc-yellow',
     includes: 'stud', components: [{ qty: 1, label: 'Wheel stud, LH', partNo: 'SS-1002' }],
     matchingNut: 'SS-2003',
@@ -190,13 +179,7 @@ export const products: Product[] = [
     applications: [
       { vehicle: 'toyota-dyna', model: 'Dyna 300 / 400', years: '1995–2011', position: 'Rear', side: 'Right side', notes: 'Dual rear wheels' }
     ],
-    dims: {
-      overall: 94,
-      head:     { shape: 'd-flat', dia: 34, thickness: 8, flatAcross: 32 },
-      knurl:    { dia: 22.4, length: 14, splines: 36 },
-      shoulder: { dia: 20, length: 10 },
-      thread:   { dia: 20, pitch: 1.5, dir: 'RH', length: 62, cls: '6g' }
-    },
+    dims: modelDims('SS-1003', 'press-in-stud'),
     material: 'Alloy steel, quenched & tempered', grade: '10.9', finish: 'zinc-yellow',
     includes: 'stud', components: [{ qty: 1, label: 'Wheel stud, long', partNo: 'SS-1003' }],
     matchingNut: 'SS-2001',
@@ -215,13 +198,7 @@ export const products: Product[] = [
     applications: [
       { vehicle: 'isuzu', model: 'N-Series NPR / NQR', years: '2004–2016', position: 'Rear', side: 'Right side', notes: '' }
     ],
-    dims: {
-      overall: 85,
-      head:     { shape: 'round', dia: 40, thickness: 9 },
-      knurl:    { dia: 24.6, length: 16, splines: 40 },
-      shoulder: { dia: 22, length: 8 },
-      thread:   { dia: 22, pitch: 1.5, dir: 'RH', length: 52, cls: '6g' }
-    },
+    dims: modelDims('SS-1010', 'press-in-stud'),
     material: 'Alloy steel, quenched & tempered', grade: '10.9', finish: 'black-phosphate',
     includes: 'stud', components: [{ qty: 1, label: 'Hub bolt', partNo: 'SS-1010' }],
     matchingNut: null,
@@ -240,13 +217,7 @@ export const products: Product[] = [
     applications: [
       { vehicle: 'isuzu', model: 'N-Series NPR / NQR', years: '2004–2016', position: 'Rear', side: 'Left side', notes: '' }
     ],
-    dims: {
-      overall: 85,
-      head:     { shape: 'round', dia: 40, thickness: 9 },
-      knurl:    { dia: 24.6, length: 16, splines: 40 },
-      shoulder: { dia: 22, length: 8 },
-      thread:   { dia: 22, pitch: 1.5, dir: 'LH', length: 52, cls: '6g' }
-    },
+    dims: modelDims('SS-1011', 'press-in-stud'),
     material: 'Alloy steel, quenched & tempered', grade: '10.9', finish: 'black-phosphate',
     includes: 'stud', components: [{ qty: 1, label: 'Hub bolt, LH', partNo: 'SS-1011' }],
     matchingNut: null,
@@ -265,13 +236,7 @@ export const products: Product[] = [
     applications: [
       { vehicle: 'mitsubishi-canter', model: 'Canter FE', years: '2002–2012', position: 'Front & rear', side: 'Both sides', notes: '' }
     ],
-    dims: {
-      overall: 64,
-      head:     { shape: 'd-flat', dia: 30, thickness: 7, flatAcross: 28 },
-      knurl:    { dia: 20.2, length: 12, splines: 32 },
-      shoulder: { dia: 18, length: 5 },
-      thread:   { dia: 18, pitch: 1.5, dir: 'RH', length: 40, cls: '6g' }
-    },
+    dims: modelDims('SS-1020', 'press-in-stud'),
     material: 'Alloy steel, quenched & tempered', grade: '10.9', finish: 'zinc-flake',
     includes: 'stud', components: [{ qty: 1, label: 'Wheel stud', partNo: 'SS-1020' }],
     matchingNut: null,
@@ -292,13 +257,7 @@ export const products: Product[] = [
       { vehicle: 'volvo', model: 'FM / FH', years: '2005–2018', position: 'Front & rear', side: 'Both sides', notes: '' },
       { vehicle: 'scania', model: 'P / G / R', years: '2005–2016', position: 'Front & rear', side: 'Both sides', notes: '' }
     ],
-    dims: {
-      overall: 108,
-      head:     { shape: 'round', dia: 40, thickness: 10 },
-      knurl:    { dia: 24.6, length: 16, splines: 40 },
-      shoulder: { dia: 22, length: 12 },
-      thread:   { dia: 22, pitch: 1.5, dir: 'RH', length: 70, cls: '6g' }
-    },
+    dims: modelDims('SS-1030', 'stud-nut'),
     assembly: { nut: 'SS-2002', clampLength: 50 },
     material: 'Alloy steel, quenched & tempered', grade: '10.9', finish: 'zinc-clear',
     includes: 'stud-nut', components: [
@@ -321,12 +280,7 @@ export const products: Product[] = [
     applications: [
       { vehicle: 'nissan-ud', model: 'Condor', years: '1998–2012', position: 'Rear', side: 'Both sides', notes: 'Hub end screws into hub flange' }
     ],
-    dims: {
-      overall: 84,
-      threadA: { dia: 20, pitch: 1.5, dir: 'RH', length: 30, cls: '6g', role: 'Hub end' },
-      collar:  { shape: 'hex', af: 27, length: 10 },
-      threadB: { dia: 20, pitch: 1.5, dir: 'RH', length: 44, cls: '6g', role: 'Wheel end' }
-    },
+    dims: modelDims('SS-1040', 'double-ended'),
     material: 'Alloy steel, quenched & tempered', grade: '10.9', finish: 'black-oxide',
     includes: 'stud', components: [{ qty: 1, label: 'Double-ended hub bolt', partNo: 'SS-1040' }],
     matchingNut: 'SS-2001',
@@ -345,12 +299,7 @@ export const products: Product[] = [
     applications: [
       { vehicle: 'nissan-ud', model: 'MK Series', years: '2000–2010', position: 'Rear', side: 'Both sides', notes: 'Axle flange' }
     ],
-    dims: {
-      overall: 78,
-      threadA: { dia: 18, pitch: 1.5, dir: 'RH', length: 26, cls: '6g', role: 'Flange end' },
-      collar:  { shape: 'round', dia: 24, length: 12 },
-      threadB: { dia: 20, pitch: 1.5, dir: 'RH', length: 40, cls: '6g', role: 'Wheel end' }
-    },
+    dims: modelDims('SS-1041', 'double-ended'),
     material: 'Alloy steel, quenched & tempered', grade: '8.8', finish: 'zinc-yellow',
     includes: 'stud', components: [{ qty: 1, label: 'Double-ended hub bolt, stepped', partNo: 'SS-1041' }],
     matchingNut: 'SS-2001',
@@ -370,13 +319,7 @@ export const products: Product[] = [
       { vehicle: 'toyota-dyna', model: 'Dyna 200 / 300 / 400', years: '1995–2011', position: 'Front & rear', side: 'Right side', notes: 'Use with SS-1001 / SS-1003' },
       { vehicle: 'hino', model: 'Dutro', years: '2000–2011', position: 'Front & rear', side: 'Right side', notes: '' }
     ],
-    dims: {
-      overall: 24,
-      thread: { dia: 20, pitch: 1.5, dir: 'RH', cls: '6H' },
-      af: 32, height: 24,
-      seat: { type: 'cone60', dia: 28 },
-      idGroove: false
-    },
+    dims: modelDims('SS-2001', 'wheel-nut'),
     material: 'Carbon steel', grade: '10', finish: 'zinc-clear',
     includes: 'nut', components: [{ qty: 1, label: 'Wheel nut', partNo: 'SS-2001' }],
     matchingNut: null,
@@ -397,13 +340,7 @@ export const products: Product[] = [
       { vehicle: 'volvo', model: 'FM / FH', years: '2005–2018', position: 'Front & rear', side: 'Both sides', notes: '' },
       { vehicle: 'scania', model: 'P / G / R', years: '2005–2016', position: 'Front & rear', side: 'Both sides', notes: '' }
     ],
-    dims: {
-      overall: 27,
-      thread: { dia: 22, pitch: 1.5, dir: 'RH', cls: '6H' },
-      af: 32, height: 27,
-      seat: { type: 'flat-flange', dia: 46, thickness: 4.5 },
-      idGroove: false
-    },
+    dims: modelDims('SS-2002', 'wheel-nut'),
     material: 'Carbon steel', grade: '10', finish: 'zinc-flake',
     includes: 'nut', components: [{ qty: 1, label: 'Flange wheel nut', partNo: 'SS-2002' }],
     matchingNut: null,
@@ -423,13 +360,7 @@ export const products: Product[] = [
       { vehicle: 'toyota-dyna', model: 'Dyna 200 / 300 / 400', years: '1995–2011', position: 'Front & rear', side: 'Left side', notes: 'Use with SS-1002' },
       { vehicle: 'hino', model: 'Dutro', years: '2000–2011', position: 'Front & rear', side: 'Left side', notes: '' }
     ],
-    dims: {
-      overall: 24,
-      thread: { dia: 20, pitch: 1.5, dir: 'LH', cls: '6H' },
-      af: 32, height: 24,
-      seat: { type: 'cone60', dia: 28 },
-      idGroove: true
-    },
+    dims: modelDims('SS-2003', 'wheel-nut'),
     material: 'Carbon steel', grade: '10', finish: 'zinc-clear',
     includes: 'nut', components: [{ qty: 1, label: 'Wheel nut, LH', partNo: 'SS-2003' }],
     matchingNut: null,

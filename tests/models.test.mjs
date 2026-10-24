@@ -1,0 +1,13 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { inspectModels } from '../scripts/model-validation.mjs';
+const doc = JSON.parse(readFileSync(new URL('../src/data/part-models.json', import.meta.url),'utf8'));
+const copy = () => structuredClone(doc);
+test('all twelve catalogue models validate', () => {assert.equal(doc.models.length,12);assert.deepEqual(inspectModels(doc),[]);});
+test('every model identifier is unique', () => assert.equal(new Set(doc.models.map(m=>m.sku)).size,doc.models.length));
+test('length mismatch fails validation', () => {const x=copy();x.models[0].dimensions.overall+=1;assert.match(inspectModels(x).join(' '),/length mismatch/);});
+test('thread direction must be declared', () => {const x=copy();x.models[0].dimensions.thread.dir='unknown';assert.match(inspectModels(x).join(' '),/invalid thread/);});
+test('unapproved model cannot claim verified status', () => {const x=copy();x.models[0].verification.status='verified';assert.match(inspectModels(x).join(' '),/approvals required/);});
+test('a duplicate part number fails', () => {const x=copy();x.models[1].sku=x.models[0].sku;assert.match(inspectModels(x).join(' '),/duplicate model/);});
+test('all four parametric templates represented', () => assert.deepEqual(new Set(doc.models.map(m=>m.template)),new Set(['press-in-stud','stud-nut','double-ended','wheel-nut'])));
