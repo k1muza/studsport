@@ -14,7 +14,7 @@ export function inspectModels(doc) {
   const close = (a,b) => Math.abs(a-b) <= 0.01;
   for (const m of doc.models) {
     const tag = String(m?.sku || 'unknown');
-    if (!/^SS-\\d+$/.test(tag)) issues.push(`${tag}: invalid part number`);
+    if (!/^SS-\d+$/.test(tag)) issues.push(`${tag}: invalid part number`);
     if (seen.has(tag)) issues.push(`${tag}: duplicate model`);
     seen.add(tag);
     if (!['press-in-stud','stud-nut','double-ended','wheel-nut'].includes(m?.template)) {issues.push(`${tag}: invalid template`);continue;}
