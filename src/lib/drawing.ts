@@ -215,7 +215,7 @@ export function drawingSVG(p: Product, opts?: DrawingOptions) {
       const s = it.s!;
       if (s.kind === 'head') {
         if (s.shape === 'double-flat') {
-          const f = s.f, w = Math.sqrt(s.r * s.r - f * f);
+          const f = s.f!, w = Math.sqrt(s.r * s.r - f * f);
           V.poly([[-f,-w],[-f,w],[f,w],[f,-w]], Wk, th.ink, fill); // schematic two-flat silhouette
         } else if (s.f != null) V.dshape(s.r, s.f, fill);
         else { V.circle(s.r, Wk, th.ink, fill); V.circle(s.r - s.c, Wt, th.thin); }
