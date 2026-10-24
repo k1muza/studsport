@@ -57,7 +57,7 @@ export function SpecSheet({ p }: { p: Product }) {
 
             <div className={s.drawing}>
               <div className={s.drawingHead}>
-                <b>Dimensioned drawing</b>
+                <b>{p.spec.status === 'pending' ? 'Schematic geometry (not a supplier-certified drawing)' : 'Dimensioned drawing'}</b>
                 <span>Dimensions in mm · Not to scale · {LENGTH_NOTE[p.template]}</span>
               </div>
               <div className={s.drawingBody}>

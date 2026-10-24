@@ -237,7 +237,7 @@ export function drawingSVG(p: Product, opts?: DrawingOptions) {
       V.leader(ng.rMaj * Math.cos(a), ng.rMaj * Math.sin(a), ng.rc + fs * 0.8, -ng.rc - fs * 0.8, `${thread(ng.t)} - ${ng.t.cls}`, 1);
     } else if (from === 'start') {
       const s = near.s;
-      if (s && s.kind === 'head') {
+      if (s && s.kind === 'head' && s.basis !== 'schematic') {
         V.dimH(-s.r, s.r, yb, 'Ø' + n(s.r * 2), 0, 0);
         if (s.f != null) { const w = Math.sqrt(s.r * s.r - s.f * s.f); V.dimV(-R - fs * 2.4, -s.f, s.shape === 'double-flat' ? s.f : s.r, n(s.shape === 'double-flat' ? 2*s.f : s.f + s.r), -w, 0); }
       }

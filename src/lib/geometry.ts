@@ -186,10 +186,10 @@ export function callouts(p: Product): Callout[] {
   const head = g.segs.find(s => s.kind === 'head'), kn = g.segs.find(s => s.kind === 'knurl'), hx = g.segs.find(s => s.kind === 'hex' || s.kind === 'collar');
   const ths = g.segs.filter(s => s.kind === 'thread'), te = ths.find(s => s.tip === 'end')!, ts = ths.find(s => s.tip === 'start');
   out.push({ t: 'lin', a: 0, b: g.L, ra: g.segs[0].r, rb: te.rMin, s: 1, lvl: g.nut ? 2 : 1, label: `L ${n(g.L)}`, key: true });
-  out.push({ t: 'lin', a: te.y0, b: te.y1, ra: te.r, rb: te.rMin, s: -1, lvl: 0, label: `T ${n(te.y1 - te.y0)}` });
-  if (ts) out.push({ t: 'lin', a: ts.y0, b: ts.y1, ra: ts.rMin, rb: ts.r, s: -1, lvl: 0, label: `T ${n(ts.y1 - ts.y0)}` });
-  if (head && p.template !== 'double-ended') out.push({ t: 'lead', y: (head.y0 + head.y1) / 2, r: head.r, s: -1, lvl: 1, label: `Ø${n(head.r * 2)} head/collar`, dir: -1 });
-  if (kn) out.push({ t: 'lead', y: (kn.y0 + kn.y1) / 2, r: kn.r, s: -1, lvl: 0, label: `Ø${n(kn.r * 2)} knurl`, minor: true, dir: -1 });
+  if (te.basis !== 'schematic') out.push({ t: 'lin', a: te.y0, b: te.y1, ra: te.r, rb: te.rMin, s: -1, lvl: 0, label: `T ${n(te.y1 - te.y0)}` });
+  if (ts && ts.basis !== 'schematic') out.push({ t: 'lin', a: ts.y0, b: ts.y1, ra: ts.rMin, rb: ts.r, s: -1, lvl: 0, label: `T ${n(ts.y1 - ts.y0)}` });
+  if (head && head.basis !== 'schematic' && p.template !== 'double-ended') out.push({ t: 'lead', y: (head.y0 + head.y1) / 2, r: head.r, s: -1, lvl: 1, label: `Ø${n(head.r * 2)} head/collar`, dir: -1 });
+  if (kn && kn.basis !== 'schematic') out.push({ t: 'lead', y: (kn.y0 + kn.y1) / 2, r: kn.r, s: -1, lvl: 0, label: `Ø${n(kn.r * 2)} knurl`, minor: true, dir: -1 });
   out.push({ t: 'lead', y: g.nut ? te.y1 - 8 : te.y0 + (te.y1 - te.y0) * 0.62, r: te.r, s: 1, lvl: 0, label: thread(te.t), key: true, dir: 1 });
   if (ts) out.push({ t: 'lead', y: ts.y0 + (ts.y1 - ts.y0) * 0.4, r: ts.r, s: 1, lvl: 0, label: thread(ts.t), key: true, dir: -1 });
   if (hx) out.push({ t: 'lead', y: (hx.y0 + hx.y1) / 2, r: hx.r, s: -1, lvl: 1, label: hx.kind === 'hex' ? `${n(hx.af)} AF collar` : `Ø${n(hx.r * 2)} collar`, dir: 1 });
