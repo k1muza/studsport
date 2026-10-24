@@ -94,7 +94,7 @@ export function SpecSheet({ p }: { p: Product }) {
             <footer className={s.foot}>
               <div className={s.footText}>
                 <b>StudSport · {company.address}</b>
-                <span>Tel +263 [phone] · WhatsApp +263 [number] · {company.email}</span>
+                <span>Tel {company.phone} · WhatsApp {company.whatsapp} · {company.email}</span>
                 <span>{company.web}/products/{p.slug}</span>
               </div>
               <span className={s.stamp}>Illustrative prototype data. Verify specifications and fitment before use.</span>
