@@ -5,6 +5,7 @@ import type { Product, FinishKey } from '../catalogue';
 import { finishes } from '../catalogue';
 import { geom, type Seg, type NutGeom, type Geom } from '../geometry';
 import { neutralThreadRadius } from './neutral-thread-profile.mjs';
+import { headProfileRings } from './head-profile.mjs';
 
 export type Three = typeof THREE;
 const TAU = Math.PI * 2;
@@ -145,13 +146,20 @@ export function partGroup(T: Three, p: Product, mats: MatFactory): { grp: THREE.
   g.segs.forEach((s, i) => {
     const nx = g.segs[i + 1];
     if (s.kind === 'head') {
-      const inner = nx && nx.kind === 'knurl' ? nx.rIn - 0.2 : nx ? nx.r : 0;
-      // D-flat head through radial clamping.
+      const prev = g.segs[i - 1];
+      const inner = nx && nx.kind === 'knurl' ? nx.rIn - 0.2 : nx ? startR(nx) : 0;
+      // A central drive flat is an axial section, NOT another head at y=0.
+      // Its own annular shoulders join the neighbouring shaft diameters.
+      // This also prevents the internal drive from swallowing the first thread.
+      const rings = headProfileRings({
+        start: s.y0, end: s.y1, radius: s.r, chamfer: s.c,
+        incomingRadius: prev ? endR(prev) : null, outgoingRadius: inner,
+      });
       const mod = s.f != null ? (r: number, ph: number) => {
         const c = s.shape === 'double-flat' ? Math.abs(Math.cos(ph)) : Math.cos(ph);
         return c > 0.02 ? Math.min(r, s.f! / c) : r;
       } : null;
-      lathe(T, [[0, 0], [s.r - s.c, 0], [s.r, s.c], [s.r, s.y1 - 0.5], [s.r - 0.5, s.y1], [inner, s.y1]], 160, mod).forEach(x => add(x));
+      lathe(T, rings, 160, mod).forEach(x => add(x));
     } else if (s.kind === 'knurl') add(knurlGeo(T, s));
     else if (s.kind === 'plain') lathe(T, [[s.r, s.y0], [s.r, s.y1]], 96).forEach(x => add(x));
     else if (s.kind === 'collar') lathe(T, [[s.r - 0.6, s.y0], [s.r, s.y0 + 0.6], [s.r, s.y1 - 0.6], [s.r - 0.6, s.y1]], 96).forEach(x => add(x));
@@ -161,7 +169,12 @@ export function partGroup(T: Three, p: Product, mats: MatFactory): { grp: THREE.
       const rt = s.rMin - 0.25, y = s.tip === 'end' ? s.y1 : s.y0;
       lathe(T, [[rt, y], [0, y]], 72).forEach(x => add(x));
     }
-    if (nx && s.kind !== 'head') { const a = endR(s), b = startR(nx); if (Math.abs(a - b) > 0.01) lathe(T, [[a, s.y1], [b, s.y1]], 96).forEach(x => add(x)); }
+    // A head/central-drive section already owns its entry shoulder.
+    // Avoid drawing a duplicate disc at the previous segment's end.
+    if (nx && s.kind !== 'head' && nx.kind !== 'head') {
+      const a = endR(s), b = startR(nx);
+      if (Math.abs(a - b) > 0.01) lathe(T, [[a, s.y1], [b, s.y1]], 96).forEach(x => add(x));
+    }
   });
   if (g.nut) {
     const nm = mats(g.nut.finish || p.finish);

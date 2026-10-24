@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { inspectModels } from '../scripts/model-validation.mjs';
 import { neutralThreadRadius } from '../src/lib/three/neutral-thread-profile.mjs';
+import { headProfileRings } from '../src/lib/three/head-profile.mjs';
 const doc = JSON.parse(readFileSync(new URL('../src/data/part-models.json', import.meta.url),'utf8'));
 const copy = () => structuredClone(doc);
 test('all eighteen catalogue models validate', () => {assert.equal(doc.models.length,18);assert.deepEqual(inspectModels(doc),[]);});
@@ -55,4 +56,31 @@ test('grooves are symmetric and bounded on every supplier nominal thread', () =>
         `${model.sku}: radius bounds`);
     }
   }
+});
+
+test('SS-3006 central drive begins at its own section, never at world origin', () => {
+  const part = doc.models.find(m => m.sku === 'SS-3006');
+  const sections = part.dimensions.sections;
+  const idx = sections.findIndex((s, i) => i > 0 && s.kind === 'head');
+  assert.ok(idx > 0, 'expected a central double-flat drive');
+  const start = sections.slice(0, idx).reduce((sum, s) => sum + s.length, 0);
+  const drive = sections[idx], previous = sections[idx - 1], next = sections[idx + 1];
+  assert.equal(start, 36);
+  const rings = headProfileRings({
+    start, end: start + drive.length, radius: drive.dia / 2,
+    incomingRadius: previous.dia / 2, outgoingRadius: next.dia / 2,
+  });
+  assert.deepEqual(rings, [[10, 36], [16, 36], [16, 41], [11, 41]]);
+  assert.ok(rings.every(([, y]) => y >= start && y <= start + drive.length));
+});
+test('central drive step consists of joined annular shoulders, not an extra cap', () => {
+  const rings = headProfileRings({start: 36, end: 41, radius: 16, incomingRadius: 10, outgoingRadius: 11});
+  assert.deepEqual(rings.map(([, y]) => y), [36,36,41,41]);
+  assert.ok(rings.every(([r]) => r > 0));
+});
+test('original first-end heads remain capped and chamfered within their section', () => {
+  const rings = headProfileRings({start: 0, end: 8, radius: 17, chamfer: 0.8, outgoingRadius: 11});
+  assert.deepEqual(rings[0], [0,0]);
+  assert.deepEqual(rings[rings.length-1], [11,8]);
+  assert.ok(rings.every(([,y]) => y >= 0 && y <= 8));
 });
