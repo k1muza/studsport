@@ -833,7 +833,13 @@
               "dir": "UNSPECIFIED",
               "cls": "6h"
             },
-            "note": "Drawing specifies MINIMUM 27 mm (not exact). Nominal 27 mm rendered; left-tip 30° chamfer not dimensioned sufficiently for precise geometry."
+            "note": "Left external thread shown as minimum 27 mm; 30° terminal chamfer with Ø16 (0/-0.5) is derived nominally from the supplier's drawing.",
+            "tipChamfer": {
+              "lengthMm": 3.46,
+              "tipDiameterMm": 16,
+              "basis": "derived",
+              "note": "Nominal left 30° lead-in to Ø16 (0/-0.5); 3.46 mm axial extent calculated from 2 mm radial reduction / tan 30°. Rendering approximation, not confirmed length."
+            }
           },
           {
             "kind": "plain",
@@ -868,9 +874,15 @@
           {
             "kind": "plain",
             "length": 6,
-            "dia": 20,
+            "dia": 17,
             "basis": "schematic",
-            "note": "6 mm remainder of 16 mm span after 1.5 mm lead and 8.5 mm knurl. Local relief/chamfer and diameter are approximated."
+            "note": "Right reduced Ø17 shank; supplier shows 30° transition into M20. Taper length 2.6 mm calculated nominally; local runout not manufacturing grade.",
+            "endTaper": {
+              "lengthMm": 2.6,
+              "endDiameterMm": 20,
+              "basis": "derived",
+              "note": "Ø17 reduced shank rising to M20 thread at the 30° right-side shoulder; 2.6 mm axial extent from (20−17)/2/tan30°. Nominal visualization."
+            }
           },
           {
             "kind": "thread",
@@ -883,16 +895,22 @@
               "dir": "UNSPECIFIED",
               "cls": "6h"
             },
-            "note": "22 mm nominal = 38 ±0.5 mm right span minus 16 (0/-0.7) mm shoulder span; nominal display length only. Right tip has a 4 mm chamfer per drawing."
+            "note": "Nominal right thread span 22 mm; 4 mm rightmost lead-in represented with approximate Ø18 terminal face. Thread hand and tip diameter remain unconfirmed.",
+            "tipChamfer": {
+              "lengthMm": 4,
+              "tipDiameterMm": 18,
+              "basis": "schematic",
+              "note": "Supplier marks 4 mm at right tip; Ø18 tip is an UNVERIFIED visual estimate, not supplied as an explicit diameter. Do not assume a 30° angle here; 30° in source is at adjoining shoulder."
+            }
           }
         ],
         "uncertainties": [
           "Flange outside diameter is not dimensioned in the supplied view; Ø30 is a schematic visualization estimate, not a supplier claim.",
           "Left thread callout is min 27 mm, so nominal 27 mm rendering does not prove exact left thread/neck/flange boundaries.",
-          "Right thread nominal 22 mm derives from 38−16 and carries the source dimension tolerances; the local relief, Ø17 feature and 30°/4 mm tip chamfers need further detailed geometry.",
-          "R3 and R0.6 transitions are present in the drawing but are approximated by basic shoulders in this 3D visualization.",
+          "Right terminal taper is drawn across 4 mm but no definite terminal diameter is provided; model uses schematic Ø18. Source Ø17 refers to the reduced shank near the right shoulder, not the terminal face.",
           "Z50±1 indicates nominal 50 splines; their 3D tooth depth is illustrative. Ø20.45±0.02 is stated before rolling, not a finished knurl-root dimension.",
-          "Supplier vehicle name 'Toyota Rino', OEM reference, exact material/finish and right/left-hand variant are not independently verified."
+          "Supplier vehicle name 'Toyota Rino', OEM reference, exact material/finish and right/left-hand variant are not independently verified.",
+          "Left 30° chamfer and right shoulder 30° ramp are nominal geometric inferences; thread runout, R3 and R0.6 fillets and exact end faces remain simplified."
         ],
         "measurements": [
           {
@@ -968,9 +986,22 @@
             "basis": "drawing"
           },
           {
-            "label": "Shoulder and tip features",
-            "value": "R3; R0.6; 30° ends; 4 mm right end chamfer",
-            "basis": "drawing"
+            "label": "Left end chamfer",
+            "value": "30°; Ø16 mm (0/-0.5), axial length approximately 3.46 mm derived",
+            "basis": "derived",
+            "note": "Not a directly dimensioned chamfer length"
+          },
+          {
+            "label": "Right shoulder",
+            "value": "Ø17 to M20 at 30°, nominal ramp ≈2.60 mm",
+            "basis": "derived",
+            "note": "Ramp derived from radial difference and the supplier's 30° marking"
+          },
+          {
+            "label": "Right tip lead",
+            "value": "4 mm marked; model's Ø18 tip is schematic",
+            "basis": "drawing",
+            "note": "Tip diameter is not established; right shoulder's 30° angle must not be applied to the outer tip"
           }
         ]
       }

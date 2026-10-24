@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs';
 import { inspectModels } from '../scripts/model-validation.mjs';
 import { neutralThreadRadius } from '../src/lib/three/neutral-thread-profile.mjs';
 import { headProfileRings } from '../src/lib/three/head-profile.mjs';
+import { tipChamferRadius, plainTaperRings } from '../src/lib/three/taper-profile.mjs';
 const doc = JSON.parse(readFileSync(new URL('../src/data/part-models.json', import.meta.url),'utf8'));
 const copy = () => structuredClone(doc);
 test('all eighteen catalogue models validate', () => {assert.equal(doc.models.length,18);assert.deepEqual(inspectModels(doc),[]);});
@@ -112,4 +113,39 @@ test('supplier knurl visual depth is validated', () => {
   const d=copy();
   d.models.find(m=>m.sku==='SS-3005').dimensions.sections.find(s=>s.kind==='knurl').visualDepthMm=100;
   assert.match(inspectModels(d).join(' '),/invalid visual knurl depth/);
+});
+
+test('SS-3005 has 30-degree nominal left lead and right shoulder plus schematic right tip', () => {
+  const dims=doc.models.find(m=>m.sku==='SS-3005').dimensions;
+  const left=dims.sections[0], relief=dims.sections[5], right=dims.sections[6];
+  assert.equal(dims.overall,75);
+  assert.equal(left.tipChamfer.tipDiameterMm,16);
+  assert.ok(Math.abs(left.tipChamfer.lengthMm - (2/Math.tan(Math.PI/6))) < 0.01);
+  assert.equal(right.tipChamfer.lengthMm,4);
+  assert.equal(right.tipChamfer.basis,'schematic');
+  assert.equal(relief.dia,17);
+  assert.equal(relief.endTaper.endDiameterMm,20);
+  assert.ok(Math.abs(relief.endTaper.lengthMm - (1.5/Math.tan(Math.PI/6))) < 0.01);
+  assert.deepEqual(plainTaperRings(47,53,8.5,2.6,10),[[8.5,47],[8.5,50.4],[10,53]]);
+});
+test('sloped left and right tips preserve end radii and the source overall length', () => {
+  const L=27, left={lengthMm:3.46,tipDiameterMm:16}, right={lengthMm:4,tipDiameterMm:18};
+  const le=x=>tipChamferRadius(x,0,L,10,'start',left);
+  const re=x=>tipChamferRadius(x,53,75,10,'end',right);
+  assert.equal(le(0),8);
+  assert.equal(le(3.46),10);
+  assert.equal(le(27),10);
+  assert.equal(re(75),9);
+  assert.equal(re(71),10);
+  assert.equal(re(53),10);
+  assert.ok(le(1.73)>8 && le(1.73)<10);
+  assert.ok(re(73)>9 && re(73)<10);
+});
+test('rejects invalid chamfers and tapers without changing the source drawings', () => {
+  const d=copy().models.find(m=>m.sku==='SS-3005');
+  const copyDocument=copy(), p=copyDocument.models.find(m=>m.sku==='SS-3005');
+  p.dimensions.sections[0].tipChamfer.lengthMm=30;
+  p.dimensions.sections[5].endTaper.lengthMm=7;
+  assert.match(inspectModels(copyDocument).join(' '),/invalid exposed-end chamfer/);
+  assert.match(inspectModels(copyDocument).join(' '),/invalid plain-shaft taper/);
 });

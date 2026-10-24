@@ -97,10 +97,19 @@ export function drawingSVG(p: Product, opts?: DrawingOptions) {
     switch (s.kind) {
       case 'head': return top && s.f != null ? [[s.y0, s.f], [s.y1, s.f]] : [[s.y0, s.r - s.c], [s.y0 + s.c, s.r], [s.y1 - 0.4, s.r], [s.y1, s.r - 0.4]];
       case 'knurl': return [[s.y0, s.r], [s.y1 - s.taper, s.r], [s.y1, s.rNext]];
-      case 'plain': return [[s.y0, s.r], [s.y1, s.r]];
+      case 'plain': return s.endTaper ? [[s.y0, s.r], [s.y1 - s.endTaper.lengthMm, s.r], [s.y1, s.endTaper.endDiameterMm / 2]] : [[s.y0, s.r], [s.y1, s.r]];
       case 'collar': return [[s.y0, s.r - 0.6], [s.y0 + 0.6, s.r], [s.y1 - 0.6, s.r], [s.y1, s.r - 0.6]];
       case 'hex': { const c0 = (s.af / 2) * 0.96, ch = (s.r - c0) / 1.732; return [[s.y0, c0], [s.y0 + ch, s.r], [s.y1 - ch, s.r], [s.y1, c0]]; }
-      case 'thread': { const c = s.r - (s.rMin - 0.25); return s.tip === 'end' ? [[s.y0, s.r], [s.y1 - c, s.r], [s.y1, s.r - c]] : [[s.y0, s.r - c], [s.y0 + c, s.r], [s.y1, s.r]]; }
+      case 'thread': {
+        if (s.tipChamfer) {
+          const endR = s.tipChamfer.tipDiameterMm / 2, len = s.tipChamfer.lengthMm;
+          return s.tip === 'end'
+            ? [[s.y0,s.r],[s.y1-len,s.r],[s.y1,endR]]
+            : [[s.y0,endR],[s.y0+len,s.r],[s.y1,s.r]];
+        }
+        const c = s.r - (s.rMin - 0.25);
+        return s.tip === 'end' ? [[s.y0, s.r], [s.y1 - c, s.r], [s.y1, s.r - c]] : [[s.y0, s.r - c], [s.y0 + c, s.r], [s.y1, s.r]];
+      }
     }
   };
 
@@ -223,7 +232,12 @@ export function drawingSVG(p: Product, opts?: DrawingOptions) {
       else if (s.kind === 'knurl') { V.circle(s.r, Wk, th.ink, fill); V.circle(s.rIn, Wt, th.thin, 'none', dash); }
       else if (s.kind === 'plain' || s.kind === 'collar') V.circle(s.r, Wk, th.ink, fill);
       else if (s.kind === 'hex') { V.hexagon(s.r, fill); V.circle((s.af / 2) * 0.96, Wk, th.ink, 'none'); }
-      else if (s.kind === 'thread') { V.circle(s.r, Wk, th.ink, fill); if ((from === 'end' && s.tip === 'end') || (from === 'start' && s.tip === 'start')) V.arc34(s.rMin, Wt); }
+      else if (s.kind === 'thread') {
+        const endOnView = (from === 'end' && s.tip === 'end') || (from === 'start' && s.tip === 'start');
+        const faceR = endOnView && s.tipChamfer ? s.tipChamfer.tipDiameterMm / 2 : s.r;
+        V.circle(faceR, Wk, th.ink, fill);
+        if (endOnView) V.arc34(Math.min(s.rMin, faceR * 0.9), Wt);
+      }
     });
     const R = g.maxR;
     V.cl(-R - fs, 0, R + fs, 0); V.cl(0, -R - fs, 0, R + fs);

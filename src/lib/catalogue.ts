@@ -50,6 +50,10 @@ export interface ProfileSection {
   splines?: number;
   /** Rendering-only spline depth (mm); not a manufacturing specification. */
   visualDepthMm?: number;
+  /** Render-only end chamfer, applied at the exposed thread tip (not an OEM fitment spec). */
+  tipChamfer?: { lengthMm: number; tipDiameterMm: number; basis: 'drawing' | 'derived' | 'schematic'; note?: string };
+  /** Optional shaft-to-thread taper in the final part of a plain section. */
+  endTaper?: { lengthMm: number; endDiameterMm: number; basis: 'drawing' | 'derived' | 'schematic'; note?: string };
   thread?: Thread;
 }
 export interface ProfiledDims {

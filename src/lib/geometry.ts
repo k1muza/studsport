@@ -14,6 +14,8 @@ export interface Seg {
   // head
   shape: 'd-flat' | 'round' | 'double-flat';
   basis?: 'drawing' | 'derived' | 'schematic';
+  tipChamfer?: { lengthMm: number; tipDiameterMm: number; basis: 'drawing' | 'derived' | 'schematic'; note?: string };
+  endTaper?: { lengthMm: number; endDiameterMm: number; basis: 'drawing' | 'derived' | 'schematic'; note?: string };
   f: number | null;
   c: number;
   // knurl
@@ -91,10 +93,10 @@ export function geom(p: Product): Geom {
           taper: Math.min(1.5,s.length * .12),rNext:(next?.dia || s.dia)/2,basis:s.basis}));
       } else if (s.kind === 'thread') {
         const t = { ...s.thread!, length:s.length };
-        segs.push(seg({...thr(t,y0,y1,i === 0 ? 'start' : 'end'),basis:s.basis}));
+        segs.push(seg({...thr(t,y0,y1,i === 0 ? 'start' : 'end'),basis:s.basis,tipChamfer:s.tipChamfer}));
       } else if (s.kind === 'hex') {
         segs.push(seg({kind:'hex',y0,y1,r: s.af! / Math.sqrt(3),af:s.af!,basis:s.basis}));
-      } else segs.push(seg({kind:s.kind,y0,y1,r,basis:s.basis}));
+      } else segs.push(seg({kind:s.kind,y0,y1,r,basis:s.basis,endTaper:s.endTaper}));
       y = y1;
     }
     g = {L:y,segs,maxR:0};

@@ -35,6 +35,19 @@ export function inspectModels(doc) {
         if (s.kind === 'knurl' && s.visualDepthMm != null &&
             (!(s.visualDepthMm > 0) || s.visualDepthMm >= s.dia / 2)) issues.push(`${tag} section ${i}: invalid visual knurl depth`);
         if (s.kind === 'knurl' && (!Number.isInteger(s.splines) || s.splines < 0)) issues.push(`${tag} section ${i}: invalid spline count`);
+        if (s.tipChamfer) {
+          const c=s.tipChamfer;
+          if (s.kind !== 'thread' || !positive(c.lengthMm) || c.lengthMm >= s.length ||
+              !positive(c.tipDiameterMm) || c.tipDiameterMm >= s.dia ||
+              !['drawing','derived','schematic'].includes(c.basis))
+            issues.push(`${tag} section ${i}: invalid exposed-end chamfer`);
+        }
+        if (s.endTaper) {
+          const t=s.endTaper;
+          if (s.kind !== 'plain' || !positive(t.lengthMm) || t.lengthMm >= s.length ||
+              !positive(t.endDiameterMm) || !['drawing','derived','schematic'].includes(t.basis))
+            issues.push(`${tag} section ${i}: invalid plain-shaft taper`);
+        }
         if (s.kind === 'thread') {
           const t=s.thread;
           if (!t || !positive(t.dia) || !positive(t.pitch) || !['RH','LH','UNSPECIFIED'].includes(t.dir) || !t.cls || t.dia !== s.dia) issues.push(`${tag} section ${i}: invalid thread`);
