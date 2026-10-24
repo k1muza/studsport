@@ -150,7 +150,7 @@ export function drawingSVG(p: Product, opts?: DrawingOptions) {
       const t = cont(s, true), b = cont(s, false), nx = segs[i + 1];
       if (nx) { const nt = cont(nx, true), nb = cont(nx, false); V.line(s.y1, -Math.max(t[t.length - 1][1], nt[0][1]), s.y1, Math.max(b[b.length - 1][1], nb[0][1])); }
       if (s.kind === 'head') V.line(s.y0 + s.c, -(s.f != null ? s.f : s.r), s.y0 + s.c, s.r);
-      if (s.kind === 'knurl') {
+      if (s.kind === 'knurl' && s.splines > 0) {
         const x2 = s.y1 - s.taper; V.line(x2, -s.r, x2, s.r);
         const step = Math.max(2, Math.round(s.splines / 14));
         for (let k = 1; (k * step * TAU) / s.splines < Math.PI - 0.05; k++) { const yy = s.r * Math.cos((k * step * TAU) / s.splines); V.line(s.y0 + 0.3, yy, x2 - 0.3, yy, Wt, th.thin); }
@@ -171,11 +171,14 @@ export function drawingSVG(p: Product, opts?: DrawingOptions) {
     const yTip = -top[top.length - 1][1];
     let ya = -(maxTop + fs * 2.4);
     if (g.nut) { V.dimH(g.nut.y0, g.nut.y0 + g.nut.H, ya, L('Hn', n(g.nut.H)), -g.nut.maxR, -g.nut.c0, null); ya -= fs * 2.8; }
-    if (head) { V.dimH(head.y1, Lt, ya, L('Lu', 'Lu ' + n(Lt - head.y1)), -(head.f != null ? head.f : head.r), yTip); ya -= fs * 2.8; }
+    if (head && head.y0 === 0) { V.dimH(head.y1, Lt, ya, L('Lu', 'Lu ' + n(Lt - head.y1)), -(head.f != null ? head.f : head.r), yTip); ya -= fs * 2.8; }
     V.dimH(0, Lt, ya, L('L', 'L ' + n(Lt)), -top[0][1], yTip);
     const yb = maxBot + fs * 2.4;
     const letters: Partial<Record<Seg['kind'], string>> = { head: 'H', knurl: 'K', plain: 'S', hex: 'C', collar: 'C' };
     segs.forEach((s, i) => {
+      // Schematic section lengths are NOT supplier dimensions; do not put false
+      // precision into the drawing's dimension chain.
+      if (p.template === 'profiled-fastener' && s.basis === 'schematic') return;
       const b = cont(s, false), pv = segs[i - 1], nx = segs[i + 1];
       const fa = Math.max(b[0][1], pv ? cont(pv, false).slice(-1)[0][1] : 0), fb = Math.max(b[b.length - 1][1], nx ? cont(nx, false)[0][1] : 0);
       const letter = s.kind === 'thread' ? (segs.length === 3 && p.template === 'double-ended' ? (s.tip === 'start' ? 'A' : 'B') : 'T') : letters[s.kind]!;
@@ -210,7 +213,13 @@ export function drawingSVG(p: Product, opts?: DrawingOptions) {
         return;
       }
       const s = it.s!;
-      if (s.kind === 'head') { if (s.f != null) V.dshape(s.r, s.f, fill); else { V.circle(s.r, Wk, th.ink, fill); V.circle(s.r - s.c, Wt, th.thin); } }
+      if (s.kind === 'head') {
+        if (s.shape === 'double-flat') {
+          const f = s.f, w = Math.sqrt(s.r * s.r - f * f);
+          V.poly([[-f,-w],[-f,w],[f,w],[f,-w]], Wk, th.ink, fill); // schematic two-flat silhouette
+        } else if (s.f != null) V.dshape(s.r, s.f, fill);
+        else { V.circle(s.r, Wk, th.ink, fill); V.circle(s.r - s.c, Wt, th.thin); }
+      }
       else if (s.kind === 'knurl') { V.circle(s.r, Wk, th.ink, fill); V.circle(s.rIn, Wt, th.thin, 'none', dash); }
       else if (s.kind === 'plain' || s.kind === 'collar') V.circle(s.r, Wk, th.ink, fill);
       else if (s.kind === 'hex') { V.hexagon(s.r, fill); V.circle((s.af / 2) * 0.96, Wk, th.ink, 'none'); }
@@ -230,14 +239,14 @@ export function drawingSVG(p: Product, opts?: DrawingOptions) {
       const s = near.s;
       if (s && s.kind === 'head') {
         V.dimH(-s.r, s.r, yb, 'Ø' + n(s.r * 2), 0, 0);
-        if (s.f != null) { const w = Math.sqrt(s.r * s.r - s.f * s.f); V.dimV(-R - fs * 2.4, -s.f, s.r, n(s.f + s.r), -w, 0); }
+        if (s.f != null) { const w = Math.sqrt(s.r * s.r - s.f * s.f); V.dimV(-R - fs * 2.4, -s.f, s.shape === 'double-flat' ? s.f : s.r, n(s.shape === 'double-flat' ? 2*s.f : s.f + s.r), -w, 0); }
       }
       const hx = g.segs.find(q => q.kind === 'hex'), co = g.segs.find(q => q.kind === 'collar');
       if (hx) V.dimH(-hx.af / 2, hx.af / 2, yb, `${n(hx.af)} AF`, hx.r / 2, hx.r / 2);
       if (co) V.dimH(-co.r, co.r, yb, 'Ø' + n(co.r * 2), 0, 0);
     } else {
       if (g.nut) V.dimH(-g.nut.af / 2, g.nut.af / 2, yb, `${n(g.nut.af)} AF`, g.nut.rc / 2, g.nut.rc / 2);
-      else { const kn = g.segs.find(q => q.kind === 'knurl'); if (kn) V.dimH(-kn.r, kn.r, yb, `Ø${n(kn.r * 2)} · ${kn.splines} spl`, 0, 0); }
+      else { const kn = g.segs.find(q => q.kind === 'knurl'); if (kn && kn.basis !== 'schematic') V.dimH(-kn.r, kn.r, yb, `Ø${n(kn.r * 2)}${kn.splines ? ' · '+kn.splines+' spl' : ''}`, 0, 0); }
     }
     return V;
   };
@@ -248,7 +257,7 @@ export function drawingSVG(p: Product, opts?: DrawingOptions) {
   if (o.views === 'all') {
     if (!g.segs.length) { caption(sv, 'SIDE VIEW'); const ev = endView('end'); caption(ev, 'END VIEW · TOP FACE'); views.push(ev); }
     else {
-      const isDE = p.template === 'double-ended';
+      const isDE = p.template === 'double-ended' || (p.template === 'profiled-fastener' && g.segs[0]?.kind === 'thread');
       const a = endView('start'), b = endView('end');
       caption(a, isDE ? 'VIEW A · END A' : 'VIEW A · HEAD END'); caption(sv, 'SIDE VIEW'); caption(b, isDE ? 'VIEW B · END B' : 'VIEW B · TIP END');
       views.length = 0;

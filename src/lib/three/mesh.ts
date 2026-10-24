@@ -45,10 +45,15 @@ function lathe(T: Three, pts: [number, number][], N: number, mod?: ((r: number, 
 
 function hexR(af: number, ph: number) { const s = Math.PI / 3; const a = (((ph % s) + s) % s) - s / 2; return af / 2 / Math.cos(a); }
 
-interface ThreadSpec { y0: number; y1: number; pitch: number; dir: 'RH' | 'LH'; r?: number; rMin: number; rMaj?: number; tip?: 'start' | 'end' }
+interface ThreadSpec { y0: number; y1: number; pitch: number; dir: 'RH' | 'LH' | 'UNSPECIFIED'; r?: number; rMin: number; rMaj?: number; tip?: 'start' | 'end' }
 
 /* Crest locus y = y0 + sign·p·φ/2π; the grid is sheared along the helix so crests stay clean. */
 function threadGeo(T: Three, s: ThreadSpec, internal = false) {
+  // Unknown handedness must NOT be rendered as an apparently valid RH helix.
+  // Draw the nominal threaded region as a smooth schematic cylinder until confirmed.
+  if (s.dir === 'UNSPECIFIED') {
+    return patch(T, 2, 96, (i, j) => [s.r || s.rMaj || (s.rMin + 0.7), i ? s.y1 : s.y0, (j / 96) * TAU]);
+  }
   const p = s.pitch, sg = s.dir === 'LH' ? -1 : 1, R = 10, N = 72;
   const len = s.y1 - s.y0, nP = Math.ceil(len / p) + 4, M = nP * R + 1, base = s.y0 - 2 * p, off = sg < 0 ? p : 0;
   const rTip = s.rMin - 0.25, run = 1.6 * p;
@@ -69,6 +74,7 @@ function threadGeo(T: Three, s: ThreadSpec, internal = false) {
 }
 
 function knurlGeo(T: Three, s: Seg) {
+  if (!s.splines) return patch(T, 2, 96, (i,j) => [s.r, i ? s.y1 : s.y0, (j/96)*TAU]);
   const N = s.splines * 6, ys = [s.y0, s.y1 - s.taper, s.y1];
   return patch(T, 3, N, (i, j) => {
     const ph = (j / N) * TAU;
@@ -132,7 +138,10 @@ export function partGroup(T: Three, p: Product, mats: MatFactory): { grp: THREE.
     if (s.kind === 'head') {
       const inner = nx && nx.kind === 'knurl' ? nx.rIn - 0.2 : nx ? nx.r : 0;
       // D-flat head through radial clamping.
-      const mod = s.f != null ? (r: number, ph: number) => { const c = Math.cos(ph); return c > 0.02 ? Math.min(r, s.f! / c) : r; } : null;
+      const mod = s.f != null ? (r: number, ph: number) => {
+        const c = s.shape === 'double-flat' ? Math.abs(Math.cos(ph)) : Math.cos(ph);
+        return c > 0.02 ? Math.min(r, s.f! / c) : r;
+      } : null;
       lathe(T, [[0, 0], [s.r - s.c, 0], [s.r, s.c], [s.r, s.y1 - 0.5], [s.r - 0.5, s.y1], [inner, s.y1]], 160, mod).forEach(x => add(x));
     } else if (s.kind === 'knurl') add(knurlGeo(T, s));
     else if (s.kind === 'plain') lathe(T, [[s.r, s.y0], [s.r, s.y1]], 96).forEach(x => add(x));
