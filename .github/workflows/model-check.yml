@@ -1,0 +1,20 @@
+name: Validate StudSport models
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+jobs:
+  models-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run check:models
+      - run: npm run test:models
+      - run: npm run typecheck
+      - run: npm run build
