@@ -8,7 +8,7 @@ import { Drawing } from '@/components/Drawing';
 import { PrintButton } from './PrintButton';
 import s from './spec.module.css';
 
-const LENGTH_NOTE = { 'wheel-nut': 'H = overall nut height', 'double-ended': 'L = A + C + B', 'press-in-stud': 'L includes head · L = H + K + S + T', 'stud-nut': 'L includes head · L = H + K + S + T' };
+const LENGTH_NOTE = { 'wheel-nut': 'H = overall nut height', 'double-ended': 'L = A + C + B', 'press-in-stud': 'L includes head · L = H + K + S + T', 'stud-nut': 'L includes head · L = H + K + S + T', 'profiled-fastener': 'Supplier-sourced axial profile; schematic regions are NOT certified dimensions' };
 
 /* One A4 portrait page. Every value comes from the record; nothing is hand-authored per product. */
 export function SpecSheet({ p }: { p: Product }) {
@@ -97,7 +97,7 @@ export function SpecSheet({ p }: { p: Product }) {
                 <span>Tel {company.phone} · WhatsApp {company.whatsapp} · {company.email}</span>
                 <span>{company.web}/products/{p.slug}</span>
               </div>
-              <span className={s.stamp}>Illustrative prototype data. Verify specifications and fitment before use.</span>
+              <span className={s.stamp}>{p.spec.status === 'pending' ? 'SOURCE-DECLARED / PARTIAL: schematic geometry and unverified OEM fitment. Do not use for manufacture or installation.' : 'Illustrative prototype data. Verify specifications and fitment before use.'}</span>
             </footer>
           </div>
         </article>

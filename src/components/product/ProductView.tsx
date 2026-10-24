@@ -22,6 +22,7 @@ const LEGEND: Record<Template, [string, string][]> = {
   'stud-nut': [['L', 'Overall stud length, includes head'], ['Lu', 'Length under head'], ['H', 'Head thickness'], ['K', 'Knurl length'], ['S', 'Shoulder length'], ['T', 'Threaded length'], ['Hn', 'Nut height (shown at reference clamp length)']],
   'double-ended': [['L', 'Overall length'], ['A', 'End A thread length'], ['C', 'Collar length'], ['B', 'End B thread length']],
   'wheel-nut': [['H', 'Nut height'], ['s', 'Seat height'], ['AF', 'Width across flats']],
+  'profiled-fastener': [['L', 'Total model length'], ['T', 'Thread region'], ['S', 'Axial section'], ['Ø', 'Diameter'], ['Note', 'Schematic transitions and unconfirmed measurements are not manufacturing dimensions']],
 };
 
 const isNut = (q: Product) => q.template === 'wheel-nut';
@@ -104,7 +105,7 @@ export function ProductView({ slug }: { slug: string }) {
                   <div className={s.drawingTab}><Drawing sku={p.slug} theme="dark" layout="auto" /></div>
                 )}
               </div>
-              <p className={s.stageNote}>3D model and thread form are simplified for display. Dimensions are taken from the drawing and specification table below.</p>
+              <p className={s.stageNote}>{p.spec.status === 'pending' ? 'Supplier drawing reference only. Some 3D sections are schematic and the handedness may be unknown. Do not use this rendering or generated drawing to verify fitment or manufacture a fastener.' : '3D model and thread form are simplified for display. Dimensions are taken from the specification table below.'}</p>
             </section>
 
             <section aria-label="Product summary" className={s.summary}>
@@ -156,7 +157,7 @@ export function ProductView({ slug }: { slug: string }) {
               <div className={s.docLinks}>
                 <Link href={sheetHref(p)}>Spec sheet (A4)</Link>
                 <span>Rev {rev} · {p.spec.date}</span>
-                <span>Data: illustrative sample</span>
+                <span>{p.spec.status === 'pending' ? 'Supplier drawing · fitment unconfirmed · partial geometry' : 'Data: illustrative sample'}</span>
               </div>
             </section>
           </div>
@@ -204,7 +205,7 @@ export function ProductView({ slug }: { slug: string }) {
                   </div>
                 ))}
               </div>
-              <p className={s.fitNote}><span className="notice-dot" />Example applications only. Send your vehicle details or the old part and we will confirm the match before you order.</p>
+              <p className={s.fitNote}><span className="notice-dot" />{p.spec.status === 'pending' ? 'Vehicle name is copied from the supplier drawing, not a confirmed OEM application. Chassis/OEM verification required before purchase or installation.' : 'Example applications only. Send your vehicle details or the old part and we will confirm the match before you order.'}</p>
             </div>
           </Section>
 
