@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { company, includes } from '@/lib/catalogue';
 import type { Product } from '@/lib/catalogue';
-import { href, typeLabel, threadLabel, finishOf, specGroups, vehicle } from '@/lib/products';
+import { href, typeLabel, threadLabel, finishOf, specGroups } from '@/lib/products';
 import { Mark } from '@/components/Mark';
 import { Thumb } from '@/components/Thumb';
 import { Drawing } from '@/components/Drawing';
@@ -15,38 +15,22 @@ export function SpecSheet({ p }: { p: Product }) {
   const cleanName = p.name.replace(/\s*—\s*(supplier drawing|identification pending)\s*$/i, '').trim();
   const name = /(?:stud|bolt|nut)/i.test(cleanName) ? cleanName : `${cleanName} ${typeLabel(p).toLowerCase()}`;
   const all = specGroups(p);
-  const find = (group: string) => all.find(g => g.group === group);
-  const supplierDimensions = find('Source measurements (supplier-declared)');
-  const requestedSize = all.find(g => g.group.startsWith('Sourcing requirement'));
-  const originalDimensions = find('Illustrative dimensions (mm)');
-
-  // Retain the original three-column presentation. Supplier measurements and
-  // research requests are kept distinct; any longer record is on the product page.
-  const dimensions = supplierDimensions
-    ? { group: 'Dimensions (mm) · supplier', rows: supplierDimensions.rows.slice(0, 10) }
-    : originalDimensions
-      ? { group: 'Dimensions (mm) · illustrative', rows: originalDimensions.rows }
-      : { group: 'Reference dimensions (mm)', rows: [
-          ...(requestedSize?.rows.filter(r => r.k === 'Nominal request') ?? []),
-          { k: '3D model length', v: `${p.dims.overall} (illustrative)` },
-        ] };
-  const threadSpecs = find('Thread');
-  const threadData = threadSpecs?.rows ?? [
+  const supplierDimensions = all.find(g => g.group === 'Source measurements (supplier-declared)');
+  const sourcingRequest = all.find(g => g.group.startsWith('Sourcing requirement'));
+  const legacyDimensions = all.find(g => g.group === 'Illustrative dimensions (mm)');
+  const referenceRows = supplierDimensions?.rows
+    ?? (sourcingRequest ? sourcingRequest.rows.filter(r => r.k === 'Nominal request') : [])
+    ?? [];
+  const dimensions = p.template === 'profiled-fastener'
+    ? { group: supplierDimensions ? 'Dimensions from supplier' : 'Reference size', rows: referenceRows }
+    : { group: 'Illustrative measurements', rows: (legacyDimensions?.rows ?? []).filter(r => !r.k.startsWith('Check:')).slice(0, 8) };
+  const details = { group: 'Part details', rows: [
     { k: 'Thread', v: threadLabel(p) },
-    { k: 'Hand', v: 'To confirm' },
-  ];
-  const nutSample = p.template === 'stud-nut'
-    ? all.find(g => g.group.startsWith('Illustrative nut pairing'))
-    : undefined;
-  const materialFinish = [
-    { k: 'Material', v: /unverified|not specified/i.test(p.material) ? 'Ask for details' : p.material },
-    { k: 'Property class', v: /unverified|not specified/i.test(p.grade) ? 'To confirm' : p.grade },
+    { k: 'Type', v: typeLabel(p) },
     { k: 'Finish', v: finishOf(p).label },
-  ];
-  const publicApp = p.applications.slice(0, 4);
-  // SS-1030 is a conceptual set: thread compatibility alone doesn't confirm
-  // the correct wheel seat or an approved nut/stud combination.
-  const conceptualSet = p.template === 'stud-nut';
+    ...(p.grade && !/unverified|not specified/i.test(p.grade) ? [{ k: 'Grade (supplier)', v: p.grade }] : []),
+  ] };
+  const groups = [dimensions, details].filter(g => g.rows.length);
   const whatsappUrl = company.whatsappLink + '?text=' + encodeURIComponent(`Hi StudSport, can you help me identify ${p.partNo}?`);
   return (
     <div className={s.desk}>
@@ -101,46 +85,12 @@ export function SpecSheet({ p }: { p: Product }) {
             </div>
 
             <div className={s.groups}>
-              <div className={s.group}>
-                <h2 className={s.h2}>{dimensions.group}</h2>
-                {dimensions.rows.map(r => <div key={r.k} className={`${s.row} ${r.v.length > 70 ? s.longRow : ''}`}><span>{r.k}</span><span>{r.v}</span></div>)}
-                {supplierDimensions && supplierDimensions.rows.length > dimensions.rows.length && <p className={s.moreNote}>Additional supplier measurements are available on the product page.</p>}
-              </div>
-              <div className={s.group}>
-                <h2 className={s.h2}>Thread</h2>
-                {threadData.map(r => <div key={r.k} className={s.row}><span>{r.k}</span><span>{r.v}</span></div>)}
-                {nutSample && (
-                  <div className={s.subGroup}>
-                    <h3 className={s.h2}>Illustrative nut · compatibility to confirm</h3>
-                    {nutSample.rows.filter(r => r.k !== 'Finish').slice(0, 4).map(r => <div key={r.k} className={s.row}><span>{r.k}</span><span>{r.v}</span></div>)}
-                  </div>
-                )}
-              </div>
-              <div className={s.group}>
-                <h2 className={s.h2}>Material &amp; finish</h2>
-                {materialFinish.map(r => <div key={r.k} className={s.row}><span>{r.k}</span><span>{r.v}</span></div>)}
-              </div>
-            </div>
-
-            <div className={s.lists}>
-              <div className={s.apps}>
-                <h2 className={s.h2}>Vehicle applications · check before ordering</h2>
-                {publicApp.map((a, i) => (
-                  <div key={i} className={s.appRow}>
-                    <span>{vehicle(a.vehicle).label}</span>
-                    <span>{a.model}</span>
-                    <span>{a.years === 'Unconfirmed' || a.years === 'Not specified' ? '—' : a.years}</span>
-                    <span>{a.position}</span>
-                  </div>
-                ))}
-              </div>
-              <div className={s.included}>
-                <h2 className={s.h2}>{conceptualSet ? 'Illustrative combination' : 'Included'}</h2>
-                {p.components.map((c,i) => (
-                  <div key={c.partNo + i} className={s.incRow}><span>{c.qty} ×</span><span>{c.label}</span></div>
-                ))}
-                {conceptualSet && <p className={s.moreNote}>Shown for comparison only. Confirm the matching nut and wheel seat before ordering.</p>}
-              </div>
+              {groups.map(g => (
+                <div key={g.group} className={s.group}>
+                  <h2 className={s.h2}>{g.group}</h2>
+                  {g.rows.map(r => <div key={r.k} className={`${s.row} ${r.v.length > 110 ? s.longRow : ''}`}><span>{r.k}</span><span>{r.v}</span></div>)}
+                </div>
+              ))}
             </div>
 
             <div className={s.help}>
