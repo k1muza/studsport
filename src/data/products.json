@@ -5,10 +5,10 @@
       "id": "p1001",
       "slug": "ss-1001",
       "partNo": "SS-1001",
-      "name": "Front wheel stud M20 \u00d7 1.5 RH",
+      "name": "Front wheel stud M20 × 1.5 RH",
       "type": "wheel-stud",
       "template": "press-in-stud",
-      "summary": "Illustrative front wheel stud m20 \u00d7 1.5 rh. Historical vehicle associations are unverified; compare a physical sample and part number before ordering.",
+      "summary": "M20 × 1.5 right-hand front wheel stud reference with a knurled shoulder. Compare its dimensions with your existing part or send us a photo for help finding a match.",
       "positions": [
         "Front"
       ],
@@ -47,7 +47,7 @@
       "price": null,
       "media": {
         "photos": [
-          "Studio \u00b7 3/4 view",
+          "Studio · 3/4 view",
           "Thread & tip detail",
           "Head & knurl",
           "Box of 10"
@@ -55,7 +55,7 @@
         "model": {}
       },
       "variantGroup": "dyna-m20",
-      "variantLabel": "Front \u00b7 RH",
+      "variantLabel": "Front · RH",
       "related": [
         "SS-1002",
         "SS-1003",
@@ -71,10 +71,10 @@
       "id": "p1002",
       "slug": "ss-1002",
       "partNo": "SS-1002",
-      "name": "Front wheel stud M20 \u00d7 1.5 LH",
+      "name": "Front wheel stud M20 × 1.5 LH",
       "type": "wheel-stud",
       "template": "press-in-stud",
-      "summary": "Illustrative front wheel stud m20 \u00d7 1.5 lh. Historical vehicle associations are unverified; compare a physical sample and part number before ordering.",
+      "summary": "M20 × 1.5 left-hand front wheel stud reference with a knurled shoulder. Check the thread direction and dimensions against your original part.",
       "positions": [
         "Front"
       ],
@@ -113,7 +113,7 @@
       "price": null,
       "media": {
         "photos": [
-          "Studio \u00b7 3/4 view",
+          "Studio · 3/4 view",
           "Thread & tip detail",
           "Head & knurl",
           "Box of 10"
@@ -121,7 +121,7 @@
         "model": {}
       },
       "variantGroup": "dyna-m20",
-      "variantLabel": "Front \u00b7 LH",
+      "variantLabel": "Front · LH",
       "related": [
         "SS-1001",
         "SS-1003",
@@ -137,10 +137,10 @@
       "id": "p1003",
       "slug": "ss-1003",
       "partNo": "SS-1003",
-      "name": "Rear wheel stud M20 \u00d7 1.5 RH, long",
+      "name": "Rear wheel stud M20 × 1.5 RH, long",
       "type": "wheel-stud",
       "template": "press-in-stud",
-      "summary": "Illustrative rear wheel stud m20 \u00d7 1.5 rh, long. Historical vehicle associations are unverified; compare a physical sample and part number before ordering.",
+      "summary": "Long M20 × 1.5 right-hand rear wheel stud reference. Compare the stud length, head and thread before choosing a replacement.",
       "positions": [
         "Rear"
       ],
@@ -171,7 +171,7 @@
       "price": null,
       "media": {
         "photos": [
-          "Studio \u00b7 3/4 view",
+          "Studio · 3/4 view",
           "Thread & tip detail",
           "Head & knurl",
           "Box of 10"
@@ -179,7 +179,7 @@
         "model": {}
       },
       "variantGroup": "dyna-m20",
-      "variantLabel": "Rear \u00b7 RH \u00b7 long",
+      "variantLabel": "Rear · RH · long",
       "related": [
         "SS-1001",
         "SS-1002",
@@ -195,10 +195,10 @@
       "id": "p1010",
       "slug": "ss-1010",
       "partNo": "SS-1010",
-      "name": "Rear hub bolt M22 \u00d7 1.5 RH",
+      "name": "Rear hub bolt M22 × 1.5 RH",
       "type": "hub-bolt",
       "template": "press-in-stud",
-      "summary": "Illustrative rear hub bolt m22 \u00d7 1.5 rh. Historical vehicle associations are unverified; compare a physical sample and part number before ordering.",
+      "summary": "M22 × 1.5 right-hand rear hub bolt reference. Have an existing bolt or part number? Share it with us to help identify the correct replacement.",
       "positions": [
         "Rear"
       ],
@@ -229,7 +229,7 @@
       "price": null,
       "media": {
         "photos": [
-          "Studio \u00b7 3/4 view",
+          "Studio · 3/4 view",
           "Thread & tip detail",
           "Head & knurl",
           "Box of 10"
@@ -237,7 +237,7 @@
         "model": {}
       },
       "variantGroup": "isuzu-m22",
-      "variantLabel": "Rear \u00b7 RH",
+      "variantLabel": "Rear · RH",
       "related": [
         "SS-1011",
         "SS-1030"
@@ -252,10 +252,10 @@
       "id": "p1011",
       "slug": "ss-1011",
       "partNo": "SS-1011",
-      "name": "Rear hub bolt M22 \u00d7 1.5 LH",
+      "name": "Rear hub bolt M22 × 1.5 LH",
       "type": "hub-bolt",
       "template": "press-in-stud",
-      "summary": "Illustrative rear hub bolt m22 \u00d7 1.5 lh. Historical vehicle associations are unverified; compare a physical sample and part number before ordering.",
+      "summary": "M22 × 1.5 left-hand rear hub bolt reference. Check thread direction and dimensions, or send a photo of your original part.",
       "positions": [
         "Rear"
       ],
@@ -286,7 +286,7 @@
       "price": null,
       "media": {
         "photos": [
-          "Studio \u00b7 3/4 view",
+          "Studio · 3/4 view",
           "Thread & tip detail",
           "Head & knurl",
           "Box of 10"
@@ -294,7 +294,7 @@
         "model": {}
       },
       "variantGroup": "isuzu-m22",
-      "variantLabel": "Rear \u00b7 LH",
+      "variantLabel": "Rear · LH",
       "related": [
         "SS-1010",
         "SS-1030"
@@ -309,10 +309,10 @@
       "id": "p1020",
       "slug": "ss-1020",
       "partNo": "SS-1020",
-      "name": "Wheel stud M18 \u00d7 1.5 RH",
+      "name": "Wheel stud M18 × 1.5 RH",
       "type": "wheel-stud",
       "template": "press-in-stud",
-      "summary": "Illustrative wheel stud m18 \u00d7 1.5 rh. Historical vehicle associations are unverified; compare a physical sample and part number before ordering.",
+      "summary": "M18 × 1.5 right-hand wheel stud reference with a press-fit knurled section. Compare your existing stud or send us its measurements.",
       "positions": [
         "Front",
         "Rear"
@@ -344,7 +344,7 @@
       "price": null,
       "media": {
         "photos": [
-          "Studio \u00b7 3/4 view",
+          "Studio · 3/4 view",
           "Thread & tip detail",
           "Head & knurl",
           "Box of 10"
@@ -352,7 +352,7 @@
         "model": {}
       },
       "variantGroup": null,
-      "variantLabel": "M18 \u00b7 RH",
+      "variantLabel": "M18 · RH",
       "related": [
         "SS-1001",
         "SS-1041"
@@ -367,10 +367,10 @@
       "id": "p1030",
       "slug": "ss-1030",
       "partNo": "SS-1030",
-      "name": "Stud & nut set M22 \u00d7 1.5 RH",
+      "name": "Stud & nut set M22 × 1.5 RH",
       "type": "stud-nut-set",
       "template": "stud-nut",
-      "summary": "Illustrative M22 stud and flange-nut pairing. Thread agreement does not establish nut-seat compatibility or fitment.",
+      "summary": "An illustrative M22 × 1.5 stud-and-nut arrangement. We can help check the appropriate stud and nut specifications for your wheel before ordering.",
       "positions": [
         "Front",
         "Rear"
@@ -412,12 +412,12 @@
       "components": [
         {
           "qty": 1,
-          "label": "Wheel stud M22 \u00d7 1.5 RH, L 108",
+          "label": "Wheel stud M22 × 1.5 RH, L 108",
           "partNo": "SS-1030"
         },
         {
           "qty": 1,
-          "label": "Flange nut M22 \u00d7 1.5 RH, 32 AF",
+          "label": "Flange nut M22 × 1.5 RH, 32 AF",
           "partNo": "SS-2002"
         }
       ],
@@ -427,7 +427,7 @@
       "price": null,
       "media": {
         "photos": [
-          "Studio \u00b7 assembled",
+          "Studio · assembled",
           "Nut & seat detail",
           "Head & knurl",
           "Set packaging"
@@ -435,7 +435,7 @@
         "model": {}
       },
       "variantGroup": null,
-      "variantLabel": "M22 \u00b7 set",
+      "variantLabel": "M22 · set",
       "related": [
         "SS-2002",
         "SS-1010"
@@ -450,10 +450,10 @@
       "id": "p1040",
       "slug": "ss-1040",
       "partNo": "SS-1040",
-      "name": "Double-ended hub bolt M20 \u00d7 1.5, hex collar",
+      "name": "Double-ended hub bolt M20 × 1.5, hex collar",
       "type": "double-ended",
       "template": "double-ended",
-      "summary": "Illustrative double-ended hub bolt m20 \u00d7 1.5, hex collar. Historical vehicle associations are unverified; compare a physical sample and part number before ordering.",
+      "summary": "M20 × 1.5 double-ended hub bolt reference with a central hex collar. Compare both threaded ends with your existing part.",
       "positions": [
         "Rear"
       ],
@@ -484,7 +484,7 @@
       "price": null,
       "media": {
         "photos": [
-          "Studio \u00b7 3/4 view",
+          "Studio · 3/4 view",
           "Hex collar detail",
           "Thread ends",
           "Box of 10"
@@ -492,7 +492,7 @@
         "model": {}
       },
       "variantGroup": "ud-double",
-      "variantLabel": "M20 / M20 \u00b7 hex",
+      "variantLabel": "M20 / M20 · hex",
       "related": [
         "SS-1041",
         "SS-2001"
@@ -510,7 +510,7 @@
       "name": "Double-ended hub bolt M18 / M20, stepped",
       "type": "double-ended",
       "template": "profiled-fastener",
-      "summary": "Illustrative double-ended hub bolt m18 / m20, stepped. Historical vehicle associations are unverified; compare a physical sample and part number before ordering.",
+      "summary": "Stepped double-ended hub bolt reference with M18 and M20 threaded ends. Share a part number or sample photo to help identify the right fit.",
       "positions": [
         "Rear"
       ],
@@ -541,7 +541,7 @@
       "price": null,
       "media": {
         "photos": [
-          "Studio \u00b7 3/4 view",
+          "Studio · 3/4 view",
           "Collar step detail",
           "Thread ends",
           "Box of 10"
@@ -549,7 +549,7 @@
         "model": {}
       },
       "variantGroup": "ud-double",
-      "variantLabel": "M18 / M20 \u00b7 plain",
+      "variantLabel": "M18 / M20 · plain",
       "related": [
         "SS-1040",
         "SS-1020"
@@ -564,10 +564,10 @@
       "id": "p2001",
       "slug": "ss-2001",
       "partNo": "SS-2001",
-      "name": "Wheel nut M20 \u00d7 1.5 RH, 60\u00b0 cone seat",
+      "name": "Wheel nut M20 × 1.5 RH, 60° cone seat",
       "type": "wheel-nut",
       "template": "wheel-nut",
-      "summary": "Illustrative wheel nut m20 \u00d7 1.5 rh, 60\u00b0 cone seat. Historical vehicle associations are unverified; compare a physical sample and part number before ordering.",
+      "summary": "M20 × 1.5 right-hand wheel nut reference with an illustrative cone seat. Please check the required seating profile for your wheel.",
       "positions": [
         "Front",
         "Rear"
@@ -607,7 +607,7 @@
       "price": null,
       "media": {
         "photos": [
-          "Studio \u00b7 3/4 view",
+          "Studio · 3/4 view",
           "Seat detail",
           "Thread bore",
           "Bag of 10"
@@ -631,10 +631,10 @@
       "id": "p2002",
       "slug": "ss-2002",
       "partNo": "SS-2002",
-      "name": "Flange wheel nut M22 \u00d7 1.5 RH, flat seat",
+      "name": "Flange wheel nut M22 × 1.5 RH, flat seat",
       "type": "wheel-nut",
       "template": "wheel-nut",
-      "summary": "Illustrative flange wheel nut m22 \u00d7 1.5 rh, flat seat. Historical vehicle associations are unverified; compare a physical sample and part number before ordering.",
+      "summary": "M22 × 1.5 right-hand flange wheel nut reference. Compare thread size and wheel seating requirements before selecting a replacement.",
       "positions": [
         "Front",
         "Rear"
@@ -682,7 +682,7 @@
       "price": null,
       "media": {
         "photos": [
-          "Studio \u00b7 3/4 view",
+          "Studio · 3/4 view",
           "Flange face",
           "Thread bore",
           "Bag of 10"
@@ -705,10 +705,10 @@
       "id": "p2003",
       "slug": "ss-2003",
       "partNo": "SS-2003",
-      "name": "Wheel nut M20 \u00d7 1.5 LH, 60\u00b0 cone seat",
+      "name": "Wheel nut M20 × 1.5 LH, 60° cone seat",
       "type": "wheel-nut",
       "template": "wheel-nut",
-      "summary": "Illustrative wheel nut m20 \u00d7 1.5 lh, 60\u00b0 cone seat. Historical vehicle associations are unverified; compare a physical sample and part number before ordering.",
+      "summary": "M20 × 1.5 left-hand wheel nut reference with an illustrative cone seat. Confirm the thread direction and wheel seating profile.",
       "positions": [
         "Front",
         "Rear"
@@ -748,7 +748,7 @@
       "price": null,
       "media": {
         "photos": [
-          "Studio \u00b7 3/4 view",
+          "Studio · 3/4 view",
           "LH groove detail",
           "Thread bore",
           "Bag of 10"
@@ -771,10 +771,10 @@
       "id": "lt001",
       "slug": "ss-3001",
       "partNo": "SS-3001",
-      "name": "Mazda Front \u2014 supplier drawing",
+      "name": "Mazda Front Wheel Stud",
       "type": "wheel-stud",
       "template": "profiled-fastener",
-      "summary": "Supplier drawing reference, not confirmed for installation. R/L marking does not identify which handed variant this record represents.",
+      "summary": "M18 × 1.5 Mazda front wheel stud reference, with 72 mm length under the head shown on a supplier drawing. Send your vehicle details or a photo to help us check the right variant.",
       "positions": [
         "Front"
       ],
@@ -785,7 +785,7 @@
           "years": "Not specified",
           "position": "Front",
           "side": "Confirm",
-          "notes": "Supplier drawing label only \u2014 OEM fitment not verified"
+          "notes": "Supplier drawing label only — OEM fitment not verified"
         }
       ],
       "material": "Not specified by supplier",
@@ -820,10 +820,10 @@
       "id": "lt002",
       "slug": "ss-3002",
       "partNo": "SS-3002",
-      "name": "Mazda Rear \u2014 supplier drawing",
+      "name": "Mazda Rear Wheel Stud",
       "type": "wheel-stud",
       "template": "profiled-fastener",
-      "summary": "Supplier drawing reference, not confirmed for installation. CRITICAL: drawing heading says 72 mm under head; detailed side view says 66 mm. Provisional model uses 66 mm; NOT an approved dimension.",
+      "summary": "M18 × 1.5 Mazda rear wheel stud reference. Share your existing stud's dimensions or a photo and we can help you check the correct length and variant.",
       "positions": [
         "Rear"
       ],
@@ -834,7 +834,7 @@
           "years": "Not specified",
           "position": "Rear",
           "side": "Confirm",
-          "notes": "Supplier drawing label only \u2014 OEM fitment not verified"
+          "notes": "Supplier drawing label only — OEM fitment not verified"
         }
       ],
       "material": "Not specified by supplier",
@@ -869,10 +869,10 @@
       "id": "lt003",
       "slug": "ss-3003",
       "partNo": "SS-3003",
-      "name": "Hino GH Rear \u2014 supplier drawing",
+      "name": "Hino GH Rear Hub Bolt",
       "type": "hub-bolt",
       "template": "profiled-fastener",
-      "summary": "Supplier drawing reference, not confirmed for installation. R/L variants shown but direction for this listing is not selected.",
+      "summary": "M22 × 1.5 Hino GH rear hub bolt reference, with 108 mm length under the head shown on a supplier drawing. Compare your part or ask for help identifying the right variant.",
       "positions": [
         "Rear"
       ],
@@ -883,7 +883,7 @@
           "years": "Not specified",
           "position": "Rear",
           "side": "Confirm",
-          "notes": "Supplier drawing label only \u2014 OEM fitment not verified"
+          "notes": "Supplier drawing label only — OEM fitment not verified"
         }
       ],
       "material": "Not specified by supplier",
@@ -918,10 +918,10 @@
       "id": "lt004",
       "slug": "ss-3004",
       "partNo": "SS-3004",
-      "name": "Toyota Dynaps Rear \u2014 supplier drawing",
+      "name": "Toyota Dynaps Rear Wheel Stud",
       "type": "wheel-stud",
       "template": "profiled-fastener",
-      "summary": "Supplier drawing reference, not confirmed for installation. Supplier vehicle label 'Dynaps' requires OEM identification.",
+      "summary": "M20 × 1.5 Toyota Dynaps rear wheel stud reference, with 47 mm under-head length in the supplier drawing. Send a photo or part number to help us check the match.",
       "positions": [
         "Rear"
       ],
@@ -932,7 +932,7 @@
           "years": "Not specified",
           "position": "Rear",
           "side": "Confirm",
-          "notes": "Supplier drawing label only \u2014 OEM fitment not verified"
+          "notes": "Supplier drawing label only — OEM fitment not verified"
         }
       ],
       "material": "Not specified by supplier",
@@ -967,10 +967,10 @@
       "id": "lt005",
       "slug": "ss-3005",
       "partNo": "SS-3005",
-      "name": "Toyota Rino Rear \u2014 supplier drawing",
+      "name": "Toyota Rino Rear Hub Bolt",
       "type": "double-ended",
       "template": "profiled-fastener",
-      "summary": "Supplier drawing reference. 75 mm overall; two M20 \u00d7 1.5 ends, central flange and \u00d820.8 / 50-tooth knurl. Flange diameter and several transitions remain schematic; OEM fitment unconfirmed.",
+      "summary": "Double-ended M20 × 1.5 Toyota Rino rear hub bolt reference, 75 mm overall in the supplier drawing. Compare the flange and threaded ends with your original part.",
       "positions": [
         "Rear"
       ],
@@ -981,7 +981,7 @@
           "years": "Not specified",
           "position": "Rear",
           "side": "Confirm",
-          "notes": "Supplier drawing label only \u2014 OEM fitment not verified"
+          "notes": "Supplier drawing label only — OEM fitment not verified"
         }
       ],
       "material": "Not specified by supplier",
@@ -1016,10 +1016,10 @@
       "id": "lt006",
       "slug": "ss-3006",
       "partNo": "SS-3006",
-      "name": "Hino Durton Rear \u2014 supplier drawing",
+      "name": "Hino Durton Rear Hub Bolt",
       "type": "double-ended",
       "template": "profiled-fastener",
-      "summary": "Supplier drawing reference, not confirmed for installation. Supplier model name 'Hino Durton' requires confirmation.",
+      "summary": "Double-ended M20 × 1.5 Hino Durton rear hub bolt reference, 91 mm overall in the supplier drawing. Share a part number or sample to help check the right fit.",
       "positions": [
         "Rear"
       ],
@@ -1030,7 +1030,7 @@
           "years": "Not specified",
           "position": "Rear",
           "side": "Confirm",
-          "notes": "Supplier drawing label only \u2014 OEM fitment not verified"
+          "notes": "Supplier drawing label only — OEM fitment not verified"
         }
       ],
       "material": "Not specified by supplier",
@@ -1065,10 +1065,10 @@
       "id": "ref4001",
       "slug": "ss-4001",
       "partNo": "SS-4001",
-      "name": "Hino Dutro rear \u2014 identification pending",
+      "name": "Hino Dutro Rear Hub Bolt",
       "type": "hub-bolt",
       "template": "profiled-fastener",
-      "summary": "Unverified sourcing reference: nominal length 90 mm, length basis unresolved. Illustration only; confirm part number, dimensions and handedness.",
+      "summary": "Looking for a Hino Dutro rear M20 × 1.5 × 90 hub bolt? Use this reference to compare sizes, then send us your existing part details to help identify the right match.",
       "positions": [
         "Rear"
       ],
@@ -1116,10 +1116,10 @@
       "id": "ref4002",
       "slug": "ss-4002",
       "partNo": "SS-4002",
-      "name": "Toyota 2D rear \u2014 identification pending",
+      "name": "Toyota 2D Rear Hub Bolt",
       "type": "hub-bolt",
       "template": "profiled-fastener",
-      "summary": "Unverified sourcing reference: nominal length 75 mm, length basis unresolved. Illustration only; confirm part number, dimensions and handedness.",
+      "summary": "Looking for a Toyota 2D rear M20 × 1.5 × 75 hub bolt? Compare this reference with your original part or send a photo and measurements.",
       "positions": [
         "Rear"
       ],
@@ -1167,10 +1167,10 @@
       "id": "ref4003",
       "slug": "ss-4003",
       "partNo": "SS-4003",
-      "name": "UD Nissan CK10/CK20 rear \u2014 identification pending",
+      "name": "UD Nissan CK10/CK20 Rear Hub Bolt",
       "type": "hub-bolt",
       "template": "profiled-fastener",
-      "summary": "Unverified sourcing reference: nominal length 102 mm, length basis unresolved. Illustration only; confirm part number, dimensions and handedness.",
+      "summary": "Looking for a UD Nissan CK10/CK20 rear M22 × 1.5 × 102 hub bolt? Share your chassis details or sample photo so we can help narrow down the right part.",
       "positions": [
         "Rear"
       ],
@@ -1218,10 +1218,10 @@
       "id": "ref4004",
       "slug": "ss-4004",
       "partNo": "SS-4004",
-      "name": "Volvo rear \u2014 identification pending",
+      "name": "Volvo Rear Wheel Stud",
       "type": "hub-bolt",
       "template": "profiled-fastener",
-      "summary": "Unverified sourcing reference: nominal length 105 mm, length basis unresolved. Illustration only; confirm part number, dimensions and handedness.",
+      "summary": "Looking for a Volvo rear M22 × 1.5 × 105 wheel stud? Explore this reference and share your vehicle details or existing part number for help checking the match.",
       "positions": [
         "Rear"
       ],
