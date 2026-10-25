@@ -1,0 +1,257 @@
+{
+  "metrics": [
+    {
+      "sku": "SS-1001",
+      "view": "side",
+      "vertices": 28224,
+      "drawCalls": 9,
+      "triangles": 53200
+    },
+    {
+      "sku": "SS-1001",
+      "view": "quarter",
+      "vertices": 28224,
+      "drawCalls": 9,
+      "triangles": 53200
+    },
+    {
+      "sku": "SS-1002",
+      "view": "side",
+      "vertices": 28224,
+      "drawCalls": 9,
+      "triangles": 53200
+    },
+    {
+      "sku": "SS-1002",
+      "view": "quarter",
+      "vertices": 28224,
+      "drawCalls": 9,
+      "triangles": 53200
+    },
+    {
+      "sku": "SS-1003",
+      "view": "side",
+      "vertices": 36254,
+      "drawCalls": 9,
+      "triangles": 69040
+    },
+    {
+      "sku": "SS-1003",
+      "view": "quarter",
+      "vertices": 36254,
+      "drawCalls": 9,
+      "triangles": 69040
+    },
+    {
+      "sku": "SS-1010",
+      "view": "side",
+      "vertices": 31216,
+      "drawCalls": 9,
+      "triangles": 59056
+    },
+    {
+      "sku": "SS-1010",
+      "view": "quarter",
+      "vertices": 31216,
+      "drawCalls": 9,
+      "triangles": 59056
+    },
+    {
+      "sku": "SS-1011",
+      "view": "side",
+      "vertices": 31216,
+      "drawCalls": 9,
+      "triangles": 59056
+    },
+    {
+      "sku": "SS-1011",
+      "view": "quarter",
+      "vertices": 31216,
+      "drawCalls": 9,
+      "triangles": 59056
+    },
+    {
+      "sku": "SS-1020",
+      "view": "side",
+      "vertices": 25232,
+      "drawCalls": 9,
+      "triangles": 47344
+    },
+    {
+      "sku": "SS-1020",
+      "view": "quarter",
+      "vertices": 25232,
+      "drawCalls": 9,
+      "triangles": 47344
+    },
+    {
+      "sku": "SS-1030",
+      "view": "side",
+      "vertices": 67747,
+      "drawCalls": 16,
+      "triangles": 129712
+    },
+    {
+      "sku": "SS-1030",
+      "view": "quarter",
+      "vertices": 67747,
+      "drawCalls": 16,
+      "triangles": 129712
+    },
+    {
+      "sku": "SS-1040",
+      "view": "side",
+      "vertices": 48113,
+      "drawCalls": 7,
+      "triangles": 93792
+    },
+    {
+      "sku": "SS-1040",
+      "view": "quarter",
+      "vertices": 48113,
+      "drawCalls": 7,
+      "triangles": 93792
+    },
+    {
+      "sku": "SS-1041",
+      "view": "side",
+      "vertices": 40098,
+      "drawCalls": 9,
+      "triangles": 77568
+    },
+    {
+      "sku": "SS-1041",
+      "view": "quarter",
+      "vertices": 40098,
+      "drawCalls": 9,
+      "triangles": 77568
+    },
+    {
+      "sku": "SS-2001",
+      "view": "side",
+      "vertices": 24276,
+      "drawCalls": 5,
+      "triangles": 47040
+    },
+    {
+      "sku": "SS-2001",
+      "view": "quarter",
+      "vertices": 24276,
+      "drawCalls": 5,
+      "triangles": 47040
+    },
+    {
+      "sku": "SS-2002",
+      "view": "side",
+      "vertices": 27771,
+      "drawCalls": 7,
+      "triangles": 53376
+    },
+    {
+      "sku": "SS-2002",
+      "view": "quarter",
+      "vertices": 27771,
+      "drawCalls": 7,
+      "triangles": 53376
+    },
+    {
+      "sku": "SS-2003",
+      "view": "side",
+      "vertices": 24276,
+      "drawCalls": 5,
+      "triangles": 47040
+    },
+    {
+      "sku": "SS-2003",
+      "view": "quarter",
+      "vertices": 24276,
+      "drawCalls": 5,
+      "triangles": 47040
+    },
+    {
+      "sku": "SS-3001",
+      "view": "side",
+      "vertices": 25997,
+      "drawCalls": 11,
+      "triangles": 48592
+    },
+    {
+      "sku": "SS-3001",
+      "view": "quarter",
+      "vertices": 25997,
+      "drawCalls": 11,
+      "triangles": 48592
+    },
+    {
+      "sku": "SS-3002",
+      "view": "side",
+      "vertices": 25023,
+      "drawCalls": 10,
+      "triangles": 46864
+    },
+    {
+      "sku": "SS-3002",
+      "view": "quarter",
+      "vertices": 25023,
+      "drawCalls": 10,
+      "triangles": 46864
+    },
+    {
+      "sku": "SS-3003",
+      "view": "side",
+      "vertices": 34577,
+      "drawCalls": 11,
+      "triangles": 65488
+    },
+    {
+      "sku": "SS-3003",
+      "view": "quarter",
+      "vertices": 34577,
+      "drawCalls": 11,
+      "triangles": 65488
+    },
+    {
+      "sku": "SS-3004",
+      "view": "side",
+      "vertices": 25803,
+      "drawCalls": 10,
+      "triangles": 48400
+    },
+    {
+      "sku": "SS-3004",
+      "view": "quarter",
+      "vertices": 25803,
+      "drawCalls": 10,
+      "triangles": 48400
+    },
+    {
+      "sku": "SS-3005",
+      "view": "side",
+      "vertices": 41485,
+      "drawCalls": 15,
+      "triangles": 78672
+    },
+    {
+      "sku": "SS-3005",
+      "view": "quarter",
+      "vertices": 41485,
+      "drawCalls": 15,
+      "triangles": 78672
+    },
+    {
+      "sku": "SS-3006",
+      "view": "side",
+      "vertices": 44870,
+      "drawCalls": 10,
+      "triangles": 86304
+    },
+    {
+      "sku": "SS-3006",
+      "view": "quarter",
+      "vertices": 44870,
+      "drawCalls": 10,
+      "triangles": 86304
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,257 @@
+{
+  "schemaVersion": 1,
+  "internalOnly": true,
+  "source": "pilot-2026",
+  "families": [
+    {
+      "id": "hino-gh-rear",
+      "application": "Hino Ranger/GH Rear",
+      "category": "Core",
+      "catalogueReference": "SS-3003",
+      "nominal": {
+        "diameterMm": 22,
+        "pitchMm": 1.5,
+        "nominalLengthMm": 108,
+        "lengthBasis": "unresolved",
+        "sourceId": "pilot-2026"
+      }
+    },
+    {
+      "id": "toyota-dyna-rear",
+      "application": "Toyota Dyna Rear",
+      "category": "Core",
+      "catalogueReference": "SS-3004",
+      "nominal": {
+        "diameterMm": 20,
+        "pitchMm": 1.5,
+        "nominalLengthMm": 47,
+        "lengthBasis": "unresolved",
+        "sourceId": "pilot-2026"
+      }
+    },
+    {
+      "id": "hino-dutro-rear",
+      "application": "Hino Dutro Rear",
+      "category": "Core",
+      "catalogueReference": "SS-4001",
+      "nominal": {
+        "diameterMm": 20,
+        "pitchMm": 1.5,
+        "nominalLengthMm": 90,
+        "lengthBasis": "unresolved",
+        "sourceId": "pilot-2026"
+      }
+    },
+    {
+      "id": "mazda-t35-rear",
+      "application": "Mazda T35 Rear",
+      "category": "Core",
+      "catalogueReference": "SS-3002",
+      "nominal": {
+        "diameterMm": 18,
+        "pitchMm": 1.5,
+        "nominalLengthMm": 72,
+        "lengthBasis": "unresolved",
+        "sourceId": "pilot-2026"
+      }
+    },
+    {
+      "id": "mazda-t35-front",
+      "application": "Mazda T35 Front",
+      "category": "Test",
+      "catalogueReference": "SS-3001",
+      "nominal": {
+        "diameterMm": 18,
+        "pitchMm": 1.5,
+        "nominalLengthMm": 72,
+        "lengthBasis": "unresolved",
+        "sourceId": "pilot-2026"
+      }
+    },
+    {
+      "id": "toyota-2d-rear",
+      "application": "Toyota 2D Rear",
+      "category": "Test",
+      "catalogueReference": "SS-4002",
+      "nominal": {
+        "diameterMm": 20,
+        "pitchMm": 1.5,
+        "nominalLengthMm": 75,
+        "lengthBasis": "unresolved",
+        "sourceId": "pilot-2026"
+      }
+    },
+    {
+      "id": "ud-ck-rear",
+      "application": "UD Nissan CK10/CK20 Rear",
+      "category": "New",
+      "catalogueReference": "SS-4003",
+      "nominal": {
+        "diameterMm": 22,
+        "pitchMm": 1.5,
+        "nominalLengthMm": 102,
+        "lengthBasis": "unresolved",
+        "sourceId": "pilot-2026"
+      }
+    },
+    {
+      "id": "volvo-rear",
+      "application": "Volvo Rear",
+      "category": "New",
+      "catalogueReference": "SS-4004",
+      "nominal": {
+        "diameterMm": 22,
+        "pitchMm": 1.5,
+        "nominalLengthMm": 105,
+        "lengthBasis": "unresolved",
+        "sourceId": "pilot-2026"
+      }
+    }
+  ],
+  "purchasingLines": [
+    {
+      "id": "hino-gh-rear-lh",
+      "familyId": "hino-gh-rear",
+      "requestedHand": "LH",
+      "catalogueReference": "SS-3003",
+      "physicalVariantSku": null,
+      "status": "identification-required",
+      "quantityPlanned": 1000
+    },
+    {
+      "id": "hino-gh-rear-rh",
+      "familyId": "hino-gh-rear",
+      "requestedHand": "RH",
+      "catalogueReference": "SS-3003",
+      "physicalVariantSku": null,
+      "status": "identification-required",
+      "quantityPlanned": 1000
+    },
+    {
+      "id": "toyota-dyna-rear-lh",
+      "familyId": "toyota-dyna-rear",
+      "requestedHand": "LH",
+      "catalogueReference": "SS-3004",
+      "physicalVariantSku": null,
+      "status": "identification-required",
+      "quantityPlanned": 1000
+    },
+    {
+      "id": "toyota-dyna-rear-rh",
+      "familyId": "toyota-dyna-rear",
+      "requestedHand": "RH",
+      "catalogueReference": "SS-3004",
+      "physicalVariantSku": null,
+      "status": "identification-required",
+      "quantityPlanned": 1000
+    },
+    {
+      "id": "hino-dutro-rear-lh",
+      "familyId": "hino-dutro-rear",
+      "requestedHand": "LH",
+      "catalogueReference": "SS-4001",
+      "physicalVariantSku": null,
+      "status": "identification-required",
+      "quantityPlanned": 1000
+    },
+    {
+      "id": "hino-dutro-rear-rh",
+      "familyId": "hino-dutro-rear",
+      "requestedHand": "RH",
+      "catalogueReference": "SS-4001",
+      "physicalVariantSku": null,
+      "status": "identification-required",
+      "quantityPlanned": 1000
+    },
+    {
+      "id": "mazda-t35-rear-lh",
+      "familyId": "mazda-t35-rear",
+      "requestedHand": "LH",
+      "catalogueReference": "SS-3002",
+      "physicalVariantSku": null,
+      "status": "identification-required",
+      "quantityPlanned": 1000
+    },
+    {
+      "id": "mazda-t35-rear-rh",
+      "familyId": "mazda-t35-rear",
+      "requestedHand": "RH",
+      "catalogueReference": "SS-3002",
+      "physicalVariantSku": null,
+      "status": "identification-required",
+      "quantityPlanned": 1000
+    },
+    {
+      "id": "mazda-t35-front-lh",
+      "familyId": "mazda-t35-front",
+      "requestedHand": "LH",
+      "catalogueReference": "SS-3001",
+      "physicalVariantSku": null,
+      "status": "identification-required",
+      "quantityPlanned": 1000
+    },
+    {
+      "id": "mazda-t35-front-rh",
+      "familyId": "mazda-t35-front",
+      "requestedHand": "RH",
+      "catalogueReference": "SS-3001",
+      "physicalVariantSku": null,
+      "status": "identification-required",
+      "quantityPlanned": 1000
+    },
+    {
+      "id": "toyota-2d-rear-lh",
+      "familyId": "toyota-2d-rear",
+      "requestedHand": "LH",
+      "catalogueReference": "SS-4002",
+      "physicalVariantSku": null,
+      "status": "identification-required",
+      "quantityPlanned": 1000
+    },
+    {
+      "id": "toyota-2d-rear-rh",
+      "familyId": "toyota-2d-rear",
+      "requestedHand": "RH",
+      "catalogueReference": "SS-4002",
+      "physicalVariantSku": null,
+      "status": "identification-required",
+      "quantityPlanned": 1000
+    },
+    {
+      "id": "ud-ck-rear-lh",
+      "familyId": "ud-ck-rear",
+      "requestedHand": "LH",
+      "catalogueReference": "SS-4003",
+      "physicalVariantSku": null,
+      "status": "identification-required",
+      "quantityPlanned": 1000
+    },
+    {
+      "id": "ud-ck-rear-rh",
+      "familyId": "ud-ck-rear",
+      "requestedHand": "RH",
+      "catalogueReference": "SS-4003",
+      "physicalVariantSku": null,
+      "status": "identification-required",
+      "quantityPlanned": 1000
+    },
+    {
+      "id": "volvo-rear-lh",
+      "familyId": "volvo-rear",
+      "requestedHand": "LH",
+      "catalogueReference": "SS-4004",
+      "physicalVariantSku": null,
+      "status": "identification-required",
+      "quantityPlanned": 1000
+    },
+    {
+      "id": "volvo-rear-rh",
+      "familyId": "volvo-rear",
+      "requestedHand": "RH",
+      "catalogueReference": "SS-4004",
+      "physicalVariantSku": null,
+      "status": "identification-required",
+      "quantityPlanned": 1000
+    }
+  ]
+}

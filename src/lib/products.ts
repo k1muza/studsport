@@ -1,3 +1,4 @@
+import { evidenceFor, evidenceLabel, sourceMeasurements, sourceFor } from './evidence';
 /* Lookup and formatting helpers. Reads only catalogue.ts and never contains product facts. */
 import {
   products as ALL, vehicles, productTypes, finishes, availability, includes, company,
@@ -17,7 +18,7 @@ export function getProduct(key: string | null | undefined): Product | null {
 
 export const vehicle = (id: string): Vehicle => vehicles.find(v => v.id === id) || { id, label: id, make: id, model: '' };
 export const typeLabel = (p: Product) => productTypes[p.type].label;
-export const finishOf = (p: Product) => finishes[p.finish];
+export const finishOf = (p: Product) => ({ ...finishes[p.finish], label: finishes[p.finish].label + (p.spec.status === 'illustrative' ? ' (visual finish; unconfirmed)' : '') });
 export const href = (p: Product) => `/products/${p.slug}`;
 export const sheetHref = (p: Product) => `/products/${p.slug}/spec-sheet`;
 
@@ -70,7 +71,7 @@ export const whatsapp = (p?: Product | null, qty?: number) =>
 export interface KV { k: string; v: string }
 
 export function keyDims(p: Product): KV[] {
-  if (p.template === 'profiled-fastener') return [{k:'L',v:n(p.dims.overall)}, {k:'Thread',v:threadShort(threadsOf(p)[0])}, {k:'Source',v:'Supplier drawing'}];
+  if (p.template === 'profiled-fastener') return [{k:'Model L',v:n(p.dims.overall)}, {k:'Thread',v:threadShort(threadsOf(p)[0])}, {k:'Data',v:p.spec.status === 'pending' ? 'Supplier-declared' : 'Illustrative'}];
   if (p.template === 'wheel-nut') {
     const d = p.dims;
     return [{ k: 'Thread', v: threadShort(d.thread) }, { k: 'AF', v: n(d.af) }, { k: 'Seat', v: d.seat.type === 'cone60' ? '60° cone' : 'Flange' }];
@@ -89,9 +90,11 @@ const nutSeat = (s: { type: string; dia: number; thickness?: number }, withThick
 export function keySpecs(p: Product): KV[] {
   const F = finishOf(p).label, out: KV[] = [];
   if (p.template === 'profiled-fastener') {
-    out.push({k:'Overall model length L',v:`${n(p.dims.overall)} mm (refer to drawing)`});
+    out.push({k:'Overall model length L',v:`${n(p.dims.overall)} mm (render only)`});
+    const req = evidenceFor(p.partNo)?.requirement;
+    if(req) out.push({k:'Requested nominal length',v:`${req.nominalLengthMm} mm · length basis unresolved`});
     out.push({k:'Thread',v:uniq(threadsOf(p).map(thread)).join(' / ')});
-    out.push({k:'Source',v:'Supplier engineering drawing · not yet OEM verified'});
+    out.push({k:'Source',v:evidenceLabel(p.partNo)});
     out.push({k:'Geometry',v:p.dims.sections.some(s=>s.basis==='schematic') ? 'Contains schematic regions' : 'Supplier dimensions; transitions simplified'});
     return out;
   }
@@ -125,12 +128,13 @@ export function specGroups(p: Product): SpecGroup[] {
   const groups: { group: string; rows: [string, string][] }[] = [];
   groups.push({ group: 'General', rows: [['Part number', p.partNo], ['Product type', typeLabel(p)], ['Supplied as', includes[p.includes]], ['Position', p.positions.join(' & ')]] });
   if (p.template === 'profiled-fastener') {
-    groups.push({group:'Supplier drawing measurements',rows:p.dims.measurements.map(m=>[m.label,`${m.value}${m.basis==='derived' ? ' · calculated' : ''}`] as [string,string])});
+    const declared = sourceMeasurements(p.partNo);
+    if (declared.length) groups.push({group:'Source measurements (supplier-declared)',rows:declared.map(m=>[m.label,`${m.value}${m.basis==='derived' ? ' · calculated interpretation' : ''}`] as [string,string])});
+    groups.push({group:'Rendering',rows:[['Model length',`${n(p.dims.overall)} mm · not a manufacturing specification`],['Local profile','Estimated transitions and spline teeth are for display only']]});
     groups.push({group:'Outstanding checks',rows:p.dims.uncertainties.map((issue,i)=>[`Issue ${i+1}`,issue] as [string,string])});
-    groups.push({group:'Geometry provenance',rows:[['Drawing','Quanzhou Litai · DRAWINGS.pdf'],['Render','Schematic where dimensions or handedness are not provided'],['Fitment','Not verified by OEM/chassis number']]});
   } else if (p.template === 'press-in-stud' || p.template === 'stud-nut') {
     const d = p.dims, H = d.head.thickness;
-    groups.push({ group: 'Dimensions (mm)', rows: [
+    groups.push({ group: 'Illustrative dimensions (mm)', rows: [
       ['Overall length L (incl. head)', n(d.overall)], ['Length under head Lu', n(d.overall - H)],
       ['Head Ø × thickness H', `${n(d.head.dia)} × ${n(H)}`], ['Head form', d.head.shape === 'd-flat' ? `D-flat, ${n(d.head.flatAcross!)} across flat` : 'Round'],
       ['Knurl Ø × length K', `${n(d.knurl.dia)} × ${n(d.knurl.length)}`], ['Knurl splines', String(d.knurl.splines)],
@@ -141,21 +145,32 @@ export function specGroups(p: Product): SpecGroup[] {
       const np = getProduct(p.assembly.nut);
       if (np && np.template === 'wheel-nut') {
         const nd = np.dims;
-        groups.push({ group: `Matching nut · ${np.partNo}`, rows: [['Thread', thread(nd.thread)], ['Across flats', `${n(nd.af)} mm`], ['Height', `${n(nd.height)} mm`], ['Seat', nutSeat(nd.seat, true)], ['Finish', finishes[np.finish].label], ['Clamp length shown (reference)', `${n(p.assembly.clampLength)} mm`]] });
+        groups.push({ group: `Illustrative nut pairing · ${np.partNo}`, rows: [['Thread', thread(nd.thread)], ['Across flats', `${n(nd.af)} mm`], ['Height', `${n(nd.height)} mm`], ['Seat', nutSeat(nd.seat, true)], ['Finish', finishes[np.finish].label], ['Clamp length shown (reference)', `${n(p.assembly.clampLength)} mm`]] });
       }
     }
   } else if (p.template === 'double-ended') {
     const d = p.dims, a = d.threadA, b = d.threadB, c = d.collar;
-    groups.push({ group: 'Dimensions (mm)', rows: [['Overall length L', n(d.overall)], [`End A length (${a.role})`, n(a.length)], ['Collar length C', n(c.length)], [`End B length (${b.role})`, n(b.length)],
+    groups.push({ group: 'Illustrative dimensions (mm)', rows: [['Overall length L', n(d.overall)], [`End A length (${a.role})`, n(a.length)], ['Collar length C', n(c.length)], [`End B length (${b.role})`, n(b.length)],
       ['Collar', c.shape === 'hex' ? `Hex, ${n(c.af)} AF` : `Round, Ø${n(c.dia)}`], ['Check: A + C + B', `${n(a.length)} + ${n(c.length)} + ${n(b.length)} = ${n(a.length + c.length + b.length)}`]] });
     groups.push({ group: 'Thread', rows: [[`End A · ${a.role}`, `${thread(a)} · ${a.cls}`], [`End B · ${b.role}`, `${thread(b)} · ${b.cls}`]] });
   } else {
     const d = p.dims;
-    groups.push({ group: 'Dimensions (mm)', rows: [['Across flats', n(d.af)], ['Across corners (ref.)', n(d.af / Math.cos(Math.PI / 6))], ['Height', n(d.height)], ['Seat', d.seat.type === 'cone60' ? `60° cone, Ø${n(d.seat.dia)}` : `Flat flange, Ø${n(d.seat.dia)} × ${n(d.seat.thickness)}`]] });
+    groups.push({ group: 'Illustrative dimensions (mm)', rows: [['Across flats', n(d.af)], ['Across corners (ref.)', n(d.af / Math.cos(Math.PI / 6))], ['Height', n(d.height)], ['Seat', d.seat.type === 'cone60' ? `60° cone, Ø${n(d.seat.dia)}` : `Flat flange, Ø${n(d.seat.dia)} × ${n(d.seat.thickness)}`]] });
     groups.push({ group: 'Thread', rows: [['Size', `M${d.thread.dia} × ${d.thread.pitch}`], ['Direction', dirLong(d.thread.dir)], ['Tolerance class', d.thread.cls], ['LH identification', d.idGroove ? 'Groove around hex corners' : '—']] });
   }
+  const evidence = evidenceFor(p.partNo);
+  if(evidence) {
+    if(evidence.requirement) groups.push({group:'Sourcing requirement (not a physical part specification)',rows:[
+      ['Nominal request',`M${evidence.requirement.diameterMm} × ${evidence.requirement.pitchMm} × ${evidence.requirement.nominalLengthMm}`],
+      ['Length basis','Unresolved; do not equate nominal and overall length'],
+      ['Handed variants','LH and RH requested separately; neither confirmed for this reference']
+    ]});
+    if(evidence.declaredDimensions.length) groups.push({group:'Manufacturer reference only',rows:evidence.declaredDimensions.map(d=>[d.label,`${d.value} · ${d.scope}`] as [string,string])});
+    if(evidence.references.length) groups.push({group:'Candidate references · interchangeability unproven',rows:evidence.references.map(r=>[r.value,sourceFor(r.sourceId)?.issuer || r.sourceId] as [string,string])});
+    groups.push({group:'Identification evidence',rows:[['Status',evidenceLabel(p.partNo)],['Assessment',evidence.uncertainties.join(' ')]]});
+  }
   groups.push({ group: 'Material & finish', rows: [['Material', p.material], ['Property class', p.grade], ['Finish', finishOf(p).label]] });
-  groups.push({ group: 'Data', rows: [['Specification revision', p.spec.status === 'pending' ? 'Supplier revision not supplied · imported '+p.spec.date : `Rev ${p.spec.revision} · ${p.spec.date}`], ['Data status', p.spec.status === 'pending' ? 'Supplier-declared drawing; incomplete and not verified for installation' : 'Illustrative sample, verify before use']] });
+  groups.push({ group: 'Data', rows: [['Specification revision', p.spec.status === 'pending' ? 'Supplier revision not supplied · imported '+p.spec.date : `Rev ${p.spec.revision} · ${p.spec.date}`], ['Data status', evidenceLabel(p.partNo)]] });
   return groups.map(g => ({ group: g.group, rows: g.rows.map(r => ({ k: r[0], v: r[1] })) }));
 }
 
@@ -172,9 +187,10 @@ export function compare(p: Product, list: Product[]): CompareRow[] {
 }
 
 function hay(p: Product) {
-  return [p.name, p.partNo, p.partNo.replace('-', ''), typeLabel(p), p.summary,
+  return [p.name, p.partNo, p.partNo.replace('-', ''), typeLabel(p), p.summary, evidenceFor(p.partNo)?.familyId,
+    ...(evidenceFor(p.partNo)?.references.map(r=>r.value) || []), ...(evidenceFor(p.partNo)?.aliases || []),
     ...p.applications.map(a => { const v = vehicle(a.vehicle); return `${v.label} ${v.make} ${a.model}`; }),
-    ...allThreads(p).map(t => `m${t.dia}x${t.pitch} m${t.dia} ${t.dir} ${t.dir === 'LH' ? 'left-hand left hand' : 'right-hand right hand'}`)]
+    ...allThreads(p).map(t => `m${t.dia}x${t.pitch} m${t.dia} ${t.dir} ${t.dir === 'LH' ? 'left-hand left hand' : t.dir === 'RH' ? 'right-hand right hand' : 'hand unconfirmed'}`)]
     .join(' ').toLowerCase().replace(/×/g, 'x');
 }
 

@@ -67,7 +67,7 @@ export function Viewer({ sku, variant = 'pdp' }: ViewerProps) {
         <div className={`${s.fb} ${state === 'ready' ? s.fbOff : ''}`} dangerouslySetInnerHTML={{ __html: outline }} />
         <canvas ref={canvas} className={`${s.canvas} ${state === 'ready' ? s.on : ''}`} aria-label="Interactive 3D model. Drag to rotate." />
         <svg ref={dims} className={s.dims} aria-hidden="true" />
-        {!hero && <div className={s.tag}>Visual approximation · see drawing for dimensions</div>}
+        {!hero && <div className={s.tag}>ILLUSTRATIVE 3D MODEL</div>}
         {state !== 'ready' && (
           <div className={s.status} role="status">
             {state === 'loading' && <span className={s.bar} />}

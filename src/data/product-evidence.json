@@ -1,0 +1,624 @@
+{
+  "schemaVersion": 1,
+  "records": [
+    {
+      "sku": "SS-1001",
+      "familyId": "legacy-dyna-front",
+      "confidence": "C",
+      "identityStatus": "unverified",
+      "fitmentStatus": "unverified",
+      "geometryBasis": "illustrative",
+      "sources": [
+        "shenka-2024"
+      ],
+      "references": [],
+      "aliases": [],
+      "consolidationAction": "retain",
+      "uncertainties": [
+        "Headed-stud visual analogue; original M20×74, tooth count and Dyna/Dutro years uncorroborated."
+      ],
+      "declaredDimensions": [],
+      "realWorldReferenceSourceId": "shenka-2024"
+    },
+    {
+      "sku": "SS-1002",
+      "familyId": "legacy-dyna-front",
+      "confidence": "C",
+      "identityStatus": "unverified",
+      "fitmentStatus": "unverified",
+      "geometryBasis": "illustrative",
+      "sources": [
+        "shenka-2024"
+      ],
+      "references": [],
+      "aliases": [],
+      "consolidationAction": "retain",
+      "uncertainties": [
+        "Separate illustrative LH model; physical LH part not identified."
+      ],
+      "declaredDimensions": [],
+      "realWorldReferenceSourceId": "shenka-2024"
+    },
+    {
+      "sku": "SS-1003",
+      "familyId": "legacy-dyna-long",
+      "confidence": "C",
+      "identityStatus": "unverified",
+      "fitmentStatus": "unverified",
+      "geometryBasis": "illustrative",
+      "sources": [
+        "skysun-dyna",
+        "shenka-2024"
+      ],
+      "references": [],
+      "aliases": [],
+      "consolidationAction": "retain",
+      "uncertainties": [
+        "94 overall does not equal pilot47 or supplier54; preserve as separate historical record."
+      ],
+      "declaredDimensions": [],
+      "realWorldReferenceSourceId": "skysun-dyna"
+    },
+    {
+      "sku": "SS-1010",
+      "familyId": "legacy-isuzu",
+      "confidence": "D",
+      "identityStatus": "unverified",
+      "fitmentStatus": "unverified",
+      "geometryBasis": "illustrative",
+      "sources": [
+        "shenka-2024"
+      ],
+      "references": [],
+      "aliases": [],
+      "consolidationAction": "retain",
+      "uncertainties": [
+        "NPR examples include double-ended assemblies; original single-ended M22×85 has no exact match."
+      ],
+      "declaredDimensions": [],
+      "realWorldReferenceSourceId": "shenka-2024"
+    },
+    {
+      "sku": "SS-1011",
+      "familyId": "legacy-isuzu",
+      "confidence": "D",
+      "identityStatus": "unverified",
+      "fitmentStatus": "unverified",
+      "geometryBasis": "illustrative",
+      "sources": [
+        "shenka-2024"
+      ],
+      "references": [],
+      "aliases": [],
+      "consolidationAction": "retain",
+      "uncertainties": [
+        "Separate illustrative LH record, same unresolved architecture as SS-1010."
+      ],
+      "declaredDimensions": [],
+      "realWorldReferenceSourceId": "shenka-2024"
+    },
+    {
+      "sku": "SS-1020",
+      "familyId": "legacy-canter",
+      "confidence": "D",
+      "identityStatus": "unverified",
+      "fitmentStatus": "unverified",
+      "geometryBasis": "illustrative",
+      "sources": [
+        "litai-canter",
+        "shenka-2024"
+      ],
+      "references": [],
+      "aliases": [],
+      "consolidationAction": "retain",
+      "uncertainties": [
+        "M18×64 headed model differs from retrieved double-ended78 and82 examples; no confirmed fitment."
+      ],
+      "declaredDimensions": [],
+      "realWorldReferenceSourceId": "litai-canter"
+    },
+    {
+      "sku": "SS-1030",
+      "familyId": "legacy-m22-set",
+      "confidence": "C",
+      "identityStatus": "unverified",
+      "fitmentStatus": "unverified",
+      "geometryBasis": "illustrative",
+      "sources": [
+        "dt-volvo",
+        "sanlu-gh"
+      ],
+      "references": [],
+      "aliases": [],
+      "consolidationAction": "retain",
+      "uncertainties": [
+        "108 overall/70 thread differs from GH118.5 overall/41 thread and Volvo115/77; shared M22 does not establish fitment or nut compatibility."
+      ],
+      "declaredDimensions": [],
+      "realWorldReferenceSourceId": "sanlu-gh"
+    },
+    {
+      "sku": "SS-1040",
+      "familyId": "legacy-ud-double",
+      "confidence": "C",
+      "identityStatus": "unverified",
+      "fitmentStatus": "unverified",
+      "geometryBasis": "illustrative",
+      "sources": [
+        "shenka-2024"
+      ],
+      "references": [],
+      "aliases": [],
+      "consolidationAction": "retain",
+      "uncertainties": [
+        "Double-ended architecture analogue; M20×84/hex centre not proven for Condor or CK10/20."
+      ],
+      "declaredDimensions": [],
+      "realWorldReferenceSourceId": "shenka-2024"
+    },
+    {
+      "sku": "SS-1041",
+      "familyId": "legacy-stepped-double",
+      "confidence": "C",
+      "identityStatus": "unverified",
+      "fitmentStatus": "unverified",
+      "geometryBasis": "illustrative",
+      "sources": [
+        "litai-canter"
+      ],
+      "references": [],
+      "aliases": [],
+      "consolidationAction": "retain",
+      "uncertainties": [
+        "Canter listing matches M18/M20×78 nominal but has splines/flange, unlike old smooth central collar. Nissan MK association not established."
+      ],
+      "declaredDimensions": [],
+      "realWorldReferenceSourceId": "litai-canter"
+    },
+    {
+      "sku": "SS-2001",
+      "familyId": "legacy-m20-cone-nut",
+      "confidence": "C",
+      "identityStatus": "unverified",
+      "fitmentStatus": "unverified",
+      "geometryBasis": "illustrative",
+      "sources": [
+        "litai-drawings",
+        "sparex-m20-cone"
+      ],
+      "references": [],
+      "aliases": [],
+      "consolidationAction": "retain",
+      "uncertainties": [
+        "Nut analogues show chamfered hex with internal thread. Existing32AF/cone seat not proven compatible with listed vehicles."
+      ],
+      "declaredDimensions": [],
+      "realWorldReferenceSourceId": "sparex-m20-cone"
+    },
+    {
+      "sku": "SS-2002",
+      "familyId": "legacy-m22-flange-nut",
+      "confidence": "C",
+      "identityStatus": "unverified",
+      "fitmentStatus": "unverified",
+      "geometryBasis": "illustrative",
+      "sources": [
+        "litai-drawings",
+        "alcoa-m22-flange"
+      ],
+      "references": [],
+      "aliases": [],
+      "consolidationAction": "retain",
+      "uncertainties": [
+        "GH drawing nut is33AF×32, existing32AF×27 differs. Illustrative seat/washer is not an approved matching nut."
+      ],
+      "declaredDimensions": [],
+      "realWorldReferenceSourceId": "alcoa-m22-flange"
+    },
+    {
+      "sku": "SS-2003",
+      "familyId": "legacy-m20-cone-nut",
+      "confidence": "C",
+      "identityStatus": "unverified",
+      "fitmentStatus": "unverified",
+      "geometryBasis": "illustrative",
+      "sources": [
+        "litai-drawings",
+        "sparex-m20-cone"
+      ],
+      "references": [],
+      "aliases": [],
+      "consolidationAction": "retain",
+      "uncertainties": [
+        "Separate LH illustration; identification groove is a design convention, not a supplier marking declaration."
+      ],
+      "declaredDimensions": [],
+      "realWorldReferenceSourceId": "sparex-m20-cone"
+    },
+    {
+      "sku": "SS-3001",
+      "familyId": "mazda-t35-front",
+      "confidence": "B",
+      "identityStatus": "unverified",
+      "fitmentStatus": "unverified",
+      "geometryBasis": "supplier-declared",
+      "sources": [
+        "litai-drawings",
+        "shenka-2024"
+      ],
+      "references": [
+        {
+          "value": "BNTHMZ0025-LB",
+          "sourceId": "shenka-2024",
+          "relationship": "candidate-only",
+          "kind": "manufacturer"
+        },
+        {
+          "value": "BNTHMZ0025-RB",
+          "sourceId": "shenka-2024",
+          "relationship": "candidate-only",
+          "kind": "manufacturer"
+        }
+      ],
+      "aliases": [],
+      "consolidationAction": "retain",
+      "uncertainties": [
+        "Supplier says Mazda Front, not T35. 72 under head /80.5 overall; ambiguous spline callout retained. Candidate only."
+      ],
+      "declaredDimensions": [],
+      "requirement": {
+        "diameterMm": 18,
+        "pitchMm": 1.5,
+        "nominalLengthMm": 72,
+        "lengthBasis": "unresolved",
+        "sourceId": "pilot-2026"
+      },
+      "declaredDimensionsSource": "src/data/supplier-measurements.json#SS-3001",
+      "realWorldReferenceSourceId": "shenka-2024"
+    },
+    {
+      "sku": "SS-3002",
+      "familyId": "mazda-t35-rear",
+      "confidence": "C",
+      "identityStatus": "unverified",
+      "fitmentStatus": "unverified",
+      "geometryBasis": "supplier-declared",
+      "sources": [
+        "litai-drawings",
+        "shenka-2024"
+      ],
+      "references": [
+        {
+          "value": "BNTHMZ0001 LB",
+          "sourceId": "shenka-2024",
+          "relationship": "candidate-only",
+          "kind": "manufacturer"
+        },
+        {
+          "value": "BNTHMZ0001 RB",
+          "sourceId": "shenka-2024",
+          "relationship": "candidate-only",
+          "kind": "manufacturer"
+        }
+      ],
+      "aliases": [],
+      "consolidationAction": "retain",
+      "uncertainties": [
+        "Supplier heading72 under head conflicts with detailed66. Model76.5 overall remains provisional. T35 unconfirmed."
+      ],
+      "declaredDimensions": [],
+      "requirement": {
+        "diameterMm": 18,
+        "pitchMm": 1.5,
+        "nominalLengthMm": 72,
+        "lengthBasis": "unresolved",
+        "sourceId": "pilot-2026"
+      },
+      "declaredDimensionsSource": "src/data/supplier-measurements.json#SS-3002",
+      "realWorldReferenceSourceId": "shenka-2024"
+    },
+    {
+      "sku": "SS-3003",
+      "familyId": "hino-gh-rear",
+      "confidence": "B",
+      "identityStatus": "unverified",
+      "fitmentStatus": "unverified",
+      "geometryBasis": "supplier-declared",
+      "sources": [
+        "litai-drawings",
+        "sanlu-gh"
+      ],
+      "references": [],
+      "aliases": [],
+      "consolidationAction": "retain",
+      "uncertainties": [
+        "108 under head/118.5 overall; corrected R20 head envelope. No manufacturer/OEM number or selected hand."
+      ],
+      "declaredDimensions": [],
+      "requirement": {
+        "diameterMm": 22,
+        "pitchMm": 1.5,
+        "nominalLengthMm": 108,
+        "lengthBasis": "unresolved",
+        "sourceId": "pilot-2026"
+      },
+      "declaredDimensionsSource": "src/data/supplier-measurements.json#SS-3003",
+      "realWorldReferenceSourceId": "sanlu-gh"
+    },
+    {
+      "sku": "SS-3004",
+      "familyId": "toyota-dyna-rear",
+      "confidence": "B",
+      "identityStatus": "unverified",
+      "fitmentStatus": "unverified",
+      "geometryBasis": "supplier-declared",
+      "sources": [
+        "litai-drawings",
+        "skysun-dyna"
+      ],
+      "references": [
+        {
+          "value": "LF11035",
+          "sourceId": "skysun-dyna",
+          "relationship": "candidate-only",
+          "kind": "manufacturer"
+        },
+        {
+          "value": "LF11036",
+          "sourceId": "skysun-dyna",
+          "relationship": "candidate-only",
+          "kind": "manufacturer"
+        }
+      ],
+      "aliases": [],
+      "consolidationAction": "retain",
+      "uncertainties": [
+        "Dynaps label resembles Dyna PS140; 47 under head/54 overall. Not a proven same manufacturer part."
+      ],
+      "declaredDimensions": [],
+      "requirement": {
+        "diameterMm": 20,
+        "pitchMm": 1.5,
+        "nominalLengthMm": 47,
+        "lengthBasis": "unresolved",
+        "sourceId": "pilot-2026"
+      },
+      "declaredDimensionsSource": "src/data/supplier-measurements.json#SS-3004",
+      "realWorldReferenceSourceId": "skysun-dyna"
+    },
+    {
+      "sku": "SS-3005",
+      "familyId": "supplier-rino-rear",
+      "confidence": "B",
+      "identityStatus": "unverified",
+      "fitmentStatus": "unverified",
+      "geometryBasis": "supplier-declared",
+      "sources": [
+        "litai-drawings",
+        "litai-rino"
+      ],
+      "references": [
+        {
+          "value": "LT-TOYO-02",
+          "sourceId": "litai-rino",
+          "relationship": "candidate-only",
+          "kind": "manufacturer"
+        }
+      ],
+      "aliases": [],
+      "consolidationAction": "retain",
+      "uncertainties": [
+        "75 reference overall, Z50±1; flange diameter unknown. Rino/2D identity and handedness unresolved."
+      ],
+      "declaredDimensions": [],
+      "declaredDimensionsSource": "src/data/supplier-measurements.json#SS-3005",
+      "realWorldReferenceSourceId": "litai-rino"
+    },
+    {
+      "sku": "SS-3006",
+      "familyId": "supplier-durton-rear",
+      "confidence": "C",
+      "identityStatus": "unverified",
+      "fitmentStatus": "unverified",
+      "geometryBasis": "supplier-declared",
+      "sources": [
+        "litai-drawings",
+        "litai-durto"
+      ],
+      "references": [],
+      "aliases": [],
+      "consolidationAction": "retain",
+      "uncertainties": [
+        "91 overall conflicts with pilot90; Durton/Dutro mapping unresolved and Durto marketplace75 conflicts again."
+      ],
+      "declaredDimensions": [],
+      "declaredDimensionsSource": "src/data/supplier-measurements.json#SS-3006",
+      "realWorldReferenceSourceId": "litai-durto"
+    },
+    {
+      "sku": "SS-4001",
+      "familyId": "hino-dutro-rear",
+      "confidence": "D",
+      "identityStatus": "unverified",
+      "fitmentStatus": "unverified",
+      "geometryBasis": "illustrative",
+      "sources": [
+        "pilot-2026",
+        "litai-drawings",
+        "litai-durto"
+      ],
+      "references": [],
+      "aliases": [],
+      "consolidationAction": "add-reference",
+      "uncertainties": [
+        "Reference added for nominal90; drawing91 not merged. Local sections are illustrative."
+      ],
+      "declaredDimensions": [],
+      "requirement": {
+        "diameterMm": 20,
+        "pitchMm": 1.5,
+        "nominalLengthMm": 90,
+        "lengthBasis": "unresolved",
+        "sourceId": "pilot-2026"
+      },
+      "realWorldReferenceSourceId": "litai-durto"
+    },
+    {
+      "sku": "SS-4002",
+      "familyId": "toyota-2d-rear",
+      "confidence": "C",
+      "identityStatus": "unverified",
+      "fitmentStatus": "unverified",
+      "geometryBasis": "illustrative",
+      "sources": [
+        "pilot-2026",
+        "shenka-2024",
+        "litai-rino"
+      ],
+      "references": [
+        {
+          "value": "BNTHTY0003",
+          "sourceId": "shenka-2024",
+          "relationship": "candidate-only",
+          "kind": "manufacturer"
+        },
+        {
+          "value": "BNTHTY0004",
+          "sourceId": "shenka-2024",
+          "relationship": "candidate-only",
+          "kind": "manufacturer"
+        }
+      ],
+      "aliases": [],
+      "consolidationAction": "add-reference",
+      "uncertainties": [
+        "2D/DA6000 shown in Shenka, but no dimensional proof of equality with Rino75. Separate reference."
+      ],
+      "declaredDimensions": [],
+      "requirement": {
+        "diameterMm": 20,
+        "pitchMm": 1.5,
+        "nominalLengthMm": 75,
+        "lengthBasis": "unresolved",
+        "sourceId": "pilot-2026"
+      },
+      "realWorldReferenceSourceId": "shenka-2024"
+    },
+    {
+      "sku": "SS-4003",
+      "familyId": "ud-ck-rear",
+      "confidence": "C",
+      "identityStatus": "unverified",
+      "fitmentStatus": "unverified",
+      "geometryBasis": "illustrative",
+      "sources": [
+        "pilot-2026",
+        "shenka-2024"
+      ],
+      "references": [
+        {
+          "value": "BNTHNS0016",
+          "sourceId": "shenka-2024",
+          "relationship": "candidate-only",
+          "kind": "manufacturer"
+        },
+        {
+          "value": "BNTHNS0017",
+          "sourceId": "shenka-2024",
+          "relationship": "candidate-only",
+          "kind": "manufacturer"
+        }
+      ],
+      "aliases": [],
+      "consolidationAction": "add-reference",
+      "uncertainties": [
+        "Rear photographs show double-ended stud and washer/nut assemblies. Front102 search matches are not rear-fitment evidence. Inner thread unknown."
+      ],
+      "declaredDimensions": [],
+      "requirement": {
+        "diameterMm": 22,
+        "pitchMm": 1.5,
+        "nominalLengthMm": 102,
+        "lengthBasis": "unresolved",
+        "sourceId": "pilot-2026"
+      },
+      "realWorldReferenceSourceId": "shenka-2024"
+    },
+    {
+      "sku": "SS-4004",
+      "familyId": "volvo-rear",
+      "confidence": "B",
+      "identityStatus": "unverified",
+      "fitmentStatus": "unverified",
+      "geometryBasis": "illustrative",
+      "sources": [
+        "pilot-2026",
+        "dt-volvo",
+        "alibaba-volvo"
+      ],
+      "references": [
+        {
+          "value": "2.65094",
+          "sourceId": "dt-volvo",
+          "relationship": "candidate-only",
+          "kind": "manufacturer"
+        },
+        {
+          "value": "20515519",
+          "sourceId": "dt-volvo",
+          "relationship": "candidate-only",
+          "kind": "oem"
+        },
+        {
+          "value": "7420515519",
+          "sourceId": "dt-volvo",
+          "relationship": "candidate-only",
+          "kind": "oem"
+        }
+      ],
+      "aliases": [],
+      "consolidationAction": "add-reference",
+      "uncertainties": [
+        "DT reference2.65094 establishes105 under head for that reference. Planned part identity and LH availability remain unresolved."
+      ],
+      "declaredDimensions": [
+        {
+          "label": "Overall",
+          "value": "115 mm",
+          "basis": "manufacturer-declared",
+          "sourceId": "dt-volvo",
+          "scope": "DT2.65094 reference only"
+        },
+        {
+          "label": "Under head",
+          "value": "105 mm",
+          "basis": "manufacturer-declared",
+          "sourceId": "dt-volvo",
+          "scope": "DT2.65094 reference only"
+        },
+        {
+          "label": "Thread length",
+          "value": "77 mm",
+          "basis": "manufacturer-declared",
+          "sourceId": "dt-volvo",
+          "scope": "DT2.65094 reference only"
+        },
+        {
+          "label": "Head diameter",
+          "value": "36 mm",
+          "basis": "manufacturer-declared",
+          "sourceId": "dt-volvo",
+          "scope": "DT2.65094 reference only"
+        }
+      ],
+      "requirement": {
+        "diameterMm": 22,
+        "pitchMm": 1.5,
+        "nominalLengthMm": 105,
+        "lengthBasis": "unresolved",
+        "sourceId": "pilot-2026"
+      },
+      "realWorldReferenceSourceId": "dt-volvo"
+    }
+  ]
+}

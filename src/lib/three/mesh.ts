@@ -4,7 +4,7 @@ import type * as THREE from 'three';
 import type { Product, FinishKey } from '../catalogue';
 import { finishes } from '../catalogue';
 import { geom, type Seg, type NutGeom, type Geom } from '../geometry';
-import { neutralThreadRadius } from './neutral-thread-profile.mjs';
+import { threadSurfaceRadius, threadEndRadius } from './thread-surface.mjs';
 import { headProfileRings } from './head-profile.mjs';
 import { tipChamferRadius, plainTaperRings } from './taper-profile.mjs';
 
@@ -54,41 +54,20 @@ interface ThreadSpec {
   tipChamfer?: { lengthMm: number; tipDiameterMm: number };
 }
 
-/* Crest locus y = y0 + sign·p·φ/2π; the grid is sheared along the helix so crests stay clean. */
+/* Uniform axial sampling keeps joins and end caps exactly on their boundaries. */
 function threadGeo(T: Three, s: ThreadSpec, internal = false) {
-  // A supplier may declare pitch/diameter without specifying RH vs LH.
-  // Give those sections visible *axisymmetric* grooves: the radial profile
-  // varies along the axis, never with angle, so it does not imply thread hand.
-  if (s.dir === 'UNSPECIFIED') {
-    const major = s.r ?? s.rMaj ?? s.rMin + 0.6134 * s.pitch;
-    const minor = Math.min(s.rMin, major - 0.35 * s.pitch);
-    const rows = Math.max(3, Math.ceil(((s.y1 - s.y0) / s.pitch) * 18) + 1);
-    const radialSteps = 64;
-    return patch(T, rows, radialSteps, (i, j) => {
-      const y = s.y0 + (s.y1 - s.y0) * i / (rows - 1);
-      let radius = neutralThreadRadius(y, s.y0, s.pitch, major, minor);
-      if (s.tipChamfer && s.tip) radius = Math.min(radius, tipChamferRadius(y, s.y0, s.y1, major, s.tip, s.tipChamfer));
-      return [radius, y, (j / radialSteps) * TAU];
-    });
+  const rows = Math.max(3, Math.ceil((s.y1 - s.y0) / s.pitch * 12) + 1);
+  const geometry = patch(T, rows, 64, (i,j) => {
+    const y = s.y0 + (s.y1-s.y0) * i/(rows-1), angle = j/64*TAU;
+    return [threadSurfaceRadius(s,y,angle,internal),y,angle];
+  });
+  if (internal) {
+    // Bore normals face the empty bore, not the material inside the nut.
+    const index = geometry.index!;
+    for(let i=0;i<index.count;i+=3){const b=index.getX(i+1);index.setX(i+1,index.getX(i+2));index.setX(i+2,b);}
+    geometry.computeVertexNormals();
   }
-  const p = s.pitch, sg = s.dir === 'LH' ? -1 : 1, R = 10, N = 72;
-  const len = s.y1 - s.y0, nP = Math.ceil(len / p) + 4, M = nP * R + 1, base = s.y0 - 2 * p, off = sg < 0 ? p : 0;
-  const rTip = s.rMin - 0.25, run = 1.6 * p;
-  return patch(T, M, N, (i, j) => {
-    const ph = (j / N) * TAU, y = base + (i * p) / R + (sg * p * ph) / TAU + off;
-    let tri = 1 - Math.abs(2 * ((i % R) / R) - 1); tri = Math.min(1, tri * 1.18);
-    const yc = Math.min(s.y1, Math.max(s.y0, y));
-    let r: number;
-    if (internal) { r = s.rMin + (s.rMaj! - s.rMin) * tri; const de = Math.min(yc - s.y0, s.y1 - yc); r = Math.max(r, s.rMaj! + 0.6 - de); }
-    else {
-      r = s.rMin + (s.r! - s.rMin) * tri;
-      const dRun = s.tip === 'end' ? yc - s.y0 : s.y1 - yc;
-      if (dRun < run) { const t = Math.max(0, dRun / run), k = t * t * (3 - 2 * t); r = s.r! - (s.r! - r) * k; }
-      r = Math.min(r, rTip + (s.tip === 'end' ? s.y1 - yc : yc - s.y0));
-    }
-    if (!internal && s.tipChamfer && s.tip) r = Math.min(r, tipChamferRadius(yc, s.y0, s.y1, s.r!, s.tip, s.tipChamfer));
-    return [r, yc, ph];
-  }, sg * R);
+  return geometry;
 }
 
 function knurlGeo(T: Three, s: Seg) {
@@ -110,7 +89,12 @@ function hexGeo(T: Three, y0: number, y1: number, af: number, o: { top?: boolean
     let r = hexR(af, ph);
     if (o.bot) r = Math.min(r, c0 + (y - y0) * k);
     if (o.top) r = Math.min(r, c0 + (y1 - y) * k);
-    if (o.groove && Math.abs(y - ym) < 0.7) r = Math.min(r, (af / 2) * 1.035);
+    if (o.groove) {
+      const distance = Math.abs(y - ym);
+      // Rounded entry to the illustrative identification groove avoids a razor notch.
+      const blend = Math.max(0, Math.min(1, (1.0 - distance) / 0.4));
+      r -= Math.max(0, r - (af / 2) * 1.035) * blend * blend * (3 - 2 * blend);
+    }
     return [r, y, ph];
   });
 }
@@ -131,8 +115,8 @@ function nutGeos(T: Three, ng: NutGeom) {
   return out;
 }
 
-const endR = (s: Seg) => (s.kind === 'knurl' ? s.rNext : s.kind === 'plain' && s.endTaper ? s.endTaper.endDiameterMm / 2 : s.kind === 'thread' && s.tip === 'end' && s.tipChamfer ? s.tipChamfer.tipDiameterMm / 2 : s.kind === 'collar' ? s.r - 0.6 : s.kind === 'hex' ? (s.af / 2) * 0.96 : s.r);
-const startR = (s: Seg) => (s.kind === 'knurl' ? s.rIn : s.kind === 'thread' && s.tip === 'start' && s.tipChamfer ? s.tipChamfer.tipDiameterMm / 2 : s.kind === 'collar' ? s.r - 0.6 : s.kind === 'hex' ? (s.af / 2) * 0.96 : s.r);
+const endR = (s: Seg) => (s.kind === 'thread' ? threadEndRadius(s,'end') : s.contour ? s.contour[s.contour.length-1].diameterMm/2 : s.kind === 'knurl' ? s.rNext : s.kind === 'plain' && s.endTaper ? s.endTaper.endDiameterMm / 2 : s.kind === 'collar' ? s.r - 0.6 : s.kind === 'hex' ? (s.af / 2) * 0.96 : s.r);
+const startR = (s: Seg) => (s.kind === 'thread' ? threadEndRadius(s,'start') : s.contour ? s.contour[0].diameterMm/2 : s.kind === 'knurl' ? s.rIn : s.kind === 'collar' ? s.r - 0.6 : s.kind === 'hex' ? (s.af / 2) * 0.96 : s.r);
 
 export type MatFactory = (key: FinishKey) => THREE.MeshPhysicalMaterial;
 
@@ -153,9 +137,11 @@ export function partGroup(T: Three, p: Product, mats: MatFactory): { grp: THREE.
   const add = (geo: THREE.BufferGeometry, m?: THREE.Material) => grp.add(new T.Mesh(geo, m || mat));
   g.segs.forEach((s, i) => {
     const nx = g.segs[i + 1];
-    if (s.kind === 'head') {
+    if (s.contour) {
+      lathe(T,s.contour.map(p=>[p.diameterMm/2,s.y0+p.offsetMm]),96).forEach(x=>add(x));
+    } else if (s.kind === 'head') {
       const prev = g.segs[i - 1];
-      const inner = nx && nx.kind === 'knurl' ? nx.rIn - 0.2 : nx ? startR(nx) : 0;
+      const inner = nx ? startR(nx) : 0;
       // A central drive flat is an axial section, NOT another head at y=0.
       // Its own annular shoulders join the neighbouring shaft diameters.
       // This also prevents the internal drive from swallowing the first thread.
@@ -179,7 +165,7 @@ export function partGroup(T: Three, p: Product, mats: MatFactory): { grp: THREE.
     else if (s.kind === 'hex') add(hexGeo(T, s.y0, s.y1, s.af, { top: true, bot: true }));
     else if (s.kind === 'thread') {
       add(threadGeo(T, s));
-      const rt = s.tipChamfer ? s.tipChamfer.tipDiameterMm / 2 : s.rMin - 0.25;
+      const rt = threadEndRadius(s,s.tip);
       const y = s.tip === 'end' ? s.y1 : s.y0;
       lathe(T, [[rt, y], [0, y]], 72).forEach(x => add(x));
     }
@@ -193,6 +179,23 @@ export function partGroup(T: Three, p: Product, mats: MatFactory): { grp: THREE.
   if (g.nut) {
     const nm = mats(g.nut.finish || p.finish);
     nutGeos(T, g.nut).forEach(x => { const m = new T.Mesh(x, nm); m.position.y = g.nut!.y0; grp.add(m); });
+  }
+  const buckets = new Map<THREE.Material, THREE.Mesh[]>();
+  for (const child of grp.children) {
+    const mesh = child as THREE.Mesh<THREE.BufferGeometry, THREE.Material>;
+    const group = buckets.get(mesh.material) || []; group.push(mesh); buckets.set(mesh.material,group);
+  }
+  grp.clear();
+  for (const [material, meshes] of buckets) {
+    const positions:number[]=[], normals:number[]=[], indices:number[]=[];
+    for (const mesh of meshes) {
+      const geo=mesh.geometry, p=geo.attributes.position, n=geo.attributes.normal, offset=positions.length/3;
+      for(let i=0;i<p.count;i++){positions.push(p.getX(i),p.getY(i)+mesh.position.y,p.getZ(i));normals.push(n.getX(i),n.getY(i),n.getZ(i));}
+      for(let i=0;i<geo.index!.count;i++) indices.push(geo.index!.getX(i)+offset);
+      geo.dispose();
+    }
+    const geo=new T.BufferGeometry();geo.setAttribute('position',new T.Float32BufferAttribute(positions,3));geo.setAttribute('normal',new T.Float32BufferAttribute(normals,3));geo.setIndex(indices);
+    grp.add(new T.Mesh(geo,material));
   }
   return { grp, g };
 }

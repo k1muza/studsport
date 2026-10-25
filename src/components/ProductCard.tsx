@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { getProduct, href, typeLabel, keyDims, appsLabel, avail, isLH, priceLabel } from '@/lib/products';
 import { Thumb } from './Thumb';
+import { evidenceLabel } from '@/lib/evidence';
 import s from './ProductCard.module.css';
 
 export function ProductCard({ sku, spin = 'off' }: { sku: string; spin?: 'auto' | 'off' }) {
@@ -24,7 +25,7 @@ export function ProductCard({ sku, spin = 'off' }: { sku: string; spin?: 'auto' 
             <span key={d.k} className={s.dim}><span className={s.dimK}>{d.k}</span><span className={s.dimV}>{d.v}</span></span>
           ))}
         </div>
-        <span className={s.apps}>{appsLabel(p)}</span>
+        <span className={s.apps}>{evidenceLabel(p.partNo)}<br />{appsLabel(p)}</span>
         <span className={s.foot}>
           <span className={s.price}>{priceLabel(p)}</span>
           <span className={s.view}>View part <span className="arrow">→</span></span>

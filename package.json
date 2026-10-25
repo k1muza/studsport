@@ -8,8 +8,9 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "check:models": "node scripts/check-models.mjs",
-    "test:models": "node --test tests/models.test.mjs",
-    "prebuild": "npm run check:models && npm run test:models"
+    "test:models": "node --test tests/*.test.mjs",
+    "prebuild": "npm run check:models && npm run test:models",
+    "review:models": "node scripts/render-model-review.mjs"
   },
   "dependencies": {
     "next": "^16.4.3",
@@ -22,6 +23,8 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@types/three": "^0.160.0",
+    "esbuild": "^0.28.2",
+    "playwright": "^1.64.1",
     "typescript": "^5.9.3"
   }
 }

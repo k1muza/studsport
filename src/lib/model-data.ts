@@ -7,7 +7,7 @@ import type { Template, StudDims, DoubleEndedDims, NutDims, ProfiledDims } from 
 
 export type ModelStatus = 'illustrative' | 'supplier-declared' | 'verified';
 export interface ModelEvidence {
-  kind: 'prototype' | 'supplier-drawing' | 'oem-catalogue';
+  kind: 'prototype' | 'supplier-drawing' | 'oem-catalogue' | 'research-reference';
   reference: string;
   note?: string;
 }
@@ -16,6 +16,7 @@ export interface ModelBase {
   template: Template;
   verification: { status: ModelStatus; geometryApproved: boolean; fitmentApproved: boolean };
   source: ModelEvidence;
+  visual?: { basis: 'illustrative'; edgeBreakMm: number; threadRunoutPitches: number; splineDepthMm: number };
 }
 export type PartModel =
   | (ModelBase & { template: 'press-in-stud' | 'stud-nut'; dimensions: StudDims })

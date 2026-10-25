@@ -7,7 +7,7 @@ import { headProfileRings } from '../src/lib/three/head-profile.mjs';
 import { tipChamferRadius, plainTaperRings } from '../src/lib/three/taper-profile.mjs';
 const doc = JSON.parse(readFileSync(new URL('../src/data/part-models.json', import.meta.url),'utf8'));
 const copy = () => structuredClone(doc);
-test('all eighteen catalogue models validate', () => {assert.equal(doc.models.length,18);assert.deepEqual(inspectModels(doc),[]);});
+test('all consolidated catalogue models validate', () => {assert.equal(doc.models.length,22);assert.deepEqual(inspectModels(doc),[]);});
 test('every model identifier is unique', () => assert.equal(new Set(doc.models.map(m=>m.sku)).size,doc.models.length));
 test('length mismatch fails validation', () => {const x=copy();x.models[0].dimensions.overall+=1;assert.match(inspectModels(x).join(' '),/length mismatch/);});
 test('thread direction must be declared', () => {const x=copy();x.models[0].dimensions.thread.dir='unknown';assert.match(inspectModels(x).join(' '),/invalid thread/);});
@@ -42,7 +42,7 @@ test('unknown-hand thread has visible grooves at the declared pitch', () => {
   assert.ok(radius(pitch / 4) === radius(pitch * 0.75));
 });
 test('grooves are symmetric and bounded on every supplier nominal thread', () => {
-  const profiles = doc.models.filter(m => m.template === 'profiled-fastener');
+  const profiles = doc.models.filter(m => m.verification.status === 'supplier-declared');
   assert.equal(profiles.length, 6);
   for (const model of profiles) {
     for (const section of model.dimensions.sections.filter(s => s.kind === 'thread')) {
@@ -105,7 +105,7 @@ test('SS-3005 profile does not present schematic flange diameter as verified', (
   const d=doc.models.find(m=>m.sku==='SS-3005').dimensions;
   const flange=d.sections.find(s=>s.kind==='collar');
   assert.equal(flange.basis,'schematic');
-  assert.match(flange.note,/NOT specified/);
+  assert.match(flange.note,/Not a supplier measurement/);
   assert.match(d.uncertainties.join(' '),/outside diameter.*not dimensioned/);
   assert.match(d.measurements.map(m=>m.value).join(' '),/minimum 27 mm/);
 });

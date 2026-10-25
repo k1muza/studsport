@@ -1,5 +1,5 @@
-/* Spec sheets print as one full-bleed A4 page. */
-@page { size: A4 portrait; margin: 0; }
+/* Repeat safe margins on every page as evidence grows beyond one sheet. */
+@page { size: A4 portrait; margin: 10mm 11mm 9mm; }
 @media print {
   html, body { background: #fff; }
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
