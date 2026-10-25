@@ -3,7 +3,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { getProduct } from '@/lib/products';
 import { drawingSVG } from '@/lib/drawing';
-import { PartViewer } from '@/lib/three/viewer';
+import type { PartViewer } from '@/lib/three/viewer';
+import { productAnalytics, track } from '@/lib/analytics';
 import s from './Viewer.module.css';
 
 const Icon = {
@@ -28,6 +29,7 @@ export function Viewer({ sku, variant = 'pdp' }: ViewerProps) {
   const canvas = useRef<HTMLCanvasElement>(null);
   const dims = useRef<SVGSVGElement>(null);
   const engine = useRef<PartViewer | null>(null);
+  const interacted = useRef(false);
   const [state, setState] = useState<'loading' | 'ready' | 'failed'>('loading');
   const [auto, setAuto] = useState(true);
   const [showDims, setShowDims] = useState(true);
@@ -38,20 +40,31 @@ export function Viewer({ sku, variant = 'pdp' }: ViewerProps) {
 
   useEffect(() => {
     if (!p || !host.current || !canvas.current || !dims.current) return;
-    const v = new PartViewer(p, {
-      host: host.current, canvas: canvas.current, dims: dims.current, hero,
-      onReady: () => setState('ready'),
-      onFail: () => setState('failed'),
-    });
-    engine.current = v;
-    setAuto(v.autoRotate);
-    return () => { v.dispose(); engine.current = null; };
+    let live = true;
+    let viewer: PartViewer | null = null;
+    import('@/lib/three/viewer').then(({ PartViewer: ViewerEngine }) => {
+      if (!live || !p || !host.current || !canvas.current || !dims.current) return;
+      viewer = new ViewerEngine(p, {
+        host: host.current, canvas: canvas.current, dims: dims.current, hero,
+        onReady: () => setState('ready'),
+        onFail: () => setState('failed'),
+      });
+      engine.current = viewer;
+      setAuto(viewer.autoRotate);
+    }).catch(() => setState('failed'));
+    return () => { live = false; viewer?.dispose(); engine.current = null; };
     // The engine is created once; product changes go through setProduct below.
   }, [hero]);
 
   useEffect(() => { if (p) engine.current?.setProduct(p); }, [p]);
 
   if (!p) return null;
+
+  const recordInteraction = () => {
+    if (interacted.current) return;
+    interacted.current = true;
+    track('view_3d', productAnalytics(p));
+  };
 
   const toggleAuto = () => { const v = !auto; setAuto(v); engine.current?.setAuto(v); };
   const toggleDims = () => { const v = !showDims; setShowDims(v); engine.current?.setShowDims(v); };
@@ -62,7 +75,7 @@ export function Viewer({ sku, variant = 'pdp' }: ViewerProps) {
   const playLabel = auto ? 'Pause rotation' : 'Resume rotation';
 
   return (
-    <div ref={host} className={`${s.host} ${hero ? s.hero : ''}`}>
+    <div ref={host} className={`${s.host} ${hero ? s.hero : ''}`} onPointerDown={recordInteraction} onWheel={recordInteraction}>
       <div className={s.wrap}>
         <div className={`${s.fb} ${state === 'ready' ? s.fbOff : ''}`} dangerouslySetInnerHTML={{ __html: outline }} />
         <canvas ref={canvas} className={`${s.canvas} ${state === 'ready' ? s.on : ''}`} aria-label="Interactive 3D model. Drag to rotate." />

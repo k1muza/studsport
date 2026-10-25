@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { search, href, appsLabel } from '@/lib/products';
 import s from './home.module.css';
+import { searchBucket, track } from '@/lib/analytics';
 
 const QUICK = ['Toyota Dyna', 'M22 × 1.5', 'Left-hand', 'SS-1030'];
 
@@ -14,6 +15,7 @@ export function HomeSearch() {
   const term = q.trim();
   const res = term ? search(q) : [];
   const searchHref = '/products' + (q ? '?q=' + encodeURIComponent(q) : '');
+  const recordSearch = () => track(res.length ? 'search' : 'search_no_results', { search_term_bucket: searchBucket(q), result_count: res.length, page_path: '/' });
 
   return (
     <div className={s.searchCol}>
@@ -27,15 +29,15 @@ export function HomeSearch() {
           id="home-search" type="search" autoComplete="off" placeholder="e.g. SS-1030, Toyota Dyna, M22 × 1.5"
           value={q} onChange={e => setQ(e.target.value)} className={s.searchInput}
           onKeyDown={e => {
-            if (e.key === 'Enter') router.push('/products?q=' + encodeURIComponent(q));
+            if (e.key === 'Enter') { recordSearch(); router.push('/products?q=' + encodeURIComponent(q)); }
             if (e.key === 'Escape') setQ('');
           }}
         />
-        <Link href={searchHref} className={s.searchBtn}>Search</Link>
+        <Link href={searchHref} className={s.searchBtn} onClick={recordSearch}>Search</Link>
         {term && (
           <div className={s.sugg} role="listbox" aria-label="Suggestions">
             {res.slice(0, 5).map(p => (
-              <Link key={p.slug} href={href(p)} className={s.suggRow}>
+              <Link key={p.slug} href={href(p)} className={s.suggRow} onClick={() => track('select_item', { item_id: p.partNo, item_name: p.name, item_list_name: 'home_search' })}>
                 <span className={s.suggPart}>{p.partNo}</span>
                 <span className={s.suggText}>
                   <span className={s.suggName}>{p.name}</span>

@@ -20,6 +20,7 @@
 .tab:hover { color: #fff; border-color: var(--rule-d4); }
 .tab[aria-selected="true"] { border-color: var(--accent); background: #1d2023; color: #fff; }
 .stage { position: relative; height: clamp(360px, 46vw, 640px); background: var(--stage-gradient); border: 1px solid var(--rule-d1); overflow: hidden; }
+.staticIllustration { position: absolute; inset: 13% 5% 15%; z-index: 0; width: 90%; height: 72%; object-fit: contain; opacity: .2; filter: invert(1); }
 .stageGrid {
   position: absolute; inset: 0; pointer-events: none;
   background-image: linear-gradient(rgba(255,255,255,0.028) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.028) 1px, transparent 1px);

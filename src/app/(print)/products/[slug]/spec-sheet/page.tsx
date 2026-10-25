@@ -14,7 +14,7 @@ export const dynamicParams = false;
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const p = getProduct((await params).slug);
-  return p ? { title: `${p.partNo} specification` } : {};
+  return p ? { title: `${p.partNo} specification`, alternates: { canonical: `/products/${p.slug}` }, robots: { index: false, follow: true } } : {};
 }
 
 export default async function SpecSheetPage({ params }: { params: Params }) {

@@ -7,6 +7,7 @@ npm install
 npm run dev        # http://localhost:3000
 npm run build      # also runs the catalogue publish check
 npm run typecheck
+npm run test:seo:rendered # against a running production server; set SEO_BASE_URL if not :3000
 ```
 
 ## Routes
@@ -17,7 +18,9 @@ npm run typecheck
 | `/products?q=&vehicle=&type=&size=&dir=` | Catalogue with faceted filters (state synced to the URL) |
 | `/products/[slug]` | Product detail (statically generated per record) |
 | `/products/[slug]/spec-sheet` | Printable A4 spec sheet |
-| `/find-my-part?part=&qty=&vehicle=&q=` | 3-step enquiry / quote request (submission is simulated) |
+| `/find-my-part?part=&qty=&vehicle=&q=` | 3-step enquiry with confirmed email delivery or explicit WhatsApp handoff |
+| `/vehicles` | Evidence-limited vehicle/application research pages |
+| `/guides/how-to-identify-and-measure-a-wheel-stud` | Evergreen identification and measuring guide |
 | `/design-system` | Colour, type, components, drawing and motion conventions |
 
 ## Evidence-linked catalogue
@@ -58,4 +61,4 @@ The build preflight runs the JSON/catalogue validators and regression suite. `re
 
 Mazda Rear still has conflicting 72/66 mm under-head lengths. The Hino GH drawing's R20 head is represented as a 40 mm envelope with 36 mm flat height. The Rino flange is not dimensioned: its 24 mm rounded display contour is illustrative and omitted from dimensional callouts. Rino/2D, Durton/Dutro, CK10/CK20 rear, and the requested Volvo LH variant need identification. Supplier grades and finishes are declarations, not independent certification. No exact fitment, stock, price, installation suitability or nut-seat compatibility is established by a model.
 
-Product photos, company address/email placeholders, and enquiry submission remain prototype features; this change does not activate ordering.
+Product photos and public business details still require operational verification. The enquiry endpoint can deliver through Resend when the three server-side variables in [`.env.example`](.env.example) are configured; otherwise it prepares a WhatsApp message and clearly requires the visitor to press Send. See the [SEO audit](docs/seo-audit.md) and [measurement/Search Console guide](docs/measurement-and-search-console.md).

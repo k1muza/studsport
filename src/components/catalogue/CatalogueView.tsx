@@ -1,11 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { products as ALL, vehicles, productTypes, type ProductType, type ThreadDir } from '@/lib/catalogue';
 import { search, vehiclesOf, sizes as sizesOf, dirs, vehicle } from '@/lib/products';
 import { ProductCard } from '@/components/ProductCard';
 import s from './catalogue.module.css';
+import { searchBucket, track } from '@/lib/analytics';
 
 export interface CatalogueQuery { q: string; vehicle: string; types: string[]; sizes: string[]; dir: string }
 type Facet = 'vehicle' | 'type' | 'size' | 'dir';
@@ -20,6 +21,10 @@ export function CatalogueView({ initial }: { initial: CatalogueQuery }) {
   const [sizes, setSizes] = useState<string[]>(ALL_SIZES.filter(z => initial.sizes.includes(z)));
   const [dir, setDir] = useState<'' | ThreadDir>(initial.dir === 'RH' || initial.dir === 'LH' ? initial.dir : '');
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const lastSearch = useRef('');
+  const skipInitialSearch = useRef(Boolean(initial.q));
+
+  useEffect(() => { track('view_item_list', { item_list_name: 'catalogue', item_count: ALL.length, page_path: '/products' }); }, []);
 
   // Keep the URL shareable without re-rendering the server page.
   useEffect(() => {
@@ -65,6 +70,19 @@ export function CatalogueView({ initial }: { initial: CatalogueQuery }) {
   if (veh) hp.set('vehicle', veh);
   const helpHref = '/find-my-part' + (hp.toString() ? '?' + hp.toString() : '');
   const { res } = filtered;
+
+  useEffect(() => {
+    const term = q.trim();
+    if (!term) { lastSearch.current = ''; return; }
+    if (skipInitialSearch.current) { skipInitialSearch.current = false; lastSearch.current = term; return; }
+    const timer = window.setTimeout(() => {
+      const bucket = searchBucket(term);
+      if (lastSearch.current === term) return;
+      lastSearch.current = term;
+      track(res.length ? 'search' : 'search_no_results', { search_term_bucket: bucket, result_count: res.length, page_path: '/products' });
+    }, 800);
+    return () => window.clearTimeout(timer);
+  }, [q, res.length]);
 
   return (
     <>
@@ -146,7 +164,7 @@ export function CatalogueView({ initial }: { initial: CatalogueQuery }) {
             </div>
             {res.length > 0 ? (
               <div className={s.grid}>
-                {res.map(p => <ProductCard key={p.slug} sku={p.slug} />)}
+                {res.map(p => <ProductCard key={p.slug} sku={p.slug} list="catalogue" />)}
               </div>
             ) : (
               <div className={s.empty}>

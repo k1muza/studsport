@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { company } from '@/lib/catalogue';
 import { Mark } from './Mark';
 import s from './SiteHeader.module.css';
+import { track } from '@/lib/analytics';
 
 const LINKS = [
   { id: 'catalogue', label: 'Products', href: '/products' },
@@ -43,7 +44,7 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className={s.actions}>
-          <a href={company.whatsappLink} target="_blank" rel="noopener" className={s.wa}>{company.whatsappShort}</a>
+          <a href={company.whatsappLink} target="_blank" rel="noopener" className={s.wa} onClick={() => track('whatsapp_click', { enquiry_entry_point: 'site_header', page_path: path })}>{company.whatsappShort}</a>
           <Link href="/find-my-part" className="btn btn-accent btn-sm">Request a quote</Link>
         </div>
         <div className={`${s.mobileOnly} ${s.spacer}`} />
@@ -57,7 +58,7 @@ export function SiteHeader() {
           {LINKS.map(l => (
             <Link key={l.id} href={l.href} className={s.menuLink} onClick={() => setOpen(false)}>{l.label}<span>→</span></Link>
           ))}
-          <a href={company.whatsappLink} target="_blank" rel="noopener" className={s.menuWa}>{company.whatsappShort}</a>
+          <a href={company.whatsappLink} target="_blank" rel="noopener" className={s.menuWa} onClick={() => track('whatsapp_click', { enquiry_entry_point: 'mobile_menu', page_path: path })}>{company.whatsappShort}</a>
         </div>
       )}
     </header>

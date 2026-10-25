@@ -9,6 +9,7 @@ import { QtyStepper } from '@/components/QtyStepper';
 import { Drawing } from '@/components/Drawing';
 import { Thumb } from '@/components/Thumb';
 import s from './enquiry.module.css';
+import { productAnalytics, track } from '@/lib/analytics';
 
 export interface EnquiryQuery { part: string; qty: string; vehicle: string; q: string }
 
@@ -47,11 +48,6 @@ function prefill(init: EnquiryQuery): Fields {
   return f;
 }
 
-const makeRef = () => {
-  const d = new Date();
-  return `ENQ-${String(d.getDate()).padStart(2, '0')}${String(d.getMonth() + 1).padStart(2, '0')}-${Math.floor(1000 + Math.random() * 9000)}`;
-};
-
 export function EnquiryForm({ initial }: { initial: EnquiryQuery }) {
   const [f, setFields] = useState<Fields>(() => prefill(initial));
   const [ctx, setCtx] = useState(() => getProduct(initial.part));
@@ -62,6 +58,12 @@ export function EnquiryForm({ initial }: { initial: EnquiryQuery }) {
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState(false);
   const [ref, setRef] = useState('');
+  const [deliveryMode, setDeliveryMode] = useState<'delivered' | 'handoff' | null>(null);
+  const [handoffUrl, setHandoffUrl] = useState('');
+  const [submitError, setSubmitError] = useState('');
+  const [website, setWebsite] = useState('');
+  const startedAt = useRef(Date.now());
+  const startTracked = useRef(false);
 
   // Photos stay in the browser; release object URLs when they are removed or the form unmounts.
   const photosRef = useRef(photos);
@@ -69,8 +71,13 @@ export function EnquiryForm({ initial }: { initial: EnquiryQuery }) {
   useEffect(() => () => photosRef.current.forEach(p => URL.revokeObjectURL(p.url)), []);
 
   const set = <K extends keyof Fields>(k: K, v: Fields[K]) => {
+    if (!startTracked.current) {
+      startTracked.current = true;
+      track('enquiry_start', { ...(ctx ? productAnalytics(ctx) : {}), enquiry_entry_point: initial.part ? 'product_page' : initial.q ? 'search_no_results' : initial.vehicle ? 'vehicle_filter' : 'direct' });
+    }
     setFields(prev => ({ ...prev, [k]: v }));
     setErr(e => ({ ...e, [k]: false }));
+    setSubmitError('');
   };
   const bind = (k: Exclude<keyof Fields, 'qty'>) => ({ value: f[k], onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => set(k, e.target.value) });
 
@@ -87,16 +94,43 @@ export function EnquiryForm({ initial }: { initial: EnquiryQuery }) {
   };
   const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
   const next = () => { if (validate(step)) { setStep(n => n + 1); scrollTop(); } };
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (step < 3 || !validate(3)) return;
     setSending(true);
-    // Simulated submission: nothing leaves the browser.
-    setTimeout(() => { setSending(false); setDone(true); setRef(makeRef()); scrollTop(); }, 1100);
+    setSubmitError('');
+    try {
+      const response = await fetch('/api/enquiries', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...f,
+          sku: ctx?.partNo || '',
+          source: 'website_enquiry',
+          entryPoint: initial.part ? 'product_page' : initial.q ? 'search_no_results' : initial.vehicle ? 'vehicle_filter' : 'direct',
+          startedAt: startedAt.current,
+          website,
+          photoCount: photos.length,
+        }),
+      });
+      const result = await response.json() as { status?: 'delivered' | 'handoff'; reference?: string; url?: string; error?: string };
+      if (!response.ok || !result.status || !result.reference) throw new Error(result.error || 'We could not send the enquiry. Please try again.');
+      setRef(result.reference);
+      setDeliveryMode(result.status);
+      setHandoffUrl(result.url || '');
+      setDone(true);
+      if (result.status === 'delivered') track('enquiry_submit', { ...(ctx ? productAnalytics(ctx) : {}), enquiry_entry_point: 'enquiry_form', delivery_method: 'email' });
+      scrollTop();
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'We could not send the enquiry. Please try again.';
+      setSubmitError(message);
+      track('enquiry_error', { ...(ctx ? productAnalytics(ctx) : {}), enquiry_entry_point: 'enquiry_form', error_type: 'delivery_failed' });
+    } finally {
+      setSending(false);
+    }
   };
   const restart = () => {
     photos.forEach(p => URL.revokeObjectURL(p.url));
-    setFields(blank()); setPhotos([]); setErr({}); setCtx(null); setStep(1); setDone(false);
+    setFields(blank()); setPhotos([]); setErr({}); setCtx(null); setStep(1); setDone(false); setDeliveryMode(null); setHandoffUrl(''); setSubmitError(''); setWebsite(''); startedAt.current = Date.now(); startTracked.current = false;
   };
   const onFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = [...(e.target.files || [])];
@@ -215,9 +249,9 @@ export function EnquiryForm({ initial }: { initial: EnquiryQuery }) {
                       </div>
                     </div>
                     <div className={s.photos}>
-                      <span>Photos of the old part <span className="optional">OPTIONAL</span></span>
+                      <span>Photos of the old part <span className="optional">OPTIONAL · WHATSAPP FOLLOW-UP</span></span>
                       <label className={s.drop}>
-                        <span className={s.dropText}><b>Add photos</b><span>Lay the part next to a ruler or tape measure. JPG or PNG. Up to 6.</span></span>
+                        <span className={s.dropText}><b>Choose photos to preview</b><span>For security, files stay on this device. Attach them in WhatsApp after the enquiry is prepared. JPG or PNG. Up to 6.</span></span>
                         <span className={s.dropBtn}>Choose files</span>
                         <input type="file" accept="image/*" multiple onChange={onFiles} className={s.fileInput} disabled={photos.length >= 6} />
                       </label>
@@ -266,11 +300,13 @@ export function EnquiryForm({ initial }: { initial: EnquiryQuery }) {
                       <Choices required options={['Collect in Harare', 'Delivery']} value={f.fulfil} onChange={v => set('fulfil', v)} />
                       {f.fulfil === 'Delivery' && <input className={`input ${s.town}`} placeholder="Town or suburb for delivery" aria-label="Town or suburb for delivery" {...bind('town')} />}
                     </fieldset>
-                    <p className={s.privacy}>We only use these details to reply to this enquiry. Prototype: nothing is sent.</p>
+                    <label className="sr-only" aria-hidden="true">Website<input tabIndex={-1} autoComplete="off" value={website} onChange={e => setWebsite(e.target.value)} /></label>
+                    <p className={s.privacy}>We only use these details to reply to this enquiry. If email delivery is not configured, we prepare a WhatsApp message and you must press Send yourself. Selected photos remain on this device.</p>
                   </div>
                 )}
 
                 <div className={s.footer}>
+                  {submitError && <p role="alert" className="error">{submitError}</p>}
                   {step > 1
                     ? <button type="button" onClick={() => setStep(n => Math.max(1, n - 1))} className="btn btn-light">← Back</button>
                     : <span className={s.stepOf}>Step {step} of 3</span>}
@@ -292,13 +328,15 @@ export function EnquiryForm({ initial }: { initial: EnquiryQuery }) {
                   <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><polyline points="4,11.5 9,16 18,6" fill="none" stroke="oklch(0.74 0.15 50)" strokeWidth="2.4" /></svg>
                 </span>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                  <h2 className={s.doneTitle}>Enquiry received</h2>
-                  <p className={s.doneBody}>Thanks, {(f.name || 'there').split(' ')[0]}. The team will check the match and availability and reply by {methodLower}. Your reference is below; quote it if you call or visit.</p>
+                  <h2 className={s.doneTitle}>{deliveryMode === 'delivered' ? 'Enquiry delivered' : 'Your WhatsApp enquiry is ready'}</h2>
+                  <p className={s.doneBody}>{deliveryMode === 'delivered'
+                    ? `Thanks, ${(f.name || 'there').split(' ')[0]}. The delivery service accepted your enquiry. The team will check the match and availability and reply by ${methodLower}.`
+                    : 'The site is not configured for direct delivery, so nothing has been sent yet. Open WhatsApp, attach any selected photos, review the message and press Send.'}</p>
                 </div>
                 <div className={s.ref}>
                   <span className="label" style={{ letterSpacing: '0.12em' }}>REFERENCE</span>
                   <span className={s.refNo}>{ref}</span>
-                  <span className={s.refNote}>Simulated submission · nothing was sent</span>
+                  <span className={s.refNote}>{deliveryMode === 'delivered' ? 'Confirmed by the email delivery service' : 'Draft reference · not sent yet'}</span>
                 </div>
               </div>
               <div className={s.doneCols}>
@@ -314,8 +352,10 @@ export function EnquiryForm({ initial }: { initial: EnquiryQuery }) {
                 </div>
               </div>
               <div className={s.doneCtas}>
-                <Link href="/products" className="btn btn-ink">Back to products</Link>
-                <a href={company.whatsappLink} target="_blank" rel="noopener" className="btn btn-outline">Follow up on WhatsApp</a>
+                {deliveryMode === 'handoff' && handoffUrl
+                  ? <a href={handoffUrl} target="_blank" rel="noopener" className="btn btn-accent" onClick={() => track('whatsapp_click', { ...(ctx ? productAnalytics(ctx) : {}), enquiry_entry_point: 'enquiry_handoff' })}>Open WhatsApp to send →</a>
+                  : <Link href="/products" className="btn btn-ink">Back to products</Link>}
+                {deliveryMode === 'delivered' && <a href={company.whatsappLink} target="_blank" rel="noopener" className="btn btn-outline" onClick={() => track('whatsapp_click', { ...(ctx ? productAnalytics(ctx) : {}), enquiry_entry_point: 'enquiry_follow_up' })}>Follow up on WhatsApp</a>}
                 <button type="button" onClick={restart} className="btn btn-link" style={{ padding: '0 16px', height: 50 }}>New enquiry</button>
               </div>
             </div>
@@ -336,7 +376,7 @@ export function EnquiryForm({ initial }: { initial: EnquiryQuery }) {
             <div className={s.talk}>
               <span className="label label-dark">Prefer to talk?</span>
               <span>Send a photo of the old stud on WhatsApp, or call the counter.</span>
-              <a href={company.whatsappLink} target="_blank" rel="noopener" className="btn btn-ghost">{company.whatsappShort}</a>
+              <a href={company.whatsappLink} target="_blank" rel="noopener" className="btn btn-ghost" onClick={() => track('whatsapp_click', { ...(ctx ? productAnalytics(ctx) : {}), enquiry_entry_point: 'enquiry_sidebar' })}>{company.whatsappShort}</a>
               <span className={s.talkPhone}>Phone {company.phone}</span>
             </div>
             <div className={s.why}>
