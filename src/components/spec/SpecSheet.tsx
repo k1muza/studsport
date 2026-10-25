@@ -12,7 +12,7 @@ const LENGTH_NOTE = { 'wheel-nut': 'H = overall nut height', 'double-ended': 'L 
 
 /* Concise buyer-facing reference: detailed uncertainties remain on the product page and in the evidence record. */
 export function SpecSheet({ p }: { p: Product }) {
-  const cleanName = p.name.replace(/\\s*—\\s*(supplier drawing|identification pending)\\s*$/i, '').trim();
+  const cleanName = p.name.replace(/\s*—\s*(supplier drawing|identification pending)\s*$/i, '').trim();
   const name = /(?:stud|bolt|nut)/i.test(cleanName) ? cleanName : `${cleanName} ${typeLabel(p).toLowerCase()}`;
   const all = specGroups(p);
   const supplierDimensions = all.find(g => g.group === 'Source measurements (supplier-declared)');
