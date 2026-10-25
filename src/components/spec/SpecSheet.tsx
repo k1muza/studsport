@@ -8,9 +8,9 @@ import { Drawing } from '@/components/Drawing';
 import { PrintButton } from './PrintButton';
 import s from './spec.module.css';
 
-const LENGTH_NOTE = { 'wheel-nut': 'H = overall nut height', 'double-ended': 'L = A + C + B', 'press-in-stud': 'L includes head · L = H + K + S + T', 'stud-nut': 'L includes head · L = H + K + S + T', 'profiled-fastener': 'Supplier-sourced axial profile; schematic regions are NOT certified dimensions' };
+const LENGTH_NOTE = { 'wheel-nut': 'H = overall nut height', 'double-ended': 'L = A + C + B', 'press-in-stud': 'L includes head · L = H + K + S + T', 'stud-nut': 'L includes head · L = H + K + S + T', 'profiled-fastener': 'Evidence-linked profile; estimates are NOT certified dimensions' };
 
-/* One A4 portrait page. Every value comes from the record; nothing is hand-authored per product. */
+/* A4 portrait reference, allowed to paginate as evidence grows. Values come from the record. */
 export function SpecSheet({ p }: { p: Product }) {
   const groups = specGroups(p).filter(g => g.group !== 'General' && g.group !== 'Data');
   return (
@@ -33,7 +33,7 @@ export function SpecSheet({ p }: { p: Product }) {
               <div className={s.docMeta}>
                 <span>DOCUMENT</span><b>Product specification</b>
                 <span>REVISION</span><span>Rev {p.spec.revision} · {p.spec.date}</span>
-                <span>SHEET</span><span>1 of 1</span>
+                <span>SHEET</span><span>Reference</span>
               </div>
             </header>
 
@@ -57,7 +57,7 @@ export function SpecSheet({ p }: { p: Product }) {
 
             <div className={s.drawing}>
               <div className={s.drawingHead}>
-                <b>{p.spec.status === 'pending' ? 'Schematic geometry (not a supplier-certified drawing)' : 'Dimensioned drawing'}</b>
+                <b>Schematic geometry · not for manufacture or installation</b>
                 <span>Dimensions in mm · Not to scale · {LENGTH_NOTE[p.template]}</span>
               </div>
               <div className={s.drawingBody}>
@@ -69,11 +69,12 @@ export function SpecSheet({ p }: { p: Product }) {
               {groups.map(g => (
                 <div key={g.group} className={s.group}>
                   <h2 className={s.h2}>{g.group}</h2>
-                  {g.rows.map(r => <div key={r.k} className={s.row}><span>{r.k}</span><span>{r.v}</span></div>)}
+                  {g.rows.map(r => <div key={r.k} className={`${s.row} ${r.v.length > 110 ? s.longRow : ''}`}><span>{r.k}</span><span>{r.v}</span></div>)}
                 </div>
               ))}
             </div>
 
+            <div className={s.closing}>
             <div className={s.lists}>
               <div className={s.apps}>
                 <h2 className={s.h2}>Example applications · confirm fitment</h2>
@@ -99,6 +100,7 @@ export function SpecSheet({ p }: { p: Product }) {
               </div>
               <span className={s.stamp}>{p.spec.status === 'pending' ? 'SOURCE-DECLARED / PARTIAL: schematic geometry and unverified OEM fitment. Do not use for manufacture or installation.' : 'Illustrative prototype data. Verify specifications and fitment before use.'}</span>
             </footer>
+            </div>
           </div>
         </article>
       </div>

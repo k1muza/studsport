@@ -20,53 +20,42 @@ npm run typecheck
 | `/find-my-part?part=&qty=&vehicle=&q=` | 3-step enquiry / quote request (submission is simulated) |
 | `/design-system` | Colour, type, components, drawing and motion conventions |
 
-## One record drives everything
+## Evidence-linked catalogue
 
-`src/data/part-models.json` is now the single source of geometry for **all 12 existing products**. `src/lib/catalogue.ts` retains the illustrative commercial and fitment metadata and resolves every `dims` property via `modelDims(sku, template)`. No hard-coded model dimensions remain in product records. Everything else is derived:
+The catalogue has **22 references**: all 18 original SKUs and URLs, plus four unverified sourcing references. The original 12 remain illustrative; six drawings remain supplier-declared. No physical duplicates, OEM fitments or new handed variants have been asserted.
 
-- `lib/model-data.ts`: typed JSON model loader, template checks and provenance/verification flags
-- `scripts/model-validation.mjs`: geometric validation of JSON records; `npm run check:models`, `npm run test:models` and the build preflight use it
-- `lib/products.ts`: lookups, formatting, key specs, spec groups, comparison, search
-- `lib/geometry.ts`: `geom(p)` axial segments shared by the mesh, drawing, callouts and thumbnails; `validate(p)` measurement rules
-- `lib/drawing.ts`: dimensioned SVG engineering drawing
-- `lib/three/mesh.ts`: three.js mesh builders (helical threads, knurl, D-flat, hex, nut seats)
-- `lib/three/viewer.ts`: framework-free interactive viewer engine used by `<Viewer>`
-- `lib/three/thumbs.ts`: shared offscreen thumbnail renderer and one shared spin renderer
-- `lib/catalogue-check.ts`: publish check run in `generateStaticParams`; a record that breaks a rule fails the build
+See the [research report](docs/model-research/README.md), [complete inventory](docs/model-research/INVENTORY.md), [sources](docs/model-research/SOURCES.md) and [browser visual comparisons](docs/model-research/VISUAL-REVIEW.md).
 
-three.js is loaded with a dynamic `import()` only when a viewer or thumbnail nears the viewport.
+| Data | Responsibility |
+|---|---|
+| `src/data/products.json` | Stable SKU, URL, historical/source application labels and commercial metadata |
+| `src/data/part-models.json` | Feature-based rendering geometry, source and verification flags |
+| `src/data/supplier-measurements.json` | Supplier measurements, tolerances and unresolved contradictions, independent of rendering estimates |
+| `src/data/product-evidence.json` | Family, confidence, candidate manufacturer/OEM references and uncertainties |
+| `src/data/evidence-sources.json` | Source identity, URL, evidence used and limitations |
+| `src/data/procurement-research.json` | Internal-only eight families and sixteen separate LH/RH purchasing requests |
 
-## Swapping in real data
+`catalogue.ts` joins metadata and geometry by SKU. `geom(p)` derives the axial features shared by the Three.js viewer, thumbnails, SVG drawings and callouts. Templates are `press-in-stud`, `stud-nut`, `double-ended`, `wheel-nut` and `profiled-fastener`. The latter supports drawing/derived/schematic sections, tip chamfers, shoulder tapers, estimated splines and rounded contour points. Shared visual controls define illustrative edge breaks, spline depth and thread runout.
 
-Replace the exports in `catalogue.ts` with a loader that returns the same shape (see `design/HANDOFF.md` for the table mapping). Product photos and the map are placeholders.
+Three.js is lazy loaded. Meshes are merged per material (one draw for an individual part, two for the illustrative stud/nut assembly). Unknown hand remains neutral annular grooves. Unknown spline count may have separately labelled illustrative visual teeth; it is not promoted to a source specification or displayed as a measured count.
 
-## JSON → 3D model pipeline
+Candidate part numbers are searchable but do not resolve as equivalent-product aliases. Existing illustrative LH/RH models remain separate. The sixteen purchasing requests have no assigned physical variant SKU until identified. Core/Test/New metadata does not enter the public UI or ranking.
 
-Edit `src/data/part-models.json` to update a model's geometry. Records are keyed by the existing StudSport SKU and specify `template`, `dimensions`, `source` and `verification`. These dimensions hydrate `p.dims` in `catalogue.ts`; `geom(p)` derives the axial segments and nut assembly consumed by **all** rendering paths: 3D product viewer, hero, rotating cards, static thumbnails, on-page dimensions and printable SVG drawing. No separate manually crafted per-product 3D models exist.
+## Validation and browser review
 
-Templates: `press-in-stud`, `stud-nut`, `double-ended`, `wheel-nut`. The engine already produces helix-like thread visuals, spline/knurl visuals, round or D-flat heads, hex or round collars, and hex nuts with cone or flange seats. These visuals are approximations and not STEP/CAD output.
+```bash
+npm run check:models
+npm run test:models
+npm run typecheck
+npm run build
+npx playwright install chromium
+npm run review:models
+```
 
-Run `npm run check:models` to validate dimensions, lengths, part keys, and required metadata; `npm run test:models` covers success and failure cases. Both run before `npm run build`. The existing build catalogue check also checks that every catalogue part has a matching JSON model and no orphaned models remain.
+The build preflight runs the JSON/catalogue validators and regression suite. `review:models` starts an isolated development server, captures side/three-quarter renders plus the actual product viewer for every SKU, loads catalogue thumbnails, checks mobile overflow and exports three representative print sheets. Screenshots and mesh metrics go to `docs/model-research/visuals/after/`. Set `CHROMIUM_EXECUTABLE_PATH` to use an installed browser; optional `REVIEW_PORT` defaults to 3100. Rendering output is a visual reference, not CAD or mechanical validation.
 
-**Safety:** all 12 migrated models are still **illustrative**. Moving a model to JSON does *not* validate its dimensions, vehicle fitment, thread tolerance, strength, or inventory. Do not change the model's verification state without genuine supplier/OEM evidence and engineering review. The six supplier drawings have been indexed only as pending records in `src/data/supplier-drawings.review.json` (including a 72 mm vs 66 mm inconsistency on the Mazda Rear drawing); they were not silently mapped onto invented SS product records.
+## Limits and unresolved identification
 
-## Six Quanzhou Litai drawing-based references (SS-3001 to SS-3006)
+Mazda Rear still has conflicting 72/66 mm under-head lengths. The Hino GH drawing's R20 head is represented as a 40 mm envelope with 36 mm flat height. The Rino flange is not dimensioned: its 24 mm rounded display contour is illustrative and omitted from dimensional callouts. Rino/2D, Durton/Dutro, CK10/CK20 rear, and the requested Volvo LH variant need identification. Supplier grades and finishes are declarations, not independent certification. No exact fitment, stock, price, installation suitability or nut-seat compatibility is established by a model.
 
-The supplier pages are in `DRAWINGS.pdf` (not redistributed in this repo). Supplier records are separate from the 12 invented prototype records because **none matched in full geometry**. New `profiled-fastener` models represent a chain of axial sections annotated with `basis: drawing | derived | schematic` so unprovided geometry is never mistaken for a measured dimension. Unknown handedness is deliberately rendered as **axisymmetric circumferential thread grooves** at the supplied pitch (NOT a fabricated right-hand or left-hand helix), and unknown spline count is left smooth. The live model is a visualization, not a validated manufacturing drawing.
-
-| SKU | Supplier sheet | Model length | Status |
-|---|---|---:|---|
-| SS-3001 | Mazda Front (p1) | 80.5 mm incl. head | Source declared; transitions approximate |
-| SS-3002 | Mazda Rear (p2) | 76.5 mm provisional incl. head | **HOLD**: header 72 mm vs drawing 66 mm under-head |
-| SS-3003 | Hino GH Rear (p3) | 118.5 mm incl. head | Source declared; shoulder transition simplified |
-| SS-3004 | Toyota Dynaps Rear (p4) | 54 mm incl. head | Schematic head diameter; OEM model unclear |
-| SS-3005 | Toyota Rino Rear (p5) | 75 mm | 37/38 mm split; Ø20.8 × 8.5 mm nominal 50-spline knurl; flange Ø and some transitions schematic |
-| SS-3006 | Hino Durton Rear (p6) | 91 mm | Source-declared sections; drive detail simplified |
-
-Supplier marking R/L does not select a handed variant, so it stays **UNSPECIFIED**. These references have no confirmed prices or stock and no verified vehicle fitment. The original supplier drawing must be reconciled for installation, fitment, load grade and supply quality. Replacing the old 12 sample geometry records is inappropriate without exact source/part-number match.
-
-### SS-3005 drawing recheck
-The supplier image confirms 75 mm nominal overall, 37 ±0.5 mm to the flange-right face and 38 ±0.5 mm afterward. The 10 mm section following the flange contains the 8.5 mm spline band, and the 16 (0/-0.7) mm span to the RH thread shoulder leaves a 22 mm **nominal** right-end thread span. Left threaded span is only labelled `min27`. Use nominal `Z50` splines for a visual mesh, with the drawing's `Z50±1, t1.3` retained as authoritative. Flange outside diameter is NOT dimensioned in the supplied image: `dia:30` is explicitly a schematic placeholder, not an asserted source dimension. Tip chamfers and R3/R0.6 transitions remain schematic. This reference is NOT fitment-verified or manufacturing CAD.
-
-### SS-3005 sloped edges (rendering only)
-The supplier drawing shows a 30° left threaded-end approach toward Ø16 (0/-0.5), a separate 30° transition from the right Ø17 relieved shank into the M20 region, and a 4 mm right-terminal lead. The model renders a **derived** 3.46 mm left chamfer (Ø20→Ø16) and 2.6 mm right shoulder ramp (Ø17→Ø20). The rightmost 4 mm uses a visibly **schematic** Ø18 tip, because its exact final diameter is not established by the supplied drawing; **Ø17 is the relieved shank, not the right tip**. Source-provided R3/R0.6 fillets remain simplified. Both the 3D surface and SVG profile use these same JSON feature parameters; preserve verification flags until supplier confirmation.
+Product photos, company address/email placeholders, and enquiry submission remain prototype features; this change does not activate ordering.

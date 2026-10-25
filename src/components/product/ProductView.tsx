@@ -105,7 +105,7 @@ export function ProductView({ slug }: { slug: string }) {
                   <div className={s.drawingTab}><Drawing sku={p.slug} theme="dark" layout="auto" /></div>
                 )}
               </div>
-              <p className={s.stageNote}>{p.spec.status === 'pending' ? 'Supplier drawing reference only. Some 3D sections are schematic and the handedness may be unknown. Do not use this rendering or generated drawing to verify fitment or manufacture a fastener.' : '3D model and thread form are simplified for display. Dimensions are taken from the specification table below.'}</p>
+              <p className={s.stageNote}>Visual reference only. Supplier declarations, requested dimensions and estimates are separated below. The model does not confirm fitment, handedness, material strength or nut compatibility.</p>
             </section>
 
             <section aria-label="Product summary" className={s.summary}>
@@ -121,7 +121,7 @@ export function ProductView({ slug }: { slug: string }) {
               </div>
               {vars.length > 1 && (
                 <div className={s.variants}>
-                  <span className="label label-dark">Variants</span>
+                  <span className="label label-dark">Catalogue variants · confirm identity</span>
                   <div className={s.variantRow}>
                     {vars.map(q => q === p ? (
                       <span key={q.slug} className={`${s.variant} ${s.variantCurrent}`} aria-current="page"><b>{q.variantLabel}</b><span>{q.partNo}</span></span>

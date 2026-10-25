@@ -94,8 +94,9 @@ export function drawingSVG(p: Product, opts?: DrawingOptions) {
   type View = ReturnType<typeof mkView>;
 
   const cont = (s: Seg, top: boolean): Pt[] => {
+    if(s.contour) return s.contour.map(p=>[s.y0+p.offsetMm,p.diameterMm/2]);
     switch (s.kind) {
-      case 'head': return top && s.f != null ? [[s.y0, s.f], [s.y1, s.f]] : [[s.y0, s.r - s.c], [s.y0 + s.c, s.r], [s.y1 - 0.4, s.r], [s.y1, s.r - 0.4]];
+      case 'head': return (top || s.shape === 'double-flat') && s.f != null ? [[s.y0, s.f], [s.y1, s.f]] : [[s.y0, s.r - s.c], [s.y0 + s.c, s.r], [s.y1 - 0.4, s.r], [s.y1, s.r - 0.4]];
       case 'knurl': return [[s.y0, s.r], [s.y1 - s.taper, s.r], [s.y1, s.rNext]];
       case 'plain': return s.endTaper ? [[s.y0, s.r], [s.y1 - s.endTaper.lengthMm, s.r], [s.y1, s.endTaper.endDiameterMm / 2]] : [[s.y0, s.r], [s.y1, s.r]];
       case 'collar': return [[s.y0, s.r - 0.6], [s.y0 + 0.6, s.r], [s.y1 - 0.6, s.r], [s.y1, s.r - 0.6]];
@@ -225,7 +226,7 @@ export function drawingSVG(p: Product, opts?: DrawingOptions) {
       if (s.kind === 'head') {
         if (s.shape === 'double-flat') {
           const f = s.f!, w = Math.sqrt(s.r * s.r - f * f);
-          V.poly([[-f,-w],[-f,w],[f,w],[f,-w]], Wk, th.ink, fill); // schematic two-flat silhouette
+          V.poly(Array.from({length:129},(_,i)=>{const a=i/128*TAU;return [s.r*Math.sin(a),Math.max(-f,Math.min(f,s.r*Math.cos(a)))] as Pt;}), Wk, th.ink, fill);
         } else if (s.f != null) V.dshape(s.r, s.f, fill);
         else { V.circle(s.r, Wk, th.ink, fill); V.circle(s.r - s.c, Wt, th.thin); }
       }
@@ -257,10 +258,10 @@ export function drawingSVG(p: Product, opts?: DrawingOptions) {
       }
       const hx = g.segs.find(q => q.kind === 'hex'), co = g.segs.find(q => q.kind === 'collar');
       if (hx) V.dimH(-hx.af / 2, hx.af / 2, yb, `${n(hx.af)} AF`, hx.r / 2, hx.r / 2);
-      if (co) V.dimH(-co.r, co.r, yb, 'Ø' + n(co.r * 2), 0, 0);
+      if (co && co.basis !== 'schematic') V.dimH(-co.r, co.r, yb, 'Ø' + n(co.r * 2), 0, 0);
     } else {
       if (g.nut) V.dimH(-g.nut.af / 2, g.nut.af / 2, yb, `${n(g.nut.af)} AF`, g.nut.rc / 2, g.nut.rc / 2);
-      else { const kn = g.segs.find(q => q.kind === 'knurl'); if (kn && kn.basis !== 'schematic') V.dimH(-kn.r, kn.r, yb, `Ø${n(kn.r * 2)}${kn.splines ? ' · '+kn.splines+' spl' : ''}`, 0, 0); }
+      else { const kn = g.segs.find(q => q.kind === 'knurl'); if (kn && kn.basis !== 'schematic') V.dimH(-kn.r, kn.r, yb, `Ø${n(kn.r * 2)}${kn.splines && !kn.visualSplines ? ' · '+kn.splines+' spl' : ''}`, 0, 0); }
     }
     return V;
   };

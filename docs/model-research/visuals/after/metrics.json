@@ -1,0 +1,316 @@
+{
+  "metrics": [
+    {
+      "sku": "SS-1001",
+      "view": "side",
+      "vertices": 26586,
+      "drawCalls": 1,
+      "triangles": 49904
+    },
+    {
+      "sku": "SS-1001",
+      "view": "quarter",
+      "vertices": 26586,
+      "drawCalls": 1,
+      "triangles": 49904
+    },
+    {
+      "sku": "SS-1002",
+      "view": "side",
+      "vertices": 26586,
+      "drawCalls": 1,
+      "triangles": 49904
+    },
+    {
+      "sku": "SS-1002",
+      "view": "quarter",
+      "vertices": 26586,
+      "drawCalls": 1,
+      "triangles": 49904
+    },
+    {
+      "sku": "SS-1003",
+      "view": "side",
+      "vertices": 34906,
+      "drawCalls": 1,
+      "triangles": 66288
+    },
+    {
+      "sku": "SS-1003",
+      "view": "quarter",
+      "vertices": 34906,
+      "drawCalls": 1,
+      "triangles": 66288
+    },
+    {
+      "sku": "SS-1010",
+      "view": "side",
+      "vertices": 29778,
+      "drawCalls": 1,
+      "triangles": 56144
+    },
+    {
+      "sku": "SS-1010",
+      "view": "quarter",
+      "vertices": 29778,
+      "drawCalls": 1,
+      "triangles": 56144
+    },
+    {
+      "sku": "SS-1011",
+      "view": "side",
+      "vertices": 29778,
+      "drawCalls": 1,
+      "triangles": 56144
+    },
+    {
+      "sku": "SS-1011",
+      "view": "quarter",
+      "vertices": 29778,
+      "drawCalls": 1,
+      "triangles": 56144
+    },
+    {
+      "sku": "SS-1020",
+      "view": "side",
+      "vertices": 23394,
+      "drawCalls": 1,
+      "triangles": 43664
+    },
+    {
+      "sku": "SS-1020",
+      "view": "quarter",
+      "vertices": 23394,
+      "drawCalls": 1,
+      "triangles": 43664
+    },
+    {
+      "sku": "SS-1030",
+      "view": "side",
+      "vertices": 64881,
+      "drawCalls": 2,
+      "triangles": 123920
+    },
+    {
+      "sku": "SS-1030",
+      "view": "quarter",
+      "vertices": 64881,
+      "drawCalls": 2,
+      "triangles": 123920
+    },
+    {
+      "sku": "SS-1040",
+      "view": "side",
+      "vertices": 44237,
+      "drawCalls": 1,
+      "triangles": 86048
+    },
+    {
+      "sku": "SS-1040",
+      "view": "quarter",
+      "vertices": 44237,
+      "drawCalls": 1,
+      "triangles": 86048
+    },
+    {
+      "sku": "SS-1041",
+      "view": "side",
+      "vertices": 36485,
+      "drawCalls": 1,
+      "triangles": 69792
+    },
+    {
+      "sku": "SS-1041",
+      "view": "quarter",
+      "vertices": 36485,
+      "drawCalls": 1,
+      "triangles": 69792
+    },
+    {
+      "sku": "SS-2001",
+      "view": "side",
+      "vertices": 22148,
+      "drawCalls": 1,
+      "triangles": 42816
+    },
+    {
+      "sku": "SS-2001",
+      "view": "quarter",
+      "vertices": 22148,
+      "drawCalls": 1,
+      "triangles": 42816
+    },
+    {
+      "sku": "SS-2002",
+      "view": "side",
+      "vertices": 25743,
+      "drawCalls": 1,
+      "triangles": 49344
+    },
+    {
+      "sku": "SS-2002",
+      "view": "quarter",
+      "vertices": 25743,
+      "drawCalls": 1,
+      "triangles": 49344
+    },
+    {
+      "sku": "SS-2003",
+      "view": "side",
+      "vertices": 22148,
+      "drawCalls": 1,
+      "triangles": 42816
+    },
+    {
+      "sku": "SS-2003",
+      "view": "quarter",
+      "vertices": 22148,
+      "drawCalls": 1,
+      "triangles": 42816
+    },
+    {
+      "sku": "SS-3001",
+      "view": "side",
+      "vertices": 19064,
+      "drawCalls": 1,
+      "triangles": 34384
+    },
+    {
+      "sku": "SS-3001",
+      "view": "quarter",
+      "vertices": 19064,
+      "drawCalls": 1,
+      "triangles": 34384
+    },
+    {
+      "sku": "SS-3002",
+      "view": "side",
+      "vertices": 18156,
+      "drawCalls": 1,
+      "triangles": 32976
+    },
+    {
+      "sku": "SS-3002",
+      "view": "quarter",
+      "vertices": 18156,
+      "drawCalls": 1,
+      "triangles": 32976
+    },
+    {
+      "sku": "SS-3003",
+      "view": "side",
+      "vertices": 23917,
+      "drawCalls": 1,
+      "triangles": 44496
+    },
+    {
+      "sku": "SS-3003",
+      "view": "quarter",
+      "vertices": 23917,
+      "drawCalls": 1,
+      "triangles": 44496
+    },
+    {
+      "sku": "SS-3004",
+      "view": "side",
+      "vertices": 18676,
+      "drawCalls": 1,
+      "triangles": 34000
+    },
+    {
+      "sku": "SS-3004",
+      "view": "quarter",
+      "vertices": 18676,
+      "drawCalls": 1,
+      "triangles": 34000
+    },
+    {
+      "sku": "SS-3005",
+      "view": "side",
+      "vertices": 29521,
+      "drawCalls": 1,
+      "triangles": 54352
+    },
+    {
+      "sku": "SS-3005",
+      "view": "quarter",
+      "vertices": 29521,
+      "drawCalls": 1,
+      "triangles": 54352
+    },
+    {
+      "sku": "SS-3006",
+      "view": "side",
+      "vertices": 31214,
+      "drawCalls": 1,
+      "triangles": 58784
+    },
+    {
+      "sku": "SS-3006",
+      "view": "quarter",
+      "vertices": 31214,
+      "drawCalls": 1,
+      "triangles": 58784
+    },
+    {
+      "sku": "SS-4001",
+      "view": "side",
+      "vertices": 31214,
+      "drawCalls": 1,
+      "triangles": 58784
+    },
+    {
+      "sku": "SS-4001",
+      "view": "quarter",
+      "vertices": 31214,
+      "drawCalls": 1,
+      "triangles": 58784
+    },
+    {
+      "sku": "SS-4002",
+      "view": "side",
+      "vertices": 29521,
+      "drawCalls": 1,
+      "triangles": 54352
+    },
+    {
+      "sku": "SS-4002",
+      "view": "quarter",
+      "vertices": 29521,
+      "drawCalls": 1,
+      "triangles": 54352
+    },
+    {
+      "sku": "SS-4003",
+      "view": "side",
+      "vertices": 37140,
+      "drawCalls": 1,
+      "triangles": 71264
+    },
+    {
+      "sku": "SS-4003",
+      "view": "quarter",
+      "vertices": 37140,
+      "drawCalls": 1,
+      "triangles": 71264
+    },
+    {
+      "sku": "SS-4004",
+      "view": "side",
+      "vertices": 42922,
+      "drawCalls": 1,
+      "triangles": 81936
+    },
+    {
+      "sku": "SS-4004",
+      "view": "quarter",
+      "vertices": 42922,
+      "drawCalls": 1,
+      "triangles": 81936
+    }
+  ],
+  "errors": [],
+  "mobileOverflow": false,
+  "browser": "153.0.8010.0",
+  "renderer": "custom Chromium / software WebGL"
+}

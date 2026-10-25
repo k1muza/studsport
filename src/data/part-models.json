@@ -40,6 +40,12 @@
           "length": 46,
           "cls": "6g"
         }
+      },
+      "visual": {
+        "basis": "illustrative",
+        "edgeBreakMm": 0.45,
+        "threadRunoutPitches": 1.25,
+        "splineDepthMm": 0.3
       }
     },
     {
@@ -79,6 +85,12 @@
           "length": 46,
           "cls": "6g"
         }
+      },
+      "visual": {
+        "basis": "illustrative",
+        "edgeBreakMm": 0.45,
+        "threadRunoutPitches": 1.25,
+        "splineDepthMm": 0.3
       }
     },
     {
@@ -118,6 +130,12 @@
           "length": 62,
           "cls": "6g"
         }
+      },
+      "visual": {
+        "basis": "illustrative",
+        "edgeBreakMm": 0.45,
+        "threadRunoutPitches": 1.25,
+        "splineDepthMm": 0.3
       }
     },
     {
@@ -156,6 +174,12 @@
           "length": 52,
           "cls": "6g"
         }
+      },
+      "visual": {
+        "basis": "illustrative",
+        "edgeBreakMm": 0.45,
+        "threadRunoutPitches": 1.25,
+        "splineDepthMm": 0.3
       }
     },
     {
@@ -194,6 +218,12 @@
           "length": 52,
           "cls": "6g"
         }
+      },
+      "visual": {
+        "basis": "illustrative",
+        "edgeBreakMm": 0.45,
+        "threadRunoutPitches": 1.25,
+        "splineDepthMm": 0.3
       }
     },
     {
@@ -233,6 +263,12 @@
           "length": 40,
           "cls": "6g"
         }
+      },
+      "visual": {
+        "basis": "illustrative",
+        "edgeBreakMm": 0.45,
+        "threadRunoutPitches": 1.25,
+        "splineDepthMm": 0.3
       }
     },
     {
@@ -271,6 +307,12 @@
           "length": 70,
           "cls": "6g"
         }
+      },
+      "visual": {
+        "basis": "illustrative",
+        "edgeBreakMm": 0.45,
+        "threadRunoutPitches": 1.25,
+        "splineDepthMm": 0.3
       }
     },
     {
@@ -309,44 +351,110 @@
           "cls": "6g",
           "role": "Wheel end"
         }
+      },
+      "visual": {
+        "basis": "illustrative",
+        "edgeBreakMm": 0.45,
+        "threadRunoutPitches": 1.25,
+        "splineDepthMm": 0.3
       }
     },
     {
       "sku": "SS-1041",
-      "template": "double-ended",
+      "template": "profiled-fastener",
       "verification": {
         "status": "illustrative",
         "geometryApproved": false,
         "fitmentApproved": false
       },
       "source": {
-        "kind": "prototype",
-        "reference": "src/lib/catalogue.ts",
-        "note": "Migrated unchanged from the original illustrative catalogue; not supplier verified."
+        "kind": "research-reference",
+        "reference": "litai-canter; src/data/evidence-sources.json",
+        "note": "LevelC visual analogue, with separate original Nissan association preserved."
       },
       "dimensions": {
         "overall": 78,
-        "threadA": {
-          "dia": 18,
-          "pitch": 1.5,
-          "dir": "RH",
-          "length": 26,
-          "cls": "6g",
-          "role": "Flange end"
-        },
-        "collar": {
-          "shape": "round",
-          "dia": 24,
-          "length": 12
-        },
-        "threadB": {
-          "dia": 20,
-          "pitch": 1.5,
-          "dir": "RH",
-          "length": 40,
-          "cls": "6g",
-          "role": "Wheel end"
-        }
+        "sections": [
+          {
+            "kind": "thread",
+            "length": 26,
+            "dia": 18,
+            "basis": "schematic",
+            "thread": {
+              "dia": 18,
+              "pitch": 1.5,
+              "dir": "RH",
+              "cls": "Unconfirmed"
+            }
+          },
+          {
+            "kind": "plain",
+            "length": 2,
+            "dia": 18,
+            "basis": "schematic"
+          },
+          {
+            "kind": "knurl",
+            "length": 6,
+            "dia": 20.2,
+            "splines": 0,
+            "basis": "schematic",
+            "visualSplines": {
+              "count": 32,
+              "depthMm": 0.25,
+              "basis": "illustrative",
+              "note": "Estimated from Litai photo; no manufacturing tooth count."
+            }
+          },
+          {
+            "kind": "collar",
+            "length": 4,
+            "dia": 25,
+            "basis": "schematic",
+            "contourBasis": "photo_estimated",
+            "contour": [
+              {
+                "offsetMm": 0,
+                "diameterMm": 22
+              },
+              {
+                "offsetMm": 0.6,
+                "diameterMm": 25
+              },
+              {
+                "offsetMm": 3.4,
+                "diameterMm": 25
+              },
+              {
+                "offsetMm": 4,
+                "diameterMm": 20
+              }
+            ]
+          },
+          {
+            "kind": "thread",
+            "length": 40,
+            "dia": 20,
+            "basis": "schematic",
+            "thread": {
+              "dia": 20,
+              "pitch": 1.5,
+              "dir": "RH",
+              "cls": "Unconfirmed"
+            }
+          }
+        ],
+        "measurements": [],
+        "uncertainties": [
+          "Photo-estimated proportions from Litai Canter M18/M20×78 RH analogue. Not proof of Nissan MK or Canter interchangeability.",
+          "Original nominal78 and illustrativeRH retained; every local length and diameter is unverified."
+        ]
+      },
+      "visual": {
+        "basis": "illustrative",
+        "edgeBreakMm": 0.45,
+        "threadRunoutPitches": 1.25,
+        "splineDepthMm": 0.3
       }
     },
     {
@@ -377,6 +485,12 @@
           "dia": 28
         },
         "idGroove": false
+      },
+      "visual": {
+        "basis": "illustrative",
+        "edgeBreakMm": 0.45,
+        "threadRunoutPitches": 1.25,
+        "splineDepthMm": 0.3
       }
     },
     {
@@ -408,6 +522,12 @@
           "thickness": 4.5
         },
         "idGroove": false
+      },
+      "visual": {
+        "basis": "illustrative",
+        "edgeBreakMm": 0.45,
+        "threadRunoutPitches": 1.25,
+        "splineDepthMm": 0.3
       }
     },
     {
@@ -438,6 +558,12 @@
           "dia": 28
         },
         "idGroove": true
+      },
+      "visual": {
+        "basis": "illustrative",
+        "edgeBreakMm": 0.45,
+        "threadRunoutPitches": 1.25,
+        "splineDepthMm": 0.3
       }
     },
     {
@@ -473,18 +599,30 @@
           },
           {
             "kind": "knurl",
-            "length": 16,
+            "length": 34.5,
             "dia": 22.8,
             "splines": 0,
-            "basis": "drawing",
-            "note": "Drawing calls out Ø22.8 × 1.5 × 16; spline tooth count not given"
+            "basis": "derived",
+            "note": "Rendered knurled span 39 - 4.5 = 34.5 from side-view silhouette; original Ø22.8×1.5×16 callout retained separately, interpretation requires confirmation.",
+            "visualSplines": {
+              "count": 48,
+              "depthMm": 0.22,
+              "basis": "illustrative",
+              "note": "Visible straight serrations; source does not confirm tooth count."
+            }
           },
           {
             "kind": "plain",
-            "length": 21.5,
+            "length": 3,
             "dia": 22.8,
             "basis": "schematic",
-            "note": "Remaining unthreaded region sized to stated under-head length; local profile approximate"
+            "note": "Remaining unthreaded region sized to stated under-head length; local profile approximate",
+            "endTaper": {
+              "lengthMm": 2.3,
+              "endDiameterMm": 18,
+              "basis": "schematic",
+              "note": "R2.3 indicated; conservative sloping approximation, not a certified fillet."
+            }
           },
           {
             "kind": "thread",
@@ -496,13 +634,20 @@
               "pitch": 1.5,
               "dir": "UNSPECIFIED",
               "cls": "6g"
+            },
+            "tipChamfer": {
+              "lengthMm": 2,
+              "tipDiameterMm": 14,
+              "basis": "drawing",
+              "note": "Exposed-end 45 degree chamfer from source drawing."
             }
           }
         ],
         "uncertainties": [
           "R/L marking does not identify which handed variant this record represents.",
           "Full intermediate shank contour and knurl tooth count are not specified.",
-          "Exact Mazda model and OEM part number not supplied."
+          "Exact Mazda model and OEM part number not supplied.",
+          "Spline callout Ø22.8×1.5×16 does not unambiguously establish axial length or tooth count; revised visible span follows the 39 mm side-view station, pending supplier approval."
         ],
         "measurements": [
           {
@@ -536,6 +681,12 @@
             "basis": "derived"
           }
         ]
+      },
+      "visual": {
+        "basis": "illustrative",
+        "edgeBreakMm": 0.45,
+        "threadRunoutPitches": 1.25,
+        "splineDepthMm": 0.3
       }
     },
     {
@@ -567,14 +718,26 @@
             "dia": 22.5,
             "splines": 0,
             "basis": "drawing",
-            "note": "Knurl Ø22.5±0.02; tooth count not shown"
+            "note": "Knurl Ø22.5±0.02; tooth count not shown",
+            "visualSplines": {
+              "count": 48,
+              "depthMm": 0.22,
+              "basis": "illustrative",
+              "note": "Visible straight serrations; source does not confirm tooth count."
+            }
           },
           {
             "kind": "plain",
             "length": 21,
             "dia": 22.1,
             "basis": "schematic",
-            "note": "Unthreaded remainder modelled schematically; drawing also calls out Ø22.1±0.02 in this area"
+            "note": "Unthreaded remainder modelled schematically; drawing also calls out Ø22.1±0.02 in this area",
+            "endTaper": {
+              "lengthMm": 2,
+              "endDiameterMm": 18,
+              "basis": "schematic",
+              "note": "Transition shown; axial extent estimated within existing section."
+            }
           },
           {
             "kind": "thread",
@@ -586,6 +749,12 @@
               "pitch": 1.5,
               "dir": "UNSPECIFIED",
               "cls": "6g"
+            },
+            "tipChamfer": {
+              "lengthMm": 1.5,
+              "tipDiameterMm": 15.0,
+              "basis": "drawing",
+              "note": "Exposed-end 45 degree chamfer from source drawing."
             }
           }
         ],
@@ -627,6 +796,12 @@
             "note": "Awaiting supplier confirmation of contradictory title"
           }
         ]
+      },
+      "visual": {
+        "basis": "illustrative",
+        "edgeBreakMm": 0.45,
+        "threadRunoutPitches": 1.25,
+        "splineDepthMm": 0.3
       }
     },
     {
@@ -648,11 +823,11 @@
           {
             "kind": "head",
             "length": 10.5,
-            "dia": 36,
+            "dia": 40,
             "headShape": "d-flat",
-            "flatAcross": 34,
-            "basis": "drawing",
-            "note": "D-flat height derived from Ø36 and center-to-flat 16"
+            "flatAcross": 36,
+            "basis": "derived",
+            "note": "R20 outside arc gives Ø40 envelope; height36 =20+16 from centre-to-flat dimension. Prior Ø36 interpretation retained in baseline audit."
           },
           {
             "kind": "plain",
@@ -666,7 +841,13 @@
             "length": 27,
             "dia": 25,
             "basis": "derived",
-            "note": "Remaining shoulder section from 108 - 40 - 41; includes unspecified transition"
+            "note": "Remaining shoulder section from 108 - 40 - 41; includes unspecified transition",
+            "endTaper": {
+              "lengthMm": 2,
+              "endDiameterMm": 22,
+              "basis": "derived",
+              "note": "Remaining 27 = 25 plain + 2 transition from 108 - 40 - 41; source taper proportions are not to scale."
+            }
           },
           {
             "kind": "thread",
@@ -678,13 +859,20 @@
               "pitch": 1.5,
               "dir": "UNSPECIFIED",
               "cls": "6g"
+            },
+            "tipChamfer": {
+              "lengthMm": 2,
+              "tipDiameterMm": 18,
+              "basis": "drawing",
+              "note": "Exposed-end 45 degree chamfer from source drawing."
             }
           }
         ],
         "uncertainties": [
           "R/L variants shown but direction for this listing is not selected.",
           "The 27 mm transition is simplified and includes a taper that is not fully dimensioned.",
-          "Associated nut is shown but not independently added or confirmed compatible."
+          "Associated nut is shown but not independently added or confirmed compatible.",
+          "Head corrected from earlier Ø36 reading: R20 and centre-to-flat16 imply Ø40 envelope / 36 flat height; supplier confirmation still required."
         ],
         "measurements": [
           {
@@ -699,8 +887,8 @@
           },
           {
             "label": "Head diameter",
-            "value": "Ø36 mm with D-flat",
-            "basis": "drawing"
+            "value": "R20 outer arc; 36 mm flat height; Ø40 envelope derived",
+            "basis": "derived"
           },
           {
             "label": "Press-fit shaft",
@@ -718,6 +906,12 @@
             "basis": "derived"
           }
         ]
+      },
+      "visual": {
+        "basis": "illustrative",
+        "edgeBreakMm": 0.45,
+        "threadRunoutPitches": 1.25,
+        "splineDepthMm": 0.3
       }
     },
     {
@@ -750,14 +944,26 @@
             "dia": 20.5,
             "splines": 0,
             "basis": "schematic",
-            "note": "11 mm knurled zone shown; Ø20.5 callout nearby, exact knurl major diameter unverified"
+            "note": "11 mm knurled zone shown; Ø20.5 callout nearby, exact knurl major diameter unverified",
+            "visualSplines": {
+              "count": 48,
+              "depthMm": 0.22,
+              "basis": "illustrative",
+              "note": "Visible straight serrations; source does not confirm tooth count."
+            }
           },
           {
             "kind": "plain",
             "length": 6,
             "dia": 20.5,
             "basis": "schematic",
-            "note": "Undimensioned transition, approximate"
+            "note": "Undimensioned transition, approximate",
+            "endTaper": {
+              "lengthMm": 2,
+              "endDiameterMm": 20,
+              "basis": "schematic",
+              "note": "Transition shown; axial extent estimated within existing section."
+            }
           },
           {
             "kind": "thread",
@@ -769,6 +975,12 @@
               "pitch": 1.5,
               "dir": "UNSPECIFIED",
               "cls": "6g"
+            },
+            "tipChamfer": {
+              "lengthMm": 1.5,
+              "tipDiameterMm": 17.0,
+              "basis": "drawing",
+              "note": "Exposed-end 45 degree chamfer from source drawing."
             }
           }
         ],
@@ -804,6 +1016,12 @@
             "basis": "derived"
           }
         ]
+      },
+      "visual": {
+        "basis": "illustrative",
+        "edgeBreakMm": 0.45,
+        "threadRunoutPitches": 1.25,
+        "splineDepthMm": 0.3
       }
     },
     {
@@ -851,9 +1069,44 @@
           {
             "kind": "collar",
             "length": 5,
-            "dia": 30,
+            "dia": 24,
             "basis": "schematic",
-            "note": "Integral flange ends at axial station 37 mm. Width approximately 5 mm because left threaded length is only a minimum. Ø30 is a visual estimate, NOT specified in this view. Supplier must confirm."
+            "note": "Integral flange envelope Ø24 estimated against threadØ20 in supplier silhouette. Not a supplier measurement.",
+            "contourBasis": "illustrative",
+            "contour": [
+              {
+                "offsetMm": 0,
+                "diameterMm": 20
+              },
+              {
+                "offsetMm": 0.3,
+                "diameterMm": 22
+              },
+              {
+                "offsetMm": 0.8,
+                "diameterMm": 23.4
+              },
+              {
+                "offsetMm": 1.5,
+                "diameterMm": 24
+              },
+              {
+                "offsetMm": 3.5,
+                "diameterMm": 24
+              },
+              {
+                "offsetMm": 4.2,
+                "diameterMm": 23.4
+              },
+              {
+                "offsetMm": 4.7,
+                "diameterMm": 22
+              },
+              {
+                "offsetMm": 5,
+                "diameterMm": 20.8
+              }
+            ]
           },
           {
             "kind": "plain",
@@ -905,7 +1158,7 @@
           }
         ],
         "uncertainties": [
-          "Flange outside diameter is not dimensioned in the supplied view; Ø30 is a schematic visualization estimate, not a supplier claim.",
+          "Flange outside diameter is not dimensioned in the supplied view; Ø24 is a schematic visualization estimate, not a supplier claim.",
           "Left thread callout is min 27 mm, so nominal 27 mm rendering does not prove exact left thread/neck/flange boundaries.",
           "Right terminal taper is drawn across 4 mm but no definite terminal diameter is provided; model uses schematic Ø18. Source Ø17 refers to the reduced shank near the right shoulder, not the terminal face.",
           "Z50±1 indicates nominal 50 splines; their 3D tooth depth is illustrative. Ø20.45±0.02 is stated before rolling, not a finished knurl-root dimension.",
@@ -1004,6 +1257,12 @@
             "note": "Tip diameter is not established; right shoulder's 30° angle must not be applied to the outer tip"
           }
         ]
+      },
+      "visual": {
+        "basis": "illustrative",
+        "edgeBreakMm": 0.45,
+        "threadRunoutPitches": 1.25,
+        "splineDepthMm": 0.3
       }
     },
     {
@@ -1032,6 +1291,12 @@
               "pitch": 1.5,
               "dir": "UNSPECIFIED",
               "cls": "6g"
+            },
+            "tipChamfer": {
+              "lengthMm": 1.5,
+              "tipDiameterMm": 17.0,
+              "basis": "drawing",
+              "note": "Exposed-end 45 degree chamfer from source drawing."
             }
           },
           {
@@ -1055,7 +1320,13 @@
             "length": 26,
             "dia": 22,
             "basis": "derived",
-            "note": "Right section 50 minus right-end thread span 24; centre barrel labelled Ø22"
+            "note": "Right section 50 minus right-end thread span 24; centre barrel labelled Ø22",
+            "endTaper": {
+              "lengthMm": 2,
+              "endDiameterMm": 20,
+              "basis": "schematic",
+              "note": "Transition shown; axial extent estimated within existing section."
+            }
           },
           {
             "kind": "thread",
@@ -1067,6 +1338,12 @@
               "pitch": 1.5,
               "dir": "UNSPECIFIED",
               "cls": "6g"
+            },
+            "tipChamfer": {
+              "lengthMm": 1.5,
+              "tipDiameterMm": 17.0,
+              "basis": "drawing",
+              "note": "Exposed-end 45 degree chamfer from source drawing."
             }
           }
         ],
@@ -1107,6 +1384,399 @@
             "basis": "derived"
           }
         ]
+      },
+      "visual": {
+        "basis": "illustrative",
+        "edgeBreakMm": 0.45,
+        "threadRunoutPitches": 1.25,
+        "splineDepthMm": 0.3
+      }
+    },
+    {
+      "sku": "SS-4001",
+      "template": "profiled-fastener",
+      "verification": {
+        "status": "illustrative",
+        "geometryApproved": false,
+        "fitmentApproved": false
+      },
+      "source": {
+        "kind": "research-reference",
+        "reference": "src/data/product-evidence.json",
+        "note": "Visual analogue for an unverified commercial requirement, not a certified part."
+      },
+      "dimensions": {
+        "overall": 90,
+        "sections": [
+          {
+            "kind": "thread",
+            "length": 31,
+            "dia": 20,
+            "basis": "schematic",
+            "thread": {
+              "dia": 20,
+              "pitch": 1.5,
+              "dir": "UNSPECIFIED",
+              "cls": "Unconfirmed"
+            },
+            "tipChamfer": {
+              "lengthMm": 1.5,
+              "tipDiameterMm": 17.0,
+              "basis": "schematic",
+              "note": "Illustrative analogue from SS-3006; not a measurement of this requested part. Exposed-end 45 degree chamfer from source drawing."
+            }
+          },
+          {
+            "kind": "plain",
+            "length": 5,
+            "dia": 20,
+            "basis": "schematic",
+            "note": "Illustrative analogue from SS-3006; not a measurement of this requested part. 36 mm left section minus 31 mm thread"
+          },
+          {
+            "kind": "head",
+            "length": 5,
+            "dia": 32,
+            "headShape": "double-flat",
+            "flatAcross": 24,
+            "basis": "schematic",
+            "note": "Illustrative analogue from SS-3006; not a measurement of this requested part. Collar width = 91 - 36 - 50; end view shows Ø32 and 24±0.2 across opposed flats"
+          },
+          {
+            "kind": "plain",
+            "length": 25,
+            "dia": 22,
+            "basis": "schematic",
+            "note": "Illustrative analogue from SS-3006; not a measurement of this requested part. Right section 50 minus right-end thread span 24; centre barrel labelled Ø22",
+            "endTaper": {
+              "lengthMm": 2,
+              "endDiameterMm": 20,
+              "basis": "schematic",
+              "note": "Illustrative analogue from SS-3006; not a measurement of this requested part. Transition shown; axial extent estimated within existing section."
+            }
+          },
+          {
+            "kind": "thread",
+            "length": 24,
+            "dia": 20,
+            "basis": "schematic",
+            "thread": {
+              "dia": 20,
+              "pitch": 1.5,
+              "dir": "UNSPECIFIED",
+              "cls": "Unconfirmed"
+            },
+            "tipChamfer": {
+              "lengthMm": 1.5,
+              "tipDiameterMm": 17.0,
+              "basis": "schematic",
+              "note": "Illustrative analogue from SS-3006; not a measurement of this requested part. Exposed-end 45 degree chamfer from source drawing."
+            }
+          }
+        ],
+        "uncertainties": [
+          "All local geometry is illustrative. Nominal procurement requirements are stored separately.",
+          "LH and RH are separate requested purchasing lines; neither physical variant is identified."
+        ],
+        "measurements": []
+      },
+      "visual": {
+        "basis": "illustrative",
+        "edgeBreakMm": 0.45,
+        "threadRunoutPitches": 1.25,
+        "splineDepthMm": 0.3
+      }
+    },
+    {
+      "sku": "SS-4002",
+      "template": "profiled-fastener",
+      "verification": {
+        "status": "illustrative",
+        "geometryApproved": false,
+        "fitmentApproved": false
+      },
+      "source": {
+        "kind": "research-reference",
+        "reference": "src/data/product-evidence.json",
+        "note": "Visual analogue for an unverified commercial requirement, not a certified part."
+      },
+      "dimensions": {
+        "overall": 75,
+        "sections": [
+          {
+            "kind": "thread",
+            "length": 27,
+            "dia": 20,
+            "basis": "schematic",
+            "thread": {
+              "dia": 20,
+              "pitch": 1.5,
+              "dir": "UNSPECIFIED",
+              "cls": "Unconfirmed"
+            },
+            "note": "Illustrative analogue from SS-3005; not a measurement of this requested part. Left external thread shown as minimum 27 mm; 30° terminal chamfer with Ø16 (0/-0.5) is derived nominally from the supplier's drawing.",
+            "tipChamfer": {
+              "lengthMm": 3.46,
+              "tipDiameterMm": 16,
+              "basis": "schematic",
+              "note": "Illustrative analogue from SS-3005; not a measurement of this requested part. Nominal left 30° lead-in to Ø16 (0/-0.5); 3.46 mm axial extent calculated from 2 mm radial reduction / tan 30°. Rendering approximation, not confirmed length."
+            }
+          },
+          {
+            "kind": "plain",
+            "length": 5,
+            "dia": 18,
+            "basis": "schematic",
+            "note": "Illustrative analogue from SS-3005; not a measurement of this requested part. Axial neck span 5 mm (0/-0.5) from drawing; Ø18 visual estimate only. R3 blend into flange not yet modelled."
+          },
+          {
+            "kind": "collar",
+            "length": 5,
+            "dia": 24,
+            "basis": "schematic",
+            "note": "Illustrative analogue from SS-3005; not a measurement of this requested part. Integral flange envelope Ø24 estimated against threadØ20 in supplier silhouette. Not a supplier measurement.",
+            "contourBasis": "illustrative",
+            "contour": [
+              {
+                "offsetMm": 0,
+                "diameterMm": 20
+              },
+              {
+                "offsetMm": 0.3,
+                "diameterMm": 22
+              },
+              {
+                "offsetMm": 0.8,
+                "diameterMm": 23.4
+              },
+              {
+                "offsetMm": 1.5,
+                "diameterMm": 24
+              },
+              {
+                "offsetMm": 3.5,
+                "diameterMm": 24
+              },
+              {
+                "offsetMm": 4.2,
+                "diameterMm": 23.4
+              },
+              {
+                "offsetMm": 4.7,
+                "diameterMm": 22
+              },
+              {
+                "offsetMm": 5,
+                "diameterMm": 20.8
+              }
+            ]
+          },
+          {
+            "kind": "plain",
+            "length": 1.5,
+            "dia": 20.45,
+            "basis": "schematic",
+            "note": "Illustrative analogue from SS-3005; not a measurement of this requested part. 1.5 mm lead-in from 10 mm span minus 8.5 mm knurled band. Diameter Ø20.45 ±0.02 is the BEFORE-ROLLING blank, not a verified finished diameter."
+          },
+          {
+            "kind": "knurl",
+            "length": 8.5,
+            "dia": 20.8,
+            "splines": 50,
+            "visualDepthMm": 0.175,
+            "basis": "schematic",
+            "note": "Illustrative analogue from SS-3005; not a measurement of this requested part. Ø20.8±0.05, Z50±1 splines, tooth callout t1.3. 50 nominal teeth; visual groove depth is approximate and NOT measured."
+          },
+          {
+            "kind": "plain",
+            "length": 6,
+            "dia": 17,
+            "basis": "schematic",
+            "note": "Illustrative analogue from SS-3005; not a measurement of this requested part. Right reduced Ø17 shank; supplier shows 30° transition into M20. Taper length 2.6 mm calculated nominally; local runout not manufacturing grade.",
+            "endTaper": {
+              "lengthMm": 2.6,
+              "endDiameterMm": 20,
+              "basis": "schematic",
+              "note": "Illustrative analogue from SS-3005; not a measurement of this requested part. Ø17 reduced shank rising to M20 thread at the 30° right-side shoulder; 2.6 mm axial extent from (20−17)/2/tan30°. Nominal visualization."
+            }
+          },
+          {
+            "kind": "thread",
+            "length": 22,
+            "dia": 20,
+            "basis": "schematic",
+            "thread": {
+              "dia": 20,
+              "pitch": 1.5,
+              "dir": "UNSPECIFIED",
+              "cls": "Unconfirmed"
+            },
+            "note": "Illustrative analogue from SS-3005; not a measurement of this requested part. Nominal right thread span 22 mm; 4 mm rightmost lead-in represented with approximate Ø18 terminal face. Thread hand and tip diameter remain unconfirmed.",
+            "tipChamfer": {
+              "lengthMm": 4,
+              "tipDiameterMm": 18,
+              "basis": "schematic",
+              "note": "Illustrative analogue from SS-3005; not a measurement of this requested part. Supplier marks 4 mm at right tip; Ø18 tip is an UNVERIFIED visual estimate, not supplied as an explicit diameter. Do not assume a 30° angle here; 30° in source is at adjoining shoulder."
+            }
+          }
+        ],
+        "uncertainties": [
+          "All local geometry is illustrative. Nominal procurement requirements are stored separately.",
+          "LH and RH are separate requested purchasing lines; neither physical variant is identified."
+        ],
+        "measurements": []
+      },
+      "visual": {
+        "basis": "illustrative",
+        "edgeBreakMm": 0.45,
+        "threadRunoutPitches": 1.25,
+        "splineDepthMm": 0.3
+      }
+    },
+    {
+      "sku": "SS-4003",
+      "template": "profiled-fastener",
+      "verification": {
+        "status": "illustrative",
+        "geometryApproved": false,
+        "fitmentApproved": false
+      },
+      "source": {
+        "kind": "research-reference",
+        "reference": "src/data/product-evidence.json",
+        "note": "Visual analogue for an unverified commercial requirement, not a certified part."
+      },
+      "dimensions": {
+        "overall": 102,
+        "sections": [
+          {
+            "kind": "thread",
+            "length": 28,
+            "dia": 22,
+            "basis": "schematic",
+            "thread": {
+              "dia": 22,
+              "pitch": 1.5,
+              "dir": "UNSPECIFIED",
+              "cls": "Unconfirmed"
+            }
+          },
+          {
+            "kind": "plain",
+            "length": 23,
+            "dia": 22,
+            "basis": "schematic"
+          },
+          {
+            "kind": "collar",
+            "length": 5,
+            "dia": 31,
+            "basis": "schematic"
+          },
+          {
+            "kind": "plain",
+            "length": 6,
+            "dia": 22,
+            "basis": "schematic"
+          },
+          {
+            "kind": "thread",
+            "length": 40,
+            "dia": 22,
+            "basis": "schematic",
+            "thread": {
+              "dia": 22,
+              "pitch": 1.5,
+              "dir": "UNSPECIFIED",
+              "cls": "Unconfirmed"
+            }
+          }
+        ],
+        "uncertainties": [
+          "All local geometry is illustrative. Nominal procurement requirements are stored separately.",
+          "LH and RH are separate requested purchasing lines; neither physical variant is identified."
+        ],
+        "measurements": []
+      },
+      "visual": {
+        "basis": "illustrative",
+        "edgeBreakMm": 0.45,
+        "threadRunoutPitches": 1.25,
+        "splineDepthMm": 0.3
+      }
+    },
+    {
+      "sku": "SS-4004",
+      "template": "profiled-fastener",
+      "verification": {
+        "status": "illustrative",
+        "geometryApproved": false,
+        "fitmentApproved": false
+      },
+      "source": {
+        "kind": "research-reference",
+        "reference": "src/data/product-evidence.json",
+        "note": "Visual analogue for an unverified commercial requirement, not a certified part."
+      },
+      "dimensions": {
+        "overall": 115,
+        "sections": [
+          {
+            "kind": "head",
+            "length": 10,
+            "dia": 36,
+            "headShape": "round",
+            "basis": "schematic"
+          },
+          {
+            "kind": "knurl",
+            "length": 15,
+            "dia": 22.8,
+            "splines": 0,
+            "basis": "schematic",
+            "visualSplines": {
+              "count": 48,
+              "depthMm": 0.22,
+              "basis": "illustrative",
+              "note": "Analogue only; no declared spline dimensions."
+            }
+          },
+          {
+            "kind": "plain",
+            "length": 13,
+            "dia": 22,
+            "basis": "schematic"
+          },
+          {
+            "kind": "thread",
+            "length": 77,
+            "dia": 22,
+            "basis": "schematic",
+            "thread": {
+              "dia": 22,
+              "pitch": 1.5,
+              "dir": "UNSPECIFIED",
+              "cls": "Unconfirmed"
+            },
+            "tipChamfer": {
+              "lengthMm": 1.5,
+              "tipDiameterMm": 19,
+              "basis": "schematic"
+            }
+          }
+        ],
+        "uncertainties": [
+          "All local geometry is illustrative. Nominal procurement requirements are stored separately.",
+          "LH and RH are separate requested purchasing lines; neither physical variant is identified.",
+          "Rendering uses DT 2.65094 published 115 overall /105 under head /77 thread /36 head; identity with planned Volvo Rear line and LH version remain unproven."
+        ],
+        "measurements": []
+      },
+      "visual": {
+        "basis": "illustrative",
+        "edgeBreakMm": 0.45,
+        "threadRunoutPitches": 1.25,
+        "splineDepthMm": 0.3
       }
     }
   ]

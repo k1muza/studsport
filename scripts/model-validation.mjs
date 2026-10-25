@@ -21,15 +21,21 @@ export function inspectModels(doc) {
     if (!['illustrative','supplier-declared','verified'].includes(m?.verification?.status)) issues.push(`${tag}: invalid status`);
     if (!m?.source?.reference || !m?.source?.kind) issues.push(`${tag}: source provenance required`);
     if (m?.verification?.status === 'verified' && !(m.verification.geometryApproved && m.verification.fitmentApproved)) issues.push(`${tag}: verification approvals required`);
+    if(m.visual && (m.visual.basis!=='illustrative' || !positive(m.visual.edgeBreakMm) || m.visual.edgeBreakMm>2 || !positive(m.visual.threadRunoutPitches) || m.visual.threadRunoutPitches>3 || !positive(m.visual.splineDepthMm))) issues.push(`${tag}: invalid visual controls`);
     const d=m.dimensions;
     if (!d || !positive(d.overall)) {issues.push(`${tag}: invalid dimensions`);continue;}
     if (m.template === 'profiled-fastener') {
-      if (m.verification?.status !== 'supplier-declared') issues.push(`${tag}: supplier profile must remain supplier-declared until engineering approval`);
+      if (m.source.kind === 'supplier-drawing' && m.verification?.status !== 'supplier-declared') issues.push(`${tag}: supplier profile must remain supplier-declared until engineering approval`);
       if (!Array.isArray(d.sections) || !d.sections.length) {issues.push(`${tag}: missing profile sections`);continue;}
       const sum=d.sections.reduce((a,s)=>a+(s.length||0),0);
       if (!close(sum,d.overall)) issues.push(`${tag}: profile section lengths do not sum to overall`);
       if (!Array.isArray(d.uncertainties) || !Array.isArray(d.measurements)) issues.push(`${tag}: provenance and uncertainty notes required`);
       for (const [i,s] of d.sections.entries()) {
+        if(s.contour) {
+          if(!['plain','collar'].includes(s.kind) || !['illustrative','photo_estimated'].includes(s.contourBasis) || s.contour.length<2 || s.contour[0].offsetMm!==0 || !close(s.contour.at(-1).offsetMm,s.length) || s.contour.some((p,j)=>!positive(p.diameterMm) || p.diameterMm>s.dia || !nonnegative(p.offsetMm) || p.offsetMm>s.length || (j>0 && p.offsetMm<=s.contour[j-1].offsetMm))) issues.push(`${tag} section ${i}: invalid rendering contour`);
+        }
+        if(s.visualSplines && (s.kind!=='knurl' || !Number.isInteger(s.visualSplines.count) || s.visualSplines.count<3 || s.visualSplines.count>120 || !positive(s.visualSplines.depthMm) || s.visualSplines.depthMm>s.dia/8 || s.visualSplines.basis!=='illustrative')) issues.push(`${tag} section ${i}: invalid visual splines`);
+
         if (!positive(s.length) || !positive(s.dia) || !['drawing','derived','schematic'].includes(s.basis)) issues.push(`${tag} section ${i}: invalid dimensions or basis`);
         if (!['head','knurl','plain','thread','hex','collar'].includes(s.kind)) issues.push(`${tag} section ${i}: invalid kind`);
         if (s.kind === 'knurl' && s.visualDepthMm != null &&

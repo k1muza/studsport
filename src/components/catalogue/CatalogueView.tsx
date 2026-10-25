@@ -73,7 +73,7 @@ export function CatalogueView({ initial }: { initial: CatalogueQuery }) {
           <div className={s.bandTitle}>
             <nav aria-label="Breadcrumb" className={s.crumbs}><Link href="/">Home</Link><span>/</span><span className={s.crumbHere}>Products</span></nav>
             <h1 className={s.h1}>Products</h1>
-            <span className={s.count}>{ALL.length} sample parts · {vehicles.length} vehicle makes · illustrative data</span>
+            <span className={s.count}>{ALL.length} reference parts · illustrative and supplier-declared data · fitment unverified</span>
           </div>
           <div className={s.searchWrap}>
             <label htmlFor="cat-search" className="sr-only">Search products</label>

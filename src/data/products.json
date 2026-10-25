@@ -1,0 +1,1269 @@
+{
+  "schemaVersion": 1,
+  "products": [
+    {
+      "id": "p1001",
+      "slug": "ss-1001",
+      "partNo": "SS-1001",
+      "name": "Front wheel stud M20 \u00d7 1.5 RH",
+      "type": "wheel-stud",
+      "template": "press-in-stud",
+      "summary": "Illustrative front wheel stud m20 \u00d7 1.5 rh. Historical vehicle associations are unverified; compare a physical sample and part number before ordering.",
+      "positions": [
+        "Front"
+      ],
+      "applications": [
+        {
+          "vehicle": "toyota-dyna",
+          "model": "Dyna 200 / 300",
+          "years": "Unconfirmed",
+          "position": "Front",
+          "side": "Unconfirmed",
+          "notes": "Historical catalogue association only; no confirmed interchangeability."
+        },
+        {
+          "vehicle": "hino",
+          "model": "Dutro",
+          "years": "Unconfirmed",
+          "position": "Front",
+          "side": "Unconfirmed",
+          "notes": "Historical catalogue association only; no confirmed interchangeability."
+        }
+      ],
+      "material": "Unverified",
+      "grade": "Unverified",
+      "finish": "zinc-yellow",
+      "includes": "stud",
+      "components": [
+        {
+          "qty": 1,
+          "label": "Wheel stud",
+          "partNo": "SS-1001"
+        }
+      ],
+      "matchingNut": null,
+      "availability": "confirm",
+      "fulfilment": "Confirm availability, exact part and fitment before ordering",
+      "price": null,
+      "media": {
+        "photos": [
+          "Studio \u00b7 3/4 view",
+          "Thread & tip detail",
+          "Head & knurl",
+          "Box of 10"
+        ],
+        "model": {}
+      },
+      "variantGroup": "dyna-m20",
+      "variantLabel": "Front \u00b7 RH",
+      "related": [
+        "SS-1002",
+        "SS-1003",
+        "SS-2001"
+      ],
+      "spec": {
+        "revision": "research-1",
+        "date": "2026-10-24",
+        "status": "illustrative"
+      }
+    },
+    {
+      "id": "p1002",
+      "slug": "ss-1002",
+      "partNo": "SS-1002",
+      "name": "Front wheel stud M20 \u00d7 1.5 LH",
+      "type": "wheel-stud",
+      "template": "press-in-stud",
+      "summary": "Illustrative front wheel stud m20 \u00d7 1.5 lh. Historical vehicle associations are unverified; compare a physical sample and part number before ordering.",
+      "positions": [
+        "Front"
+      ],
+      "applications": [
+        {
+          "vehicle": "toyota-dyna",
+          "model": "Dyna 200 / 300",
+          "years": "Unconfirmed",
+          "position": "Front",
+          "side": "Unconfirmed",
+          "notes": "Historical catalogue association only; no confirmed interchangeability."
+        },
+        {
+          "vehicle": "hino",
+          "model": "Dutro",
+          "years": "Unconfirmed",
+          "position": "Front",
+          "side": "Unconfirmed",
+          "notes": "Historical catalogue association only; no confirmed interchangeability."
+        }
+      ],
+      "material": "Unverified",
+      "grade": "Unverified",
+      "finish": "zinc-yellow",
+      "includes": "stud",
+      "components": [
+        {
+          "qty": 1,
+          "label": "Wheel stud, LH",
+          "partNo": "SS-1002"
+        }
+      ],
+      "matchingNut": null,
+      "availability": "confirm",
+      "fulfilment": "Confirm availability, exact part and fitment before ordering",
+      "price": null,
+      "media": {
+        "photos": [
+          "Studio \u00b7 3/4 view",
+          "Thread & tip detail",
+          "Head & knurl",
+          "Box of 10"
+        ],
+        "model": {}
+      },
+      "variantGroup": "dyna-m20",
+      "variantLabel": "Front \u00b7 LH",
+      "related": [
+        "SS-1001",
+        "SS-1003",
+        "SS-2003"
+      ],
+      "spec": {
+        "revision": "research-1",
+        "date": "2026-10-24",
+        "status": "illustrative"
+      }
+    },
+    {
+      "id": "p1003",
+      "slug": "ss-1003",
+      "partNo": "SS-1003",
+      "name": "Rear wheel stud M20 \u00d7 1.5 RH, long",
+      "type": "wheel-stud",
+      "template": "press-in-stud",
+      "summary": "Illustrative rear wheel stud m20 \u00d7 1.5 rh, long. Historical vehicle associations are unverified; compare a physical sample and part number before ordering.",
+      "positions": [
+        "Rear"
+      ],
+      "applications": [
+        {
+          "vehicle": "toyota-dyna",
+          "model": "Dyna 300 / 400",
+          "years": "Unconfirmed",
+          "position": "Rear",
+          "side": "Unconfirmed",
+          "notes": "Historical catalogue association only; no confirmed interchangeability."
+        }
+      ],
+      "material": "Unverified",
+      "grade": "Unverified",
+      "finish": "zinc-yellow",
+      "includes": "stud",
+      "components": [
+        {
+          "qty": 1,
+          "label": "Wheel stud, long",
+          "partNo": "SS-1003"
+        }
+      ],
+      "matchingNut": null,
+      "availability": "confirm",
+      "fulfilment": "Confirm availability, exact part and fitment before ordering",
+      "price": null,
+      "media": {
+        "photos": [
+          "Studio \u00b7 3/4 view",
+          "Thread & tip detail",
+          "Head & knurl",
+          "Box of 10"
+        ],
+        "model": {}
+      },
+      "variantGroup": "dyna-m20",
+      "variantLabel": "Rear \u00b7 RH \u00b7 long",
+      "related": [
+        "SS-1001",
+        "SS-1002",
+        "SS-2001"
+      ],
+      "spec": {
+        "revision": "research-1",
+        "date": "2026-10-24",
+        "status": "illustrative"
+      }
+    },
+    {
+      "id": "p1010",
+      "slug": "ss-1010",
+      "partNo": "SS-1010",
+      "name": "Rear hub bolt M22 \u00d7 1.5 RH",
+      "type": "hub-bolt",
+      "template": "press-in-stud",
+      "summary": "Illustrative rear hub bolt m22 \u00d7 1.5 rh. Historical vehicle associations are unverified; compare a physical sample and part number before ordering.",
+      "positions": [
+        "Rear"
+      ],
+      "applications": [
+        {
+          "vehicle": "isuzu",
+          "model": "N-Series NPR / NQR",
+          "years": "Unconfirmed",
+          "position": "Rear",
+          "side": "Unconfirmed",
+          "notes": "Historical catalogue association only; no confirmed interchangeability."
+        }
+      ],
+      "material": "Unverified",
+      "grade": "Unverified",
+      "finish": "black-phosphate",
+      "includes": "stud",
+      "components": [
+        {
+          "qty": 1,
+          "label": "Hub bolt",
+          "partNo": "SS-1010"
+        }
+      ],
+      "matchingNut": null,
+      "availability": "confirm",
+      "fulfilment": "Confirm availability, exact part and fitment before ordering",
+      "price": null,
+      "media": {
+        "photos": [
+          "Studio \u00b7 3/4 view",
+          "Thread & tip detail",
+          "Head & knurl",
+          "Box of 10"
+        ],
+        "model": {}
+      },
+      "variantGroup": "isuzu-m22",
+      "variantLabel": "Rear \u00b7 RH",
+      "related": [
+        "SS-1011",
+        "SS-1030"
+      ],
+      "spec": {
+        "revision": "research-1",
+        "date": "2026-10-24",
+        "status": "illustrative"
+      }
+    },
+    {
+      "id": "p1011",
+      "slug": "ss-1011",
+      "partNo": "SS-1011",
+      "name": "Rear hub bolt M22 \u00d7 1.5 LH",
+      "type": "hub-bolt",
+      "template": "press-in-stud",
+      "summary": "Illustrative rear hub bolt m22 \u00d7 1.5 lh. Historical vehicle associations are unverified; compare a physical sample and part number before ordering.",
+      "positions": [
+        "Rear"
+      ],
+      "applications": [
+        {
+          "vehicle": "isuzu",
+          "model": "N-Series NPR / NQR",
+          "years": "Unconfirmed",
+          "position": "Rear",
+          "side": "Unconfirmed",
+          "notes": "Historical catalogue association only; no confirmed interchangeability."
+        }
+      ],
+      "material": "Unverified",
+      "grade": "Unverified",
+      "finish": "black-phosphate",
+      "includes": "stud",
+      "components": [
+        {
+          "qty": 1,
+          "label": "Hub bolt, LH",
+          "partNo": "SS-1011"
+        }
+      ],
+      "matchingNut": null,
+      "availability": "confirm",
+      "fulfilment": "Confirm availability, exact part and fitment before ordering",
+      "price": null,
+      "media": {
+        "photos": [
+          "Studio \u00b7 3/4 view",
+          "Thread & tip detail",
+          "Head & knurl",
+          "Box of 10"
+        ],
+        "model": {}
+      },
+      "variantGroup": "isuzu-m22",
+      "variantLabel": "Rear \u00b7 LH",
+      "related": [
+        "SS-1010",
+        "SS-1030"
+      ],
+      "spec": {
+        "revision": "research-1",
+        "date": "2026-10-24",
+        "status": "illustrative"
+      }
+    },
+    {
+      "id": "p1020",
+      "slug": "ss-1020",
+      "partNo": "SS-1020",
+      "name": "Wheel stud M18 \u00d7 1.5 RH",
+      "type": "wheel-stud",
+      "template": "press-in-stud",
+      "summary": "Illustrative wheel stud m18 \u00d7 1.5 rh. Historical vehicle associations are unverified; compare a physical sample and part number before ordering.",
+      "positions": [
+        "Front",
+        "Rear"
+      ],
+      "applications": [
+        {
+          "vehicle": "mitsubishi-canter",
+          "model": "Canter FE",
+          "years": "Unconfirmed",
+          "position": "Front & rear",
+          "side": "Unconfirmed",
+          "notes": "Historical catalogue association only; no confirmed interchangeability."
+        }
+      ],
+      "material": "Unverified",
+      "grade": "Unverified",
+      "finish": "zinc-flake",
+      "includes": "stud",
+      "components": [
+        {
+          "qty": 1,
+          "label": "Wheel stud",
+          "partNo": "SS-1020"
+        }
+      ],
+      "matchingNut": null,
+      "availability": "confirm",
+      "fulfilment": "Confirm availability, exact part and fitment before ordering",
+      "price": null,
+      "media": {
+        "photos": [
+          "Studio \u00b7 3/4 view",
+          "Thread & tip detail",
+          "Head & knurl",
+          "Box of 10"
+        ],
+        "model": {}
+      },
+      "variantGroup": null,
+      "variantLabel": "M18 \u00b7 RH",
+      "related": [
+        "SS-1001",
+        "SS-1041"
+      ],
+      "spec": {
+        "revision": "research-1",
+        "date": "2026-10-24",
+        "status": "illustrative"
+      }
+    },
+    {
+      "id": "p1030",
+      "slug": "ss-1030",
+      "partNo": "SS-1030",
+      "name": "Stud & nut set M22 \u00d7 1.5 RH",
+      "type": "stud-nut-set",
+      "template": "stud-nut",
+      "summary": "Illustrative M22 stud and flange-nut pairing. Thread agreement does not establish nut-seat compatibility or fitment.",
+      "positions": [
+        "Front",
+        "Rear"
+      ],
+      "applications": [
+        {
+          "vehicle": "hino",
+          "model": "500 Series",
+          "years": "Unconfirmed",
+          "position": "Rear",
+          "side": "Unconfirmed",
+          "notes": "Historical catalogue association only; no confirmed interchangeability."
+        },
+        {
+          "vehicle": "volvo",
+          "model": "FM / FH",
+          "years": "Unconfirmed",
+          "position": "Front & rear",
+          "side": "Unconfirmed",
+          "notes": "Historical catalogue association only; no confirmed interchangeability."
+        },
+        {
+          "vehicle": "scania",
+          "model": "P / G / R",
+          "years": "Unconfirmed",
+          "position": "Front & rear",
+          "side": "Unconfirmed",
+          "notes": "Historical catalogue association only; no confirmed interchangeability."
+        }
+      ],
+      "assembly": {
+        "nut": "SS-2002",
+        "clampLength": 50
+      },
+      "material": "Unverified",
+      "grade": "Unverified",
+      "finish": "zinc-clear",
+      "includes": "stud-nut",
+      "components": [
+        {
+          "qty": 1,
+          "label": "Wheel stud M22 \u00d7 1.5 RH, L 108",
+          "partNo": "SS-1030"
+        },
+        {
+          "qty": 1,
+          "label": "Flange nut M22 \u00d7 1.5 RH, 32 AF",
+          "partNo": "SS-2002"
+        }
+      ],
+      "matchingNut": null,
+      "availability": "confirm",
+      "fulfilment": "Confirm availability, exact part and fitment before ordering",
+      "price": null,
+      "media": {
+        "photos": [
+          "Studio \u00b7 assembled",
+          "Nut & seat detail",
+          "Head & knurl",
+          "Set packaging"
+        ],
+        "model": {}
+      },
+      "variantGroup": null,
+      "variantLabel": "M22 \u00b7 set",
+      "related": [
+        "SS-2002",
+        "SS-1010"
+      ],
+      "spec": {
+        "revision": "research-1",
+        "date": "2026-10-24",
+        "status": "illustrative"
+      }
+    },
+    {
+      "id": "p1040",
+      "slug": "ss-1040",
+      "partNo": "SS-1040",
+      "name": "Double-ended hub bolt M20 \u00d7 1.5, hex collar",
+      "type": "double-ended",
+      "template": "double-ended",
+      "summary": "Illustrative double-ended hub bolt m20 \u00d7 1.5, hex collar. Historical vehicle associations are unverified; compare a physical sample and part number before ordering.",
+      "positions": [
+        "Rear"
+      ],
+      "applications": [
+        {
+          "vehicle": "nissan-ud",
+          "model": "Condor",
+          "years": "Unconfirmed",
+          "position": "Rear",
+          "side": "Unconfirmed",
+          "notes": "Historical catalogue association only; no confirmed interchangeability."
+        }
+      ],
+      "material": "Unverified",
+      "grade": "Unverified",
+      "finish": "black-oxide",
+      "includes": "stud",
+      "components": [
+        {
+          "qty": 1,
+          "label": "Double-ended hub bolt",
+          "partNo": "SS-1040"
+        }
+      ],
+      "matchingNut": null,
+      "availability": "confirm",
+      "fulfilment": "Confirm availability, exact part and fitment before ordering",
+      "price": null,
+      "media": {
+        "photos": [
+          "Studio \u00b7 3/4 view",
+          "Hex collar detail",
+          "Thread ends",
+          "Box of 10"
+        ],
+        "model": {}
+      },
+      "variantGroup": "ud-double",
+      "variantLabel": "M20 / M20 \u00b7 hex",
+      "related": [
+        "SS-1041",
+        "SS-2001"
+      ],
+      "spec": {
+        "revision": "research-1",
+        "date": "2026-10-24",
+        "status": "illustrative"
+      }
+    },
+    {
+      "id": "p1041",
+      "slug": "ss-1041",
+      "partNo": "SS-1041",
+      "name": "Double-ended hub bolt M18 / M20, stepped",
+      "type": "double-ended",
+      "template": "profiled-fastener",
+      "summary": "Illustrative double-ended hub bolt m18 / m20, stepped. Historical vehicle associations are unverified; compare a physical sample and part number before ordering.",
+      "positions": [
+        "Rear"
+      ],
+      "applications": [
+        {
+          "vehicle": "nissan-ud",
+          "model": "MK Series",
+          "years": "Unconfirmed",
+          "position": "Rear",
+          "side": "Unconfirmed",
+          "notes": "Historical catalogue association only; no confirmed interchangeability."
+        }
+      ],
+      "material": "Unverified",
+      "grade": "Unverified",
+      "finish": "zinc-yellow",
+      "includes": "stud",
+      "components": [
+        {
+          "qty": 1,
+          "label": "Double-ended hub bolt, stepped",
+          "partNo": "SS-1041"
+        }
+      ],
+      "matchingNut": null,
+      "availability": "confirm",
+      "fulfilment": "Confirm availability, exact part and fitment before ordering",
+      "price": null,
+      "media": {
+        "photos": [
+          "Studio \u00b7 3/4 view",
+          "Collar step detail",
+          "Thread ends",
+          "Box of 10"
+        ],
+        "model": {}
+      },
+      "variantGroup": "ud-double",
+      "variantLabel": "M18 / M20 \u00b7 plain",
+      "related": [
+        "SS-1040",
+        "SS-1020"
+      ],
+      "spec": {
+        "revision": "research-1",
+        "date": "2026-10-24",
+        "status": "illustrative"
+      }
+    },
+    {
+      "id": "p2001",
+      "slug": "ss-2001",
+      "partNo": "SS-2001",
+      "name": "Wheel nut M20 \u00d7 1.5 RH, 60\u00b0 cone seat",
+      "type": "wheel-nut",
+      "template": "wheel-nut",
+      "summary": "Illustrative wheel nut m20 \u00d7 1.5 rh, 60\u00b0 cone seat. Historical vehicle associations are unverified; compare a physical sample and part number before ordering.",
+      "positions": [
+        "Front",
+        "Rear"
+      ],
+      "applications": [
+        {
+          "vehicle": "toyota-dyna",
+          "model": "Dyna 200 / 300 / 400",
+          "years": "Unconfirmed",
+          "position": "Front & rear",
+          "side": "Unconfirmed",
+          "notes": "Historical catalogue association only; no confirmed interchangeability."
+        },
+        {
+          "vehicle": "hino",
+          "model": "Dutro",
+          "years": "Unconfirmed",
+          "position": "Front & rear",
+          "side": "Unconfirmed",
+          "notes": "Historical catalogue association only; no confirmed interchangeability."
+        }
+      ],
+      "material": "Unverified",
+      "grade": "Unverified",
+      "finish": "zinc-clear",
+      "includes": "nut",
+      "components": [
+        {
+          "qty": 1,
+          "label": "Wheel nut",
+          "partNo": "SS-2001"
+        }
+      ],
+      "matchingNut": null,
+      "availability": "confirm",
+      "fulfilment": "Confirm availability, exact part and fitment before ordering",
+      "price": null,
+      "media": {
+        "photos": [
+          "Studio \u00b7 3/4 view",
+          "Seat detail",
+          "Thread bore",
+          "Bag of 10"
+        ],
+        "model": {}
+      },
+      "variantGroup": "m20-cone-nut",
+      "variantLabel": "RH",
+      "related": [
+        "SS-2003",
+        "SS-1001",
+        "SS-1003"
+      ],
+      "spec": {
+        "revision": "research-1",
+        "date": "2026-10-24",
+        "status": "illustrative"
+      }
+    },
+    {
+      "id": "p2002",
+      "slug": "ss-2002",
+      "partNo": "SS-2002",
+      "name": "Flange wheel nut M22 \u00d7 1.5 RH, flat seat",
+      "type": "wheel-nut",
+      "template": "wheel-nut",
+      "summary": "Illustrative flange wheel nut m22 \u00d7 1.5 rh, flat seat. Historical vehicle associations are unverified; compare a physical sample and part number before ordering.",
+      "positions": [
+        "Front",
+        "Rear"
+      ],
+      "applications": [
+        {
+          "vehicle": "hino",
+          "model": "500 Series",
+          "years": "Unconfirmed",
+          "position": "Rear",
+          "side": "Unconfirmed",
+          "notes": "Historical catalogue association only; no confirmed interchangeability."
+        },
+        {
+          "vehicle": "volvo",
+          "model": "FM / FH",
+          "years": "Unconfirmed",
+          "position": "Front & rear",
+          "side": "Unconfirmed",
+          "notes": "Historical catalogue association only; no confirmed interchangeability."
+        },
+        {
+          "vehicle": "scania",
+          "model": "P / G / R",
+          "years": "Unconfirmed",
+          "position": "Front & rear",
+          "side": "Unconfirmed",
+          "notes": "Historical catalogue association only; no confirmed interchangeability."
+        }
+      ],
+      "material": "Unverified",
+      "grade": "Unverified",
+      "finish": "zinc-flake",
+      "includes": "nut",
+      "components": [
+        {
+          "qty": 1,
+          "label": "Flange wheel nut",
+          "partNo": "SS-2002"
+        }
+      ],
+      "matchingNut": null,
+      "availability": "confirm",
+      "fulfilment": "Confirm availability, exact part and fitment before ordering",
+      "price": null,
+      "media": {
+        "photos": [
+          "Studio \u00b7 3/4 view",
+          "Flange face",
+          "Thread bore",
+          "Bag of 10"
+        ],
+        "model": {}
+      },
+      "variantGroup": null,
+      "variantLabel": "M22 flange",
+      "related": [
+        "SS-1030",
+        "SS-2001"
+      ],
+      "spec": {
+        "revision": "research-1",
+        "date": "2026-10-24",
+        "status": "illustrative"
+      }
+    },
+    {
+      "id": "p2003",
+      "slug": "ss-2003",
+      "partNo": "SS-2003",
+      "name": "Wheel nut M20 \u00d7 1.5 LH, 60\u00b0 cone seat",
+      "type": "wheel-nut",
+      "template": "wheel-nut",
+      "summary": "Illustrative wheel nut m20 \u00d7 1.5 lh, 60\u00b0 cone seat. Historical vehicle associations are unverified; compare a physical sample and part number before ordering.",
+      "positions": [
+        "Front",
+        "Rear"
+      ],
+      "applications": [
+        {
+          "vehicle": "toyota-dyna",
+          "model": "Dyna 200 / 300 / 400",
+          "years": "Unconfirmed",
+          "position": "Front & rear",
+          "side": "Unconfirmed",
+          "notes": "Historical catalogue association only; no confirmed interchangeability."
+        },
+        {
+          "vehicle": "hino",
+          "model": "Dutro",
+          "years": "Unconfirmed",
+          "position": "Front & rear",
+          "side": "Unconfirmed",
+          "notes": "Historical catalogue association only; no confirmed interchangeability."
+        }
+      ],
+      "material": "Unverified",
+      "grade": "Unverified",
+      "finish": "zinc-clear",
+      "includes": "nut",
+      "components": [
+        {
+          "qty": 1,
+          "label": "Wheel nut, LH",
+          "partNo": "SS-2003"
+        }
+      ],
+      "matchingNut": null,
+      "availability": "confirm",
+      "fulfilment": "Confirm availability, exact part and fitment before ordering",
+      "price": null,
+      "media": {
+        "photos": [
+          "Studio \u00b7 3/4 view",
+          "LH groove detail",
+          "Thread bore",
+          "Bag of 10"
+        ],
+        "model": {}
+      },
+      "variantGroup": "m20-cone-nut",
+      "variantLabel": "LH",
+      "related": [
+        "SS-2001",
+        "SS-1002"
+      ],
+      "spec": {
+        "revision": "research-1",
+        "date": "2026-10-24",
+        "status": "illustrative"
+      }
+    },
+    {
+      "id": "lt001",
+      "slug": "ss-3001",
+      "partNo": "SS-3001",
+      "name": "Mazda Front \u2014 supplier drawing",
+      "type": "wheel-stud",
+      "template": "profiled-fastener",
+      "summary": "Supplier drawing reference, not confirmed for installation. R/L marking does not identify which handed variant this record represents.",
+      "positions": [
+        "Front"
+      ],
+      "applications": [
+        {
+          "vehicle": "mazda",
+          "model": "Mazda Front (supplier label)",
+          "years": "Not specified",
+          "position": "Front",
+          "side": "Confirm",
+          "notes": "Supplier drawing label only \u2014 OEM fitment not verified"
+        }
+      ],
+      "material": "Not specified by supplier",
+      "grade": "10.9 (supplier stated)",
+      "finish": "black-phosphate",
+      "includes": "stud",
+      "components": [
+        {
+          "qty": 1,
+          "label": "Supplier-referenced fastener (stud only)",
+          "partNo": "SS-3001"
+        }
+      ],
+      "matchingNut": null,
+      "availability": "confirm",
+      "fulfilment": "Confirm availability, exact part and fitment before ordering",
+      "price": null,
+      "media": {
+        "photos": [],
+        "model": {}
+      },
+      "variantGroup": null,
+      "variantLabel": "Drawing page 1",
+      "related": [],
+      "spec": {
+        "revision": "not supplied",
+        "date": "2026-10-24",
+        "status": "pending"
+      }
+    },
+    {
+      "id": "lt002",
+      "slug": "ss-3002",
+      "partNo": "SS-3002",
+      "name": "Mazda Rear \u2014 supplier drawing",
+      "type": "wheel-stud",
+      "template": "profiled-fastener",
+      "summary": "Supplier drawing reference, not confirmed for installation. CRITICAL: drawing heading says 72 mm under head; detailed side view says 66 mm. Provisional model uses 66 mm; NOT an approved dimension.",
+      "positions": [
+        "Rear"
+      ],
+      "applications": [
+        {
+          "vehicle": "mazda",
+          "model": "Mazda Rear (supplier label)",
+          "years": "Not specified",
+          "position": "Rear",
+          "side": "Confirm",
+          "notes": "Supplier drawing label only \u2014 OEM fitment not verified"
+        }
+      ],
+      "material": "Not specified by supplier",
+      "grade": "10.9 (supplier stated)",
+      "finish": "black-phosphate",
+      "includes": "stud",
+      "components": [
+        {
+          "qty": 1,
+          "label": "Supplier-referenced fastener (stud only)",
+          "partNo": "SS-3002"
+        }
+      ],
+      "matchingNut": null,
+      "availability": "confirm",
+      "fulfilment": "Confirm availability, exact part and fitment before ordering",
+      "price": null,
+      "media": {
+        "photos": [],
+        "model": {}
+      },
+      "variantGroup": null,
+      "variantLabel": "Drawing page 2",
+      "related": [],
+      "spec": {
+        "revision": "not supplied",
+        "date": "2026-10-24",
+        "status": "pending"
+      }
+    },
+    {
+      "id": "lt003",
+      "slug": "ss-3003",
+      "partNo": "SS-3003",
+      "name": "Hino GH Rear \u2014 supplier drawing",
+      "type": "hub-bolt",
+      "template": "profiled-fastener",
+      "summary": "Supplier drawing reference, not confirmed for installation. R/L variants shown but direction for this listing is not selected.",
+      "positions": [
+        "Rear"
+      ],
+      "applications": [
+        {
+          "vehicle": "hino",
+          "model": "GH Rear (supplier label)",
+          "years": "Not specified",
+          "position": "Rear",
+          "side": "Confirm",
+          "notes": "Supplier drawing label only \u2014 OEM fitment not verified"
+        }
+      ],
+      "material": "Not specified by supplier",
+      "grade": "10.9 (supplier stated)",
+      "finish": "black-phosphate",
+      "includes": "stud",
+      "components": [
+        {
+          "qty": 1,
+          "label": "Supplier-referenced fastener (stud only)",
+          "partNo": "SS-3003"
+        }
+      ],
+      "matchingNut": null,
+      "availability": "confirm",
+      "fulfilment": "Confirm availability, exact part and fitment before ordering",
+      "price": null,
+      "media": {
+        "photos": [],
+        "model": {}
+      },
+      "variantGroup": null,
+      "variantLabel": "Drawing page 3",
+      "related": [],
+      "spec": {
+        "revision": "not supplied",
+        "date": "2026-10-24",
+        "status": "pending"
+      }
+    },
+    {
+      "id": "lt004",
+      "slug": "ss-3004",
+      "partNo": "SS-3004",
+      "name": "Toyota Dynaps Rear \u2014 supplier drawing",
+      "type": "wheel-stud",
+      "template": "profiled-fastener",
+      "summary": "Supplier drawing reference, not confirmed for installation. Supplier vehicle label 'Dynaps' requires OEM identification.",
+      "positions": [
+        "Rear"
+      ],
+      "applications": [
+        {
+          "vehicle": "toyota-dyna",
+          "model": "Dynaps Rear (name as printed)",
+          "years": "Not specified",
+          "position": "Rear",
+          "side": "Confirm",
+          "notes": "Supplier drawing label only \u2014 OEM fitment not verified"
+        }
+      ],
+      "material": "Not specified by supplier",
+      "grade": "10.9 (supplier stated)",
+      "finish": "finish-unconfirmed",
+      "includes": "stud",
+      "components": [
+        {
+          "qty": 1,
+          "label": "Supplier-referenced fastener (stud only)",
+          "partNo": "SS-3004"
+        }
+      ],
+      "matchingNut": null,
+      "availability": "confirm",
+      "fulfilment": "Confirm availability, exact part and fitment before ordering",
+      "price": null,
+      "media": {
+        "photos": [],
+        "model": {}
+      },
+      "variantGroup": null,
+      "variantLabel": "Drawing page 4",
+      "related": [],
+      "spec": {
+        "revision": "not supplied",
+        "date": "2026-10-24",
+        "status": "pending"
+      }
+    },
+    {
+      "id": "lt005",
+      "slug": "ss-3005",
+      "partNo": "SS-3005",
+      "name": "Toyota Rino Rear \u2014 supplier drawing",
+      "type": "double-ended",
+      "template": "profiled-fastener",
+      "summary": "Supplier drawing reference. 75 mm overall; two M20 \u00d7 1.5 ends, central flange and \u00d820.8 / 50-tooth knurl. Flange diameter and several transitions remain schematic; OEM fitment unconfirmed.",
+      "positions": [
+        "Rear"
+      ],
+      "applications": [
+        {
+          "vehicle": "toyota-rino",
+          "model": "Rino Rear (name as printed)",
+          "years": "Not specified",
+          "position": "Rear",
+          "side": "Confirm",
+          "notes": "Supplier drawing label only \u2014 OEM fitment not verified"
+        }
+      ],
+      "material": "Not specified by supplier",
+      "grade": "10.9 (supplier stated)",
+      "finish": "finish-unconfirmed",
+      "includes": "stud",
+      "components": [
+        {
+          "qty": 1,
+          "label": "Supplier-referenced fastener (stud only)",
+          "partNo": "SS-3005"
+        }
+      ],
+      "matchingNut": null,
+      "availability": "confirm",
+      "fulfilment": "Confirm availability, exact part and fitment before ordering",
+      "price": null,
+      "media": {
+        "photos": [],
+        "model": {}
+      },
+      "variantGroup": null,
+      "variantLabel": "Drawing page 5",
+      "related": [],
+      "spec": {
+        "revision": "not supplied",
+        "date": "2026-10-24",
+        "status": "pending"
+      }
+    },
+    {
+      "id": "lt006",
+      "slug": "ss-3006",
+      "partNo": "SS-3006",
+      "name": "Hino Durton Rear \u2014 supplier drawing",
+      "type": "double-ended",
+      "template": "profiled-fastener",
+      "summary": "Supplier drawing reference, not confirmed for installation. Supplier model name 'Hino Durton' requires confirmation.",
+      "positions": [
+        "Rear"
+      ],
+      "applications": [
+        {
+          "vehicle": "hino",
+          "model": "Durton Rear (name as printed)",
+          "years": "Not specified",
+          "position": "Rear",
+          "side": "Confirm",
+          "notes": "Supplier drawing label only \u2014 OEM fitment not verified"
+        }
+      ],
+      "material": "Not specified by supplier",
+      "grade": "10.9 (supplier stated)",
+      "finish": "grey-phosphate",
+      "includes": "stud",
+      "components": [
+        {
+          "qty": 1,
+          "label": "Supplier-referenced fastener (stud only)",
+          "partNo": "SS-3006"
+        }
+      ],
+      "matchingNut": null,
+      "availability": "confirm",
+      "fulfilment": "Confirm availability, exact part and fitment before ordering",
+      "price": null,
+      "media": {
+        "photos": [],
+        "model": {}
+      },
+      "variantGroup": null,
+      "variantLabel": "Drawing page 6",
+      "related": [],
+      "spec": {
+        "revision": "not supplied",
+        "date": "2026-10-24",
+        "status": "pending"
+      }
+    },
+    {
+      "id": "ref4001",
+      "slug": "ss-4001",
+      "partNo": "SS-4001",
+      "name": "Hino Dutro rear \u2014 identification pending",
+      "type": "hub-bolt",
+      "template": "profiled-fastener",
+      "summary": "Unverified sourcing reference: nominal length 90 mm, length basis unresolved. Illustration only; confirm part number, dimensions and handedness.",
+      "positions": [
+        "Rear"
+      ],
+      "applications": [
+        {
+          "vehicle": "hino",
+          "model": "Dutro",
+          "years": "Unconfirmed",
+          "position": "Rear",
+          "side": "Unconfirmed",
+          "notes": "Commercial requirement only; not confirmed vehicle fitment."
+        }
+      ],
+      "material": "Unverified",
+      "grade": "Unverified",
+      "finish": "finish-unconfirmed",
+      "includes": "stud",
+      "components": [
+        {
+          "qty": 1,
+          "label": "Reference fastener; supplied contents to be confirmed",
+          "partNo": "SS-4001"
+        }
+      ],
+      "matchingNut": null,
+      "availability": "confirm",
+      "fulfilment": "Identification pending; request a supplier drawing and physical sample",
+      "price": null,
+      "media": {
+        "photos": [],
+        "model": {}
+      },
+      "variantGroup": null,
+      "variantLabel": "Reference only",
+      "related": [
+        "SS-3006"
+      ],
+      "spec": {
+        "revision": "research-1",
+        "date": "2026-10-24",
+        "status": "illustrative"
+      }
+    },
+    {
+      "id": "ref4002",
+      "slug": "ss-4002",
+      "partNo": "SS-4002",
+      "name": "Toyota 2D rear \u2014 identification pending",
+      "type": "hub-bolt",
+      "template": "profiled-fastener",
+      "summary": "Unverified sourcing reference: nominal length 75 mm, length basis unresolved. Illustration only; confirm part number, dimensions and handedness.",
+      "positions": [
+        "Rear"
+      ],
+      "applications": [
+        {
+          "vehicle": "toyota-2d",
+          "model": "2D",
+          "years": "Unconfirmed",
+          "position": "Rear",
+          "side": "Unconfirmed",
+          "notes": "Commercial requirement only; not confirmed vehicle fitment."
+        }
+      ],
+      "material": "Unverified",
+      "grade": "Unverified",
+      "finish": "finish-unconfirmed",
+      "includes": "stud",
+      "components": [
+        {
+          "qty": 1,
+          "label": "Reference fastener; supplied contents to be confirmed",
+          "partNo": "SS-4002"
+        }
+      ],
+      "matchingNut": null,
+      "availability": "confirm",
+      "fulfilment": "Identification pending; request a supplier drawing and physical sample",
+      "price": null,
+      "media": {
+        "photos": [],
+        "model": {}
+      },
+      "variantGroup": null,
+      "variantLabel": "Reference only",
+      "related": [
+        "SS-3005"
+      ],
+      "spec": {
+        "revision": "research-1",
+        "date": "2026-10-24",
+        "status": "illustrative"
+      }
+    },
+    {
+      "id": "ref4003",
+      "slug": "ss-4003",
+      "partNo": "SS-4003",
+      "name": "UD Nissan CK10/CK20 rear \u2014 identification pending",
+      "type": "hub-bolt",
+      "template": "profiled-fastener",
+      "summary": "Unverified sourcing reference: nominal length 102 mm, length basis unresolved. Illustration only; confirm part number, dimensions and handedness.",
+      "positions": [
+        "Rear"
+      ],
+      "applications": [
+        {
+          "vehicle": "nissan-ud",
+          "model": "CK10 / CK20",
+          "years": "Unconfirmed",
+          "position": "Rear",
+          "side": "Unconfirmed",
+          "notes": "Commercial requirement only; not confirmed vehicle fitment."
+        }
+      ],
+      "material": "Unverified",
+      "grade": "Unverified",
+      "finish": "finish-unconfirmed",
+      "includes": "stud",
+      "components": [
+        {
+          "qty": 1,
+          "label": "Reference fastener; supplied contents to be confirmed",
+          "partNo": "SS-4003"
+        }
+      ],
+      "matchingNut": null,
+      "availability": "confirm",
+      "fulfilment": "Identification pending; request a supplier drawing and physical sample",
+      "price": null,
+      "media": {
+        "photos": [],
+        "model": {}
+      },
+      "variantGroup": null,
+      "variantLabel": "Reference only",
+      "related": [
+        "SS-1040"
+      ],
+      "spec": {
+        "revision": "research-1",
+        "date": "2026-10-24",
+        "status": "illustrative"
+      }
+    },
+    {
+      "id": "ref4004",
+      "slug": "ss-4004",
+      "partNo": "SS-4004",
+      "name": "Volvo rear \u2014 identification pending",
+      "type": "hub-bolt",
+      "template": "profiled-fastener",
+      "summary": "Unverified sourcing reference: nominal length 105 mm, length basis unresolved. Illustration only; confirm part number, dimensions and handedness.",
+      "positions": [
+        "Rear"
+      ],
+      "applications": [
+        {
+          "vehicle": "volvo",
+          "model": "Rear; chassis unconfirmed",
+          "years": "Unconfirmed",
+          "position": "Rear",
+          "side": "Unconfirmed",
+          "notes": "Commercial requirement only; not confirmed vehicle fitment."
+        }
+      ],
+      "material": "Unverified",
+      "grade": "Unverified",
+      "finish": "finish-unconfirmed",
+      "includes": "stud",
+      "components": [
+        {
+          "qty": 1,
+          "label": "Reference fastener; supplied contents to be confirmed",
+          "partNo": "SS-4004"
+        }
+      ],
+      "matchingNut": null,
+      "availability": "confirm",
+      "fulfilment": "Identification pending; request a supplier drawing and physical sample",
+      "price": null,
+      "media": {
+        "photos": [],
+        "model": {}
+      },
+      "variantGroup": null,
+      "variantLabel": "Reference only",
+      "related": [
+        "SS-1030"
+      ],
+      "spec": {
+        "revision": "research-1",
+        "date": "2026-10-24",
+        "status": "illustrative"
+      }
+    }
+  ]
+}

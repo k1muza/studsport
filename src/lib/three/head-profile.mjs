@@ -17,6 +17,11 @@ export function headProfileRings({
   }
 
   if (incomingRadius !== null) {
+    if (chamfer > 0) {
+      const c = Math.min(chamfer, (end-start)/4, radius/8);
+      return [[incomingRadius,start],[radius-c,start],[radius,start+c],
+        [radius,end-c],[radius-c,end],[outgoingRadius,end]];
+    }
     // A ring-to-ring annular shoulder at each step; no artificial origin cap.
     return [
       [incomingRadius, start],

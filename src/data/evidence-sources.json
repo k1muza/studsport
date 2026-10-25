@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "id": "pilot-2026",
+      "issuer": "User feasibility research; commercial supplier Mr Bolt / Quanzhou Bolt Auto Parts Co., Ltd.",
+      "reference": "Studs_Feasibility_Report_v2(1).pdf, pp.6-7, Section 3",
+      "url": null,
+      "kind": "commercial-research",
+      "used": "Eight planned families, nominal sizes and separate LH/RH requirements.",
+      "limits": "No technical certification. Length basis unspecified. UD is Japanese; the report European-make grouping is a commercial grouping error, not technical data.",
+      "accessed": "2026-10-24"
+    },
+    {
+      "id": "litai-drawings",
+      "issuer": "Quanzhou Litai Auto-Parts Mfg. Co., Ltd.",
+      "reference": "DRAWINGS.pdf, six pages, blank drawing numbers/revisions",
+      "url": null,
+      "kind": "supplier-drawing",
+      "used": "Dimensions, tolerances and visible axial shape; six distinct source records.",
+      "limits": "Not OEM verified. Mr Bolt and Litai are different supplier identities; no connection assumed.",
+      "accessed": "2026-10-24"
+    },
+    {
+      "id": "shenka-2024",
+      "issuer": "Shenka Industries",
+      "reference": "Heavy Duty Truck Studs Catalogue, 14 August 2024, pp.3-10",
+      "url": "https://shenkaindustries.co.za/wp-content/uploads/2024/08/HEAVY-DUTY-TRUCK-STUDS-RANGE-Catalogue-14-AUGUST-2024_compressed.pdf",
+      "kind": "manufacturer-catalogue",
+      "used": "Photos of headed and double-ended studs, nuts, and separate front/rear or handed references.",
+      "limits": "Visual analogues only; no interchangeability with StudSport records. Some descriptions have contradictory hand/position labels.",
+      "accessed": "2026-10-24"
+    },
+    {
+      "id": "litai-canter",
+      "issuer": "Quanzhou Litai",
+      "reference": "Canter PS125-135 M18/M20 \u00d71.5\u00d778 RH",
+      "url": "https://litai-autoparts.en.made-in-china.com/product/LvXEbYIVkOkZ/China-Canter-PS125-135-Wheel-Hub-Bolt-M18-1-5-M20-1-5-78-mm-Right-Side.html",
+      "kind": "manufacturer-listing",
+      "used": "Photo shows asymmetric threaded ends, short splines, an integral flange and reduced neck.",
+      "limits": "Nominal match to SS-1041 but existing Nissan association and uncorroborated section dimensions prevent a merge/reclassification.",
+      "accessed": "2026-10-24"
+    },
+    {
+      "id": "litai-rino",
+      "issuer": "Quanzhou Litai",
+      "reference": "LT-TOYO-02, M20\u00d71.5/M20\u00d71.5\u00d775",
+      "url": "https://litai-autoparts.en.made-in-china.com/product/gGdpyeDEXTVC/China-Quanzhou-Factory-Produced-Toyota-Rino-Rear-Wheel-Hub-Bolt.html",
+      "kind": "manufacturer-listing",
+      "used": "Candidate manufacturer reference for supplier Rino drawing.",
+      "limits": "No proof Rino = Toyota 2D; blank supplier drawing reference prevents exact identity.",
+      "accessed": "2026-10-24"
+    },
+    {
+      "id": "sanlu-gh",
+      "issuer": "Hejian Yousheng / Sanlu",
+      "reference": "GH/FG rear 108, thread41, head10.5",
+      "url": "https://ysbolts.en.made-in-china.com/product/bwntdGWOhlTx/China-High-Quality-Gh-Fg-Wheel-Bolt-for-Hino.html",
+      "kind": "manufacturer-listing",
+      "used": "Corroborates nominal GH rear dimensions and distinguishes 102 variant.",
+      "limits": "Listing contains multiple lengths and a malformed top-level specification; not proof of exact Litai part.",
+      "accessed": "2026-10-24"
+    },
+    {
+      "id": "skysun-dyna",
+      "issuer": "Xiamen Skysun / LianFa",
+      "reference": "LF11035 / LF11036, Dyna140 rear M20\u00d71.5\u00d747",
+      "url": "https://skysun-truckparts.en.made-in-china.com/product/LKsQkcBYlFWh/China-10-9-Grade-Wheel-Bolt-for-Toyota-Rear-Dyna-140.html",
+      "kind": "manufacturer-listing",
+      "used": "Nominal Dyna requirement and alternative stud/nut/sleeve assemblies.",
+      "limits": "Listing length basis and identity with Dynaps drawing unproven; do not attach nut compatibility.",
+      "accessed": "2026-10-24"
+    },
+    {
+      "id": "dt-volvo",
+      "issuer": "Diesel Technic / DT Spare Parts",
+      "reference": "2.65094; Volvo20515519; Renault7420515519",
+      "url": "https://partnerportal.dieseltechnic.com/en/products/dt-2-65094-wheel-bolt",
+      "kind": "manufacturer-catalogue",
+      "used": "M22\u00d71.5, overall115, under-head105, thread77, head\u00d836.",
+      "limits": "Manufacturer-declared dimensions of an identified reference, not verification of planned Volvo Rear SKU. No LH variant established.",
+      "accessed": "2026-10-24"
+    },
+    {
+      "id": "litai-durto",
+      "issuer": "Quanzhou Litai",
+      "reference": "LT-559, Durto M20/M20\u00d71.5\u00d775 RH",
+      "url": "https://litai-autoparts.en.made-in-china.com/product/NneYUjLCflWS/China-Material-40cr-Durto-Hub-Bolt-M20-1-5-M20-1-5-75mm-Right-Side.html",
+      "kind": "manufacturer-listing",
+      "used": "Conflicting naming/length evidence.",
+      "limits": "75 differs from pilot90 and drawing91; never silently substitute.",
+      "accessed": "2026-10-24"
+    },
+    {
+      "id": "mrbolt-store",
+      "issuer": "Quanzhou Bolt Auto Parts Co., Ltd. / Mr Bolt",
+      "reference": "Alibaba storefront",
+      "url": "https://mrbolt.en.alibaba.com/",
+      "kind": "supplier-storefront",
+      "used": "Supplier identity from feasibility report.",
+      "limits": "Storefront returned no usable technical content; no specifications inferred.",
+      "accessed": "2026-10-24"
+    },
+    {
+      "id": "alibaba-volvo",
+      "issuer": "Seller identity not established from accessible result",
+      "reference": "Listing62529151291 advertises Volvo20515519 M22\u00d71.5\u00d7105",
+      "url": "https://www.alibaba.com/product-detail/wheel-bolt-and-nut-hub-bolt_62529151291.html",
+      "kind": "marketplace-lead",
+      "used": "Search lead followed to DT manufacturer catalogue.",
+      "limits": "Not used to certify dimensions, supplier identity or handedness.",
+      "accessed": "2026-10-24"
+    }
+  ]
+}

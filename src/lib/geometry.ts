@@ -1,6 +1,7 @@
 /* One geometry derivation shared by the 3D mesh, the SVG drawing, viewer callouts and thumbnails.
    geom(p) turns a record's dimensions into an ordered list of axial segments, so they cannot disagree. */
 import type { Product, Thread, ThreadDir, NutDims, FinishKey } from './catalogue';
+import { getModelSpec } from './model-data';
 import { getProduct, dirs, n, thread } from './products';
 
 export type SegKind = 'head' | 'knurl' | 'plain' | 'thread' | 'hex' | 'collar';
@@ -11,6 +12,9 @@ export interface Seg {
   y0: number;
   y1: number;
   r: number;
+  contour?: { offsetMm: number; diameterMm: number }[];
+  runoutPitches?: number;
+  visualSplines?: boolean;
   // head
   shape: 'd-flat' | 'round' | 'double-flat';
   basis?: 'drawing' | 'derived' | 'schematic';
@@ -75,8 +79,10 @@ export function geom(p: Product): Geom {
   const hit = cache.get(p);
   if (hit) return hit;
   const segs: Seg[] = [];
+  const visual = getModelSpec(p.partNo)?.visual;
+  const edgeBreak = visual?.edgeBreakMm ?? 0.45;
   const thr = (t: Thread, y0: number, y1: number, tip: 'start' | 'end') =>
-    seg({ kind: 'thread', y0, y1, r: t.dia / 2, rMin: t.dia / 2 - 0.6134 * t.pitch * 0.92, pitch: t.pitch, dir: t.dir, tip, t });
+    seg({ kind: 'thread', y0, y1, r: t.dia / 2, rMin: t.dia / 2 - 0.6134 * t.pitch * 0.92, pitch: t.pitch, dir: t.dir, tip, t, runoutPitches: visual?.threadRunoutPitches });
   let g: Geom;
   if (p.template === 'profiled-fastener') {
     let y = 0;
@@ -87,24 +93,24 @@ export function geom(p: Product): Geom {
       if (s.kind === 'head') {
         const shape = s.headShape || 'round';
         const flat = shape === 'd-flat' ? s.flatAcross! - r : shape === 'double-flat' ? s.flatAcross! / 2 : null;
-        segs.push(seg({ kind: 'head', y0, y1, r, shape, f: flat, c: Math.min(0.8, s.length / 6), basis: s.basis }));
+        segs.push(seg({ kind: 'head', y0, y1, r, shape, f: flat, c: Math.min(edgeBreak, s.length / 6), basis: s.basis }));
       } else if (s.kind === 'knurl') {
-        segs.push(seg({kind:'knurl',y0,y1,r,rIn: s.splines ? r - (s.visualDepthMm ?? 0.5) : r,splines:s.splines || 0,
-          taper: Math.min(1.5,s.length * .12),rNext:(next?.dia || s.dia)/2,basis:s.basis}));
+        segs.push(seg({kind:'knurl',y0,y1,r,rIn: (s.splines || s.visualSplines) ? r - (s.visualDepthMm ?? s.visualSplines?.depthMm ?? visual?.splineDepthMm ?? 0.3) : r,splines:s.splines || s.visualSplines?.count || 0,visualSplines:!!s.visualSplines,
+          taper: Math.min(1.5,s.length * .12),rNext:Math.min(s.dia,next?.dia || s.dia)/2,basis:s.basis}));
       } else if (s.kind === 'thread') {
         const t = { ...s.thread!, length:s.length };
         segs.push(seg({...thr(t,y0,y1,i === 0 ? 'start' : 'end'),basis:s.basis,tipChamfer:s.tipChamfer}));
       } else if (s.kind === 'hex') {
         segs.push(seg({kind:'hex',y0,y1,r: s.af! / Math.sqrt(3),af:s.af!,basis:s.basis}));
-      } else segs.push(seg({kind:s.kind,y0,y1,r,basis:s.basis,endTaper:s.endTaper}));
+      } else segs.push(seg({kind:s.kind,y0,y1,r,basis:s.basis,endTaper:s.endTaper,contour:s.contour}));
       y = y1;
     }
     g = {L:y,segs,maxR:0};
   } else if (p.template === 'press-in-stud' || p.template === 'stud-nut') {
     const d = p.dims, H = d.head.thickness, K = d.knurl.length, S = d.shoulder.length, T = d.thread.length;
-    segs.push(seg({ kind: 'head', y0: 0, y1: H, r: d.head.dia / 2, shape: d.head.shape, f: d.head.shape === 'd-flat' ? d.head.flatAcross! - d.head.dia / 2 : null, c: 0.8 }));
+    segs.push(seg({ kind: 'head', y0: 0, y1: H, r: d.head.dia / 2, shape: d.head.shape, f: d.head.shape === 'd-flat' ? d.head.flatAcross! - d.head.dia / 2 : null, c: edgeBreak }));
     let y = H;
-    segs.push(seg({ kind: 'knurl', y0: y, y1: y + K, r: d.knurl.dia / 2, rIn: d.knurl.dia / 2 - 0.5, splines: d.knurl.splines, taper: Math.min(1.5, K * 0.12), rNext: S > 0 ? d.shoulder.dia / 2 : d.thread.dia / 2 }));
+    segs.push(seg({ kind: 'knurl', y0: y, y1: y + K, r: d.knurl.dia / 2, rIn: d.knurl.dia / 2 - (visual?.splineDepthMm ?? 0.3), splines: d.knurl.splines, taper: Math.min(1.5, K * 0.12), rNext: S > 0 ? d.shoulder.dia / 2 : d.thread.dia / 2 }));
     y += K;
     if (S > 0) { segs.push(seg({ kind: 'plain', y0: y, y1: y + S, r: d.shoulder.dia / 2 })); y += S; }
     segs.push(thr(d.thread, y, y + T, 'end')); y += T;
@@ -194,7 +200,7 @@ export function callouts(p: Product): Callout[] {
   if (kn && kn.basis !== 'schematic') out.push({ t: 'lead', y: (kn.y0 + kn.y1) / 2, r: kn.r, s: -1, lvl: 0, label: `Ø${n(kn.r * 2)} knurl`, minor: true, dir: -1 });
   out.push({ t: 'lead', y: g.nut ? te.y1 - 8 : te.y0 + (te.y1 - te.y0) * 0.62, r: te.r, s: 1, lvl: 0, label: thread(te.t), key: true, dir: 1 });
   if (ts) out.push({ t: 'lead', y: ts.y0 + (ts.y1 - ts.y0) * 0.4, r: ts.r, s: 1, lvl: 0, label: thread(ts.t), key: true, dir: -1 });
-  if (hx) out.push({ t: 'lead', y: (hx.y0 + hx.y1) / 2, r: hx.r, s: -1, lvl: 1, label: hx.kind === 'hex' ? `${n(hx.af)} AF collar` : `Ø${n(hx.r * 2)} collar`, dir: 1 });
+  if (hx && hx.basis !== 'schematic') out.push({ t: 'lead', y: (hx.y0 + hx.y1) / 2, r: hx.r, s: -1, lvl: 1, label: hx.kind === 'hex' ? `${n(hx.af)} AF collar` : `Ø${n(hx.r * 2)} collar`, dir: 1 });
   if (g.nut) out.push({ t: 'lead', y: g.nut.y0 + g.nut.H / 2, r: g.nut.rc, s: 1, lvl: 1, label: `${g.nut.partNo} · ${n(g.nut.af)} AF`, dir: -1 });
   return out;
 }
