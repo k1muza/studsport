@@ -74,3 +74,11 @@
   .groups { columns: 2; }
   .page { min-height: 0; width: auto; }
 }
+
+/* Customer reference sheet: concise help block and comfortably readable print summary. */
+.help { display: flex; justify-content: space-between; align-items: center; gap: 4mm; padding: 3mm 4mm; border: 0.25mm solid #d6d8d8; background: #f5f6f5; break-inside: avoid; }
+.help > div { display: flex; flex-direction: column; gap: 1mm; }
+.help b { font-size: 8pt; }
+.help span { font-size: 7.5pt; color: #3d444b; }
+.help a { color: oklch(0.50 0.17 45); font-size: 7.5pt; font-weight: 700; text-decoration: underline; white-space: nowrap; }
+@media print { .help { margin-top: 3mm; } }

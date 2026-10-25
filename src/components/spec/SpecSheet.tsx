@@ -1,18 +1,37 @@
 import Link from 'next/link';
 import { company, includes } from '@/lib/catalogue';
 import type { Product } from '@/lib/catalogue';
-import { href, typeLabel, threadLabel, finishOf, specGroups, vehicle } from '@/lib/products';
+import { href, typeLabel, threadLabel, finishOf, specGroups } from '@/lib/products';
 import { Mark } from '@/components/Mark';
 import { Thumb } from '@/components/Thumb';
 import { Drawing } from '@/components/Drawing';
 import { PrintButton } from './PrintButton';
 import s from './spec.module.css';
 
-const LENGTH_NOTE = { 'wheel-nut': 'H = overall nut height', 'double-ended': 'L = A + C + B', 'press-in-stud': 'L includes head · L = H + K + S + T', 'stud-nut': 'L includes head · L = H + K + S + T', 'profiled-fastener': 'Evidence-linked profile; estimates are NOT certified dimensions' };
+const LENGTH_NOTE = { 'wheel-nut': 'H = overall nut height', 'double-ended': 'L = A + C + B', 'press-in-stud': 'L includes head', 'stud-nut': 'L includes head', 'profiled-fastener': 'L = full illustrated length' };
 
-/* A4 portrait reference, allowed to paginate as evidence grows. Values come from the record. */
+/* Concise buyer-facing reference: detailed uncertainties remain on the product page and in the evidence record. */
 export function SpecSheet({ p }: { p: Product }) {
-  const groups = specGroups(p).filter(g => g.group !== 'General' && g.group !== 'Data');
+  const cleanName = p.name.replace(/\\s*—\\s*(supplier drawing|identification pending)\\s*$/i, '').trim();
+  const name = /(?:stud|bolt|nut)/i.test(cleanName) ? cleanName : `${cleanName} ${typeLabel(p).toLowerCase()}`;
+  const all = specGroups(p);
+  const supplierDimensions = all.find(g => g.group === 'Source measurements (supplier-declared)');
+  const sourcingRequest = all.find(g => g.group.startsWith('Sourcing requirement'));
+  const legacyDimensions = all.find(g => g.group === 'Illustrative dimensions (mm)');
+  const referenceRows = supplierDimensions?.rows
+    ?? (sourcingRequest ? sourcingRequest.rows.filter(r => r.k === 'Nominal request') : [])
+    ?? [];
+  const dimensions = p.template === 'profiled-fastener'
+    ? { group: supplierDimensions ? 'Dimensions from supplier' : 'Reference size', rows: referenceRows }
+    : { group: 'Illustrative measurements', rows: (legacyDimensions?.rows ?? []).filter(r => !r.k.startsWith('Check:')).slice(0, 8) };
+  const details = { group: 'Part details', rows: [
+    { k: 'Thread', v: threadLabel(p) },
+    { k: 'Type', v: typeLabel(p) },
+    { k: 'Finish', v: finishOf(p).label },
+    ...(p.grade && !/unverified|not specified/i.test(p.grade) ? [{ k: 'Grade (supplier)', v: p.grade }] : []),
+  ] };
+  const groups = [dimensions, details].filter(g => g.rows.length);
+  const whatsappUrl = company.whatsappLink + '?text=' + encodeURIComponent(`Hi StudSport, can you help me identify ${p.partNo}?`);
   return (
     <div className={s.desk}>
       <div className={s.toolbar}>
@@ -31,17 +50,17 @@ export function SpecSheet({ p }: { p: Product }) {
                 </div>
               </div>
               <div className={s.docMeta}>
-                <span>DOCUMENT</span><b>Product specification</b>
-                <span>REVISION</span><span>Rev {p.spec.revision} · {p.spec.date}</span>
-                <span>SHEET</span><span>Reference</span>
+                <span>DOCUMENT</span><b>Part reference</b>
+                <span>REFERENCE</span><span>{p.partNo}</span>
+                <span>ISSUED</span><span>{p.spec.date}</span>
               </div>
             </header>
 
             <div className={s.title}>
               <div className={s.titleText}>
                 <span className={s.partNo}>{p.partNo}</span>
-                <h1 className={s.h1}>{p.name}</h1>
-                <p className={s.summary}>{p.summary}</p>
+                <h1 className={s.h1}>{name}</h1>
+                <p className={s.summary}>Compare this part with your existing stud, or send us a photo and your vehicle details. We can help you check the right size before ordering.</p>
                 <div className={s.facts}>
                   <span>Type</span><span>{typeLabel(p)}</span>
                   <span>Supplied as</span><span>{includes[p.includes]}</span>
@@ -51,14 +70,14 @@ export function SpecSheet({ p }: { p: Product }) {
               </div>
               <div className={s.render}>
                 <Thumb sku={p.slug} tone="light" w={1000} h={640} />
-                <span className={s.renderCap}>RENDER · VISUAL APPROXIMATION</span>
+                <span className={s.renderCap}>ILLUSTRATIVE 3D MODEL</span>
               </div>
             </div>
 
             <div className={s.drawing}>
               <div className={s.drawingHead}>
-                <b>Schematic geometry · not for manufacture or installation</b>
-                <span>Dimensions in mm · Not to scale · {LENGTH_NOTE[p.template]}</span>
+                <b>Dimension reference</b>
+                <span>mm · Not to scale · {LENGTH_NOTE[p.template]}</span>
               </div>
               <div className={s.drawingBody}>
                 <Drawing sku={p.slug} layout="wide" grid minPx={8.5} maxPx={9.5} />
@@ -74,33 +93,20 @@ export function SpecSheet({ p }: { p: Product }) {
               ))}
             </div>
 
-            <div className={s.closing}>
-            <div className={s.lists}>
-              <div className={s.apps}>
-                <h2 className={s.h2}>Example applications · confirm fitment</h2>
-                {p.applications.map((a, i) => (
-                  <div key={i} className={s.appRow}>
-                    <span>{vehicle(a.vehicle).label}</span><span>{a.model}</span><span>{a.years}</span><span>{a.position} · {a.side}</span>
-                  </div>
-                ))}
+            <div className={s.help}>
+              <div>
+                <b>Need help matching this part?</b>
+                <span>Send your vehicle model and a photo or dimensions of your existing stud.</span>
               </div>
-              <div className={s.included}>
-                <h2 className={s.h2}>Included</h2>
-                {p.components.map(c => (
-                  <div key={c.partNo} className={s.incRow}><span>{c.qty} ×</span><span>{c.label} ({c.partNo})</span></div>
-                ))}
-              </div>
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">Ask on WhatsApp ↗</a>
             </div>
-
             <footer className={s.foot}>
               <div className={s.footText}>
-                <b>StudSport · {company.address}</b>
-                <span>Tel {company.phone} · WhatsApp {company.whatsapp} · {company.email}</span>
-                <span>{company.web}/products/{p.slug}</span>
+                <b>StudSport · Harare, Zimbabwe</b>
+                <span>WhatsApp {company.whatsapp} · studsport.vercel.app/products/{p.slug}</span>
+                <span>3D illustration for identification. Please confirm dimensions and vehicle fitment before use.</span>
               </div>
-              <span className={s.stamp}>{p.spec.status === 'pending' ? 'SOURCE-DECLARED / PARTIAL: schematic geometry and unverified OEM fitment. Do not use for manufacture or installation.' : 'Illustrative prototype data. Verify specifications and fitment before use.'}</span>
             </footer>
-            </div>
           </div>
         </article>
       </div>
