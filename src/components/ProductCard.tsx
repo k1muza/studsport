@@ -1,15 +1,18 @@
+'use client';
+
 import Link from 'next/link';
 import { getProduct, href, typeLabel, keyDims, appsLabel, avail, isLH, priceLabel } from '@/lib/products';
 import { Thumb } from './Thumb';
 import { evidenceLabel } from '@/lib/evidence';
 import s from './ProductCard.module.css';
+import { productAnalytics, track } from '@/lib/analytics';
 
-export function ProductCard({ sku, spin = 'off' }: { sku: string; spin?: 'auto' | 'off' }) {
+export function ProductCard({ sku, spin = 'off', list = 'catalogue' }: { sku: string; spin?: 'auto' | 'off'; list?: string }) {
   const p = getProduct(sku);
   if (!p) return null;
   const av = avail(p);
   return (
-    <Link href={href(p)} className={s.card}>
+    <Link href={href(p)} className={s.card} onClick={() => track('select_item', { ...productAnalytics(p), item_list_name: list })}>
       <div className={s.well}>
         <Thumb sku={p.slug} tone="dark" spin={spin} />
         <span className={s.pill}><span className={s.dot} style={{ background: av.color }} />{av.label}</span>

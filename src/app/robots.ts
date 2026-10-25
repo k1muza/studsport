@@ -1,11 +1,12 @@
 import type { MetadataRoute } from 'next';
-import { siteUrl } from '@/lib/site';
+import { allowIndexing, siteUrl } from '@/lib/site';
 
 export default function robots(): MetadataRoute.Robots {
+  if (!allowIndexing) return { rules: { userAgent: '*', disallow: '/' } };
   return {
-    // Spec sheets are print duplicates of product pages; the design system is internal.
-    rules: { userAgent: '*', allow: '/', disallow: ['/design-system', '/products/*/spec-sheet'] },
+    // noindex metadata is also present on these HTML routes; this limits unnecessary crawling.
+    rules: { userAgent: '*', allow: '/', disallow: ['/api/', '/design-system'] },
     sitemap: `${siteUrl}/sitemap.xml`,
-    host: siteUrl,
+    host: new URL(siteUrl).host,
   };
 }

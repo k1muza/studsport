@@ -5,7 +5,7 @@ import { ProductCard } from '@/components/ProductCard';
 import { AVAIL_COLOR } from '@/lib/products';
 import s from '@/components/design/design.module.css';
 
-export const metadata: Metadata = { title: 'Design system' };
+export const metadata: Metadata = { title: 'Design system', robots: { index: false, follow: false } };
 
 const SWATCHES = [
   ['Graphite', '#0e1012', 'Footer'],

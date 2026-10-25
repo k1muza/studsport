@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import { company, vehicles } from '@/lib/catalogue';
 import { allProducts, vehiclesOf } from '@/lib/products';
 import { Viewer } from '@/components/Viewer';
@@ -6,11 +7,29 @@ import { Drawing } from '@/components/Drawing';
 import { ProductCard } from '@/components/ProductCard';
 import { HomeSearch } from '@/components/home/HomeSearch';
 import s from '@/components/home/home.module.css';
+import { pageMetadata, safeJsonLd } from '@/lib/seo';
+import { absoluteUrl } from '@/lib/site';
+import { TrackedWhatsAppLink } from '@/components/TrackedWhatsAppLink';
+
+export const metadata: Metadata = pageMetadata({
+  title: 'Commercial Vehicle Wheel Studs & Hub Bolts',
+  description: 'Browse 22 wheel stud, hub bolt and wheel nut references for commercial vehicles, compare dimensions and request a compatibility check in Zimbabwe.',
+  path: '/',
+});
 
 const MAP_QUERY = encodeURIComponent('4475 Southview Park, Harare, Zimbabwe');
 
 const HERO_SKU = 'ss-1030';
 const FEATURED = ['ss-1030', 'ss-1001', 'ss-1040', 'ss-2002'];
+
+const VEHICLE_PAGES: Record<string, string> = {
+  'toyota-2d': '/vehicles/toyota-2d-rear-wheel-bolts',
+  'toyota-dyna': '/vehicles/toyota-dyna-rear-wheel-studs',
+  mazda: '/vehicles/mazda-t35-wheel-studs',
+  hino: '/vehicles/hino-ranger-gh-rear-wheel-studs',
+  'nissan-ud': '/vehicles/ud-nissan-ck10-ck20-rear-wheel-bolts',
+  volvo: '/vehicles/volvo-truck-rear-wheel-studs',
+};
 
 const STEPS = [
   ['Identify the part', 'Search by vehicle, part number or thread size. If you have the old stud, measure the overall length, thread diameter and pitch, and the knurl diameter.'],
@@ -36,6 +55,11 @@ export default function HomePage() {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd({
+        '@context': 'https://schema.org', '@type': 'Organization', '@id': `${absoluteUrl('/')}#organization`,
+        name: company.name, url: absoluteUrl('/'), email: company.email,
+        contactPoint: { '@type': 'ContactPoint', telephone: company.phone, contactType: 'sales enquiry', areaServed: 'ZW', availableLanguage: 'English' },
+      }) }} />
       <section aria-label="Introduction" className={s.hero}>
         <div className={s.grid} />
         <div className={s.glow} />
@@ -78,11 +102,11 @@ export default function HomePage() {
               <span className="eyebrow">Browse by vehicle</span>
               <h2 className="h2">Start with the truck</h2>
             </div>
-            <Link href="/products" className="link-rule">All products →</Link>
+            <Link href="/vehicles" className="link-rule">All vehicle guides →</Link>
           </div>
           <div className={s.vehicles}>
             {vehicleTiles.map(v => (
-              <Link key={v.id} href={`/products?vehicle=${v.id}`} className={s.vTile}>
+              <Link key={v.id} href={VEHICLE_PAGES[v.id] || `/products?vehicle=${v.id}`} className={s.vTile}>
                 <span className={s.vName}><span className={s.vMake}>{v.make}</span><span className={s.vModel}>{v.model}</span></span>
                 <span className={s.vFoot}><span>{v.count}</span><span>→</span></span>
               </Link>
@@ -155,7 +179,7 @@ export default function HomePage() {
               <div className={s.infoCell}>
                 <span className="label label-dark">Phone &amp; WhatsApp</span>
                 <span className={s.infoPhones}>{company.phone}</span>
-                <a href={company.whatsappLink} target="_blank" rel="noopener" className={s.infoLink}>Message on WhatsApp →</a>
+                <TrackedWhatsAppLink entryPoint="home_contact" className={s.infoLink}>Message on WhatsApp →</TrackedWhatsAppLink>
               </div>
               <div className={s.infoCell}>
                 <span className="label label-dark">Delivery</span>

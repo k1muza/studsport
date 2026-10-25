@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { productTypes, products as ALL, type Product, type Template } from '@/lib/catalogue';
 import {
   getProduct, href, sheetHref, typeLabel, isLH, avail, keySpecs, specGroups, variants, related, compare, vehicle, whatsapp,
@@ -11,6 +11,9 @@ import { Viewer } from '@/components/Viewer';
 import { Drawing } from '@/components/Drawing';
 import { Thumb } from '@/components/Thumb';
 import { QtyStepper } from '@/components/QtyStepper';
+import { productAnalytics, track } from '@/lib/analytics';
+import { productImagePath } from '@/lib/site';
+import { applicationPages } from '@/data/application-pages';
 import s from './product.module.css';
 
 type Tab = '3d' | 'photos' | 'drawing';
@@ -47,12 +50,19 @@ export function ProductView({ slug }: { slug: string }) {
   const [tab, setTab] = useState<Tab>('3d');
   const [qty, setQty] = useState(defaultQty(p));
   const [open, setOpen] = useState<Record<SectionKey, boolean>>({ drawing: true, specs: true, apps: true, incl: true, cmp: true });
+  const viewTracked = useRef(false);
 
   useEffect(() => {
     // ?qty= from a quote link; on mobile, sections 02–05 start collapsed.
     const q = parseInt(new URLSearchParams(window.location.search).get('qty') || '', 10);
     setQty(q > 0 ? q : defaultQty(p));
     if (matchMedia('(max-width: 760px)').matches) setOpen({ drawing: true, specs: false, apps: false, incl: false, cmp: false });
+  }, [p]);
+
+  useEffect(() => {
+    if (viewTracked.current) return;
+    viewTracked.current = true;
+    track('view_item', productAnalytics(p));
   }, [p]);
 
   const toggle = (k: SectionKey) => setOpen(o => ({ ...o, [k]: !o[k] }));
@@ -72,6 +82,7 @@ export function ProductView({ slug }: { slug: string }) {
     : [['stud', 'Stud only'], ['stud-nut', 'Stud and nut'], ['assembly', 'Complete assembly']]) as [string, string][];
   const nut = p.includes === 'stud' && p.matchingNut ? getProduct(p.matchingNut) : null;
   const fits = isNut(p) ? ALL.filter(q => q.matchingNut === p.partNo && q.includes === 'stud') : [];
+  const applicationLinks = applicationPages.filter(page => page.productSkus.includes(p.partNo));
 
   return (
     <>
@@ -95,7 +106,10 @@ export function ProductView({ slug }: { slug: string }) {
                 <div className={`${s.crop} ${s.cropTL}`} /><div className={`${s.crop} ${s.cropTR}`} />
                 <div className={`${s.crop} ${s.cropBL}`} /><div className={`${s.crop} ${s.cropBR}`} />
                 <div className={s.rev}>{p.partNo} · Rev {rev}</div>
-                {tab === '3d' && <Viewer sku={p.slug} variant="pdp" />}
+                {tab === '3d' && <>
+                  <img className={s.staticIllustration} src={productImagePath(p.slug)} width="960" height="420" alt={`${p.name} ${p.partNo} technical illustration`} fetchPriority="high" />
+                  <Viewer sku={p.slug} variant="pdp" />
+                </>}
                 {tab === 'photos' && (
                   <div className={s.photos}>
                     {p.media.photos.map(ph => (
@@ -115,6 +129,7 @@ export function ProductView({ slug }: { slug: string }) {
                     href={reference.url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => track('reference_click', { ...productAnalytics(p), reference_issuer: reference.issuer })}
                     title={`External example from ${reference.issuer}; not a confirmed identical part or vehicle fitment`}
                   >
                     Real-world example <span aria-hidden="true">↗</span>
@@ -167,7 +182,7 @@ export function ProductView({ slug }: { slug: string }) {
               </div>
               <div className={s.ctaRow}>
                 <Link href={quoteHref} className="btn btn-accent btn-lg">Request a quote <span className="arrow">→</span></Link>
-                <a href={waHref} target="_blank" rel="noopener" className="btn btn-ghost btn-lg">Ask on WhatsApp</a>
+                <a href={waHref} target="_blank" rel="noopener" className="btn btn-ghost btn-lg" onClick={() => track('whatsapp_click', { ...productAnalytics(p), enquiry_entry_point: 'product_summary' })}>Ask on WhatsApp</a>
               </div>
               <div className={s.docLinks}>
                 <Link href={sheetHref(p)}>Spec sheet (A4)</Link>
@@ -221,6 +236,8 @@ export function ProductView({ slug }: { slug: string }) {
                 ))}
               </div>
               <p className={s.fitNote}><span className="notice-dot" />{p.spec.status === 'pending' ? 'Vehicle name is copied from the supplier drawing, not a confirmed OEM application. Chassis/OEM verification required before purchase or installation.' : 'Example applications only. Send your vehicle details or the old part and we will confirm the match before you order.'}</p>
+              <p className={s.fitNote}>Need help measuring? <Link href="/guides/how-to-identify-and-measure-a-wheel-stud">Read the wheel stud identification guide →</Link></p>
+              {applicationLinks.length > 0 && <div className={s.fits}>Vehicle guides: {applicationLinks.map(page => <Link key={page.slug} href={`/vehicles/${page.slug}`}>{page.shortTitle}</Link>)}</div>}
             </div>
           </Section>
 
@@ -294,7 +311,7 @@ export function ProductView({ slug }: { slug: string }) {
           <span className={s.mbPart}>{p.partNo} × {qty}</span>
           <span className={s.mbAvail}>{av.label}</span>
         </span>
-        <a href={waHref} target="_blank" rel="noopener" aria-label="Ask on WhatsApp" className="btn btn-ghost">WhatsApp</a>
+        <a href={waHref} target="_blank" rel="noopener" aria-label="Ask on WhatsApp" className="btn btn-ghost" onClick={() => track('whatsapp_click', { ...productAnalytics(p), enquiry_entry_point: 'product_mobile_bar' })}>WhatsApp</a>
         <Link href={quoteHref} className="btn btn-accent">Request quote</Link>
       </div>
     </>
