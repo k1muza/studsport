@@ -105,7 +105,7 @@ export function ProductView({ slug }: { slug: string }) {
                   <div className={s.drawingTab}><Drawing sku={p.slug} theme="dark" layout="auto" /></div>
                 )}
               </div>
-              <p className={s.stageNote}>Visual reference only. Supplier declarations, requested dimensions and estimates are separated below. The model does not confirm fitment, handedness, material strength or nut compatibility.</p>
+              <p className={s.stageNote}>Reference model only. Confirm specifications and vehicle compatibility before ordering.</p>
             </section>
 
             <section aria-label="Product summary" className={s.summary}>
