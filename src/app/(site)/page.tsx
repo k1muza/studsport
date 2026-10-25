@@ -7,6 +7,8 @@ import { ProductCard } from '@/components/ProductCard';
 import { HomeSearch } from '@/components/home/HomeSearch';
 import s from '@/components/home/home.module.css';
 
+const MAP_QUERY = encodeURIComponent('4475 Southview Park, Harare, Zimbabwe');
+
 const HERO_SKU = 'ss-1030';
 const FEATURED = ['ss-1030', 'ss-1001', 'ss-1040', 'ss-2002'];
 
@@ -147,17 +149,17 @@ export default function HomePage() {
             <div className={s.info}>
               <div className={s.infoCell}>
                 <span className="label label-dark">Collection counter</span>
-                <span className={s.infoAddr}>[Street address]<br />[Suburb], Harare</span>
-                <span className={s.infoMuted}>Mon–Fri 08:00–17:00<br />Sat 08:00–13:00 [to confirm]</span>
+                <span className={s.infoAddr}>4475 Southview Park<br />Harare</span>
+                <span className={s.infoMuted}>Mon–Fri 08:00–17:00<br />Sat 08:00–13:00</span>
               </div>
               <div className={s.infoCell}>
                 <span className="label label-dark">Phone &amp; WhatsApp</span>
-                <span className={s.infoPhones}>{company.phone}<br />{company.whatsapp}</span>
+                <span className={s.infoPhones}>{company.phone}</span>
                 <a href={company.whatsappLink} target="_blank" rel="noopener" className={s.infoLink}>Message on WhatsApp →</a>
               </div>
               <div className={s.infoCell}>
                 <span className="label label-dark">Delivery</span>
-                <span className={s.infoBody}>Delivery within Harare and dispatch to other towns, arranged with each order. [Details to confirm]</span>
+                <span className={s.infoBody}>Delivery within Harare and dispatch to other towns, arranged with each order.</span>
               </div>
               <div className={s.infoCell}>
                 <span className="label label-dark">Trade &amp; fleet</span>
@@ -166,7 +168,16 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-          <div className={s.map}><span>MAP<br />Collection point, Harare · embed or static map</span></div>
+          <div className={s.map}>
+            <iframe
+              title="Map: StudSport collection counter, Southview Park, Harare"
+              src={`https://www.google.com/maps?q=${MAP_QUERY}&z=15&output=embed`}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+            <a href={`https://www.google.com/maps/search/?api=1&query=${MAP_QUERY}`} target="_blank" rel="noopener" className={s.mapLink}>Open in Google Maps →</a>
+          </div>
         </div>
       </section>
     </>

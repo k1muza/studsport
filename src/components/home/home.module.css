@@ -134,7 +134,15 @@
 .infoLink { font-size: 14px; font-weight: 600; color: var(--accent-light); }
 .infoEmail { font-family: var(--font-mono), monospace; font-size: 13px; color: var(--on-dark-3); }
 .map {
-  flex: 1 1 360px; min-height: 320px; position: relative; background: repeating-linear-gradient(135deg, #1c1f22 0 10px, #17191c 10px 20px);
-  border: 1px solid var(--rule-d2); display: flex; align-items: flex-end; padding: 18px;
+  flex: 1 1 360px; min-height: 320px; position: relative; overflow: hidden; background: #17191c;
+  border: 1px solid var(--rule-d2);
 }
-.map span { font-family: var(--font-mono), monospace; font-size: 10.5px; letter-spacing: 0.08em; color: var(--on-dark-4); line-height: 1.6; }
+.map iframe {
+  position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
+  filter: invert(0.9) hue-rotate(180deg) grayscale(0.4) contrast(0.9);
+}
+.mapLink {
+  position: absolute; left: 12px; bottom: 12px; padding: 6px 10px; background: #17191c; border: 1px solid var(--rule-d2);
+  font-family: var(--font-mono), monospace; font-size: 10.5px; letter-spacing: 0.08em; color: var(--on-dark-4); text-decoration: none;
+}
+.mapLink:hover { color: var(--accent-light); }

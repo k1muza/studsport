@@ -104,14 +104,14 @@ export const company = {
   name: 'StudSport',
   descriptor: 'Wheel Studs, Hub Bolts & Nuts',
   city: 'Harare, Zimbabwe',
-  address: '[Street address], [Suburb], Harare',
+  address: '4475 Southview Park, Harare',
   phone: '+263 77 468 4534',
   whatsapp: '+263 77 468 4534',
   whatsappShort: 'WhatsApp +263 77 468 4534',
   whatsappLink: 'https://wa.me/263774684534',
-  email: '[sales@studsport.example]',
-  hours: 'Mon–Fri 08:00–17:00 · Sat 08:00–13:00 [to confirm]',
-  web: 'studsport.example',
+  email: 'sales@studsport.co.zw',
+  hours: 'Mon–Fri 08:00–17:00 · Sat 08:00–13:00',
+  web: 'studsport.co.zw',
 };
 
 export const productTypes: Record<ProductType, { label: string; plural: string }> = {
@@ -154,10 +154,10 @@ export const finishes: Record<FinishKey, { label: string; render: FinishRender }
 };
 
 export const vehicles: Vehicle[] = [
-  { id: 'toyota-2d', make: 'Toyota', model: '2D', label: 'Toyota 2D (unconfirmed)' },
+  { id: 'toyota-2d', make: 'Toyota', model: '2D', label: 'Toyota 2D' },
   { id: 'toyota-dyna', make: 'Toyota', model: 'Dyna', label: 'Toyota Dyna' },
-  { id: 'mazda', make: 'Mazda', model: '', label: 'Mazda (supplier labelled)' },
-  { id: 'toyota-rino', make: 'Toyota', model: 'Rino', label: 'Toyota Rino (unconfirmed)' },
+  { id: 'mazda', make: 'Mazda', model: '', label: 'Mazda' },
+  { id: 'toyota-rino', make: 'Toyota', model: 'Rino', label: 'Toyota Rino' },
   { id: 'hino', make: 'Hino', model: '', label: 'Hino' },
   { id: 'isuzu', make: 'Isuzu', model: '', label: 'Isuzu' },
   { id: 'mitsubishi-canter', make: 'Mitsubishi', model: 'Canter', label: 'Mitsubishi Canter' },
