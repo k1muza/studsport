@@ -34,7 +34,7 @@
     {
       "id": "litai-canter",
       "issuer": "Quanzhou Litai",
-      "reference": "Canter PS125-135 M18/M20 \u00d71.5\u00d778 RH",
+      "reference": "Canter PS125-135 M18/M20 ×1.5×78 RH",
       "url": "https://litai-autoparts.en.made-in-china.com/product/LvXEbYIVkOkZ/China-Canter-PS125-135-Wheel-Hub-Bolt-M18-1-5-M20-1-5-78-mm-Right-Side.html",
       "kind": "manufacturer-listing",
       "used": "Photo shows asymmetric threaded ends, short splines, an integral flange and reduced neck.",
@@ -44,7 +44,7 @@
     {
       "id": "litai-rino",
       "issuer": "Quanzhou Litai",
-      "reference": "LT-TOYO-02, M20\u00d71.5/M20\u00d71.5\u00d775",
+      "reference": "LT-TOYO-02, M20×1.5/M20×1.5×75",
       "url": "https://litai-autoparts.en.made-in-china.com/product/gGdpyeDEXTVC/China-Quanzhou-Factory-Produced-Toyota-Rino-Rear-Wheel-Hub-Bolt.html",
       "kind": "manufacturer-listing",
       "used": "Candidate manufacturer reference for supplier Rino drawing.",
@@ -64,7 +64,7 @@
     {
       "id": "skysun-dyna",
       "issuer": "Xiamen Skysun / LianFa",
-      "reference": "LF11035 / LF11036, Dyna140 rear M20\u00d71.5\u00d747",
+      "reference": "LF11035 / LF11036, Dyna140 rear M20×1.5×47",
       "url": "https://skysun-truckparts.en.made-in-china.com/product/LKsQkcBYlFWh/China-10-9-Grade-Wheel-Bolt-for-Toyota-Rear-Dyna-140.html",
       "kind": "manufacturer-listing",
       "used": "Nominal Dyna requirement and alternative stud/nut/sleeve assemblies.",
@@ -77,14 +77,14 @@
       "reference": "2.65094; Volvo20515519; Renault7420515519",
       "url": "https://partnerportal.dieseltechnic.com/en/products/dt-2-65094-wheel-bolt",
       "kind": "manufacturer-catalogue",
-      "used": "M22\u00d71.5, overall115, under-head105, thread77, head\u00d836.",
+      "used": "M22×1.5, overall115, under-head105, thread77, headØ36.",
       "limits": "Manufacturer-declared dimensions of an identified reference, not verification of planned Volvo Rear SKU. No LH variant established.",
       "accessed": "2026-10-24"
     },
     {
       "id": "litai-durto",
       "issuer": "Quanzhou Litai",
-      "reference": "LT-559, Durto M20/M20\u00d71.5\u00d775 RH",
+      "reference": "LT-559, Durto M20/M20×1.5×75 RH",
       "url": "https://litai-autoparts.en.made-in-china.com/product/NneYUjLCflWS/China-Material-40cr-Durto-Hub-Bolt-M20-1-5-M20-1-5-75mm-Right-Side.html",
       "kind": "manufacturer-listing",
       "used": "Conflicting naming/length evidence.",
@@ -104,12 +104,32 @@
     {
       "id": "alibaba-volvo",
       "issuer": "Seller identity not established from accessible result",
-      "reference": "Listing62529151291 advertises Volvo20515519 M22\u00d71.5\u00d7105",
+      "reference": "Listing62529151291 advertises Volvo20515519 M22×1.5×105",
       "url": "https://www.alibaba.com/product-detail/wheel-bolt-and-nut-hub-bolt_62529151291.html",
       "kind": "marketplace-lead",
       "used": "Search lead followed to DT manufacturer catalogue.",
       "limits": "Not used to certify dimensions, supplier identity or handedness.",
       "accessed": "2026-10-24"
+    },
+    {
+      "id": "sparex-m20-cone",
+      "issuer": "Sparex",
+      "reference": "S.57988, cone wheel nut M20 × 1.50 (visual analogue only)",
+      "url": "https://gb.sparex.com/cone-wheel-nut-m20-x-1-50-57988.html",
+      "kind": "supplier-listing",
+      "used": "Reference photograph of a real M20 × 1.5 cone wheel nut; used as a visual example for illustrative catalogue nut shapes.",
+      "limits": "Wheel/vehicle fitment, 60° seat geometry, and RH/LH direction are not established as identical to StudSport SS-2001 or SS-2003.",
+      "accessed": "2026-10-25"
+    },
+    {
+      "id": "alcoa-m22-flange",
+      "issuer": "Alcoa Wheels",
+      "reference": "Alcoa Wheels Accessories Catalogue: heavy-duty M22 × 1.5 two-piece flange lug nuts",
+      "url": "https://alcoa-wheels.com/wp-content/uploads/sites/27/2023/07/AW_AccessoriesCatalog_Final2.pdf",
+      "kind": "manufacturer-catalogue",
+      "used": "Photographic visual example of an actual M22 × 1.5 truck wheel flange nut.",
+      "limits": "Alcoa's listed part has different specific geometry and dimensions than the illustrative StudSport SS-2002; it is not an asserted match or compatible nut.",
+      "accessed": "2026-10-25"
     }
   ]
 }

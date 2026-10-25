@@ -15,9 +15,10 @@
       "aliases": [],
       "consolidationAction": "retain",
       "uncertainties": [
-        "Headed-stud visual analogue; original M20\u00d774, tooth count and Dyna/Dutro years uncorroborated."
+        "Headed-stud visual analogue; original M20×74, tooth count and Dyna/Dutro years uncorroborated."
       ],
-      "declaredDimensions": []
+      "declaredDimensions": [],
+      "realWorldReferenceSourceId": "shenka-2024"
     },
     {
       "sku": "SS-1002",
@@ -35,7 +36,8 @@
       "uncertainties": [
         "Separate illustrative LH model; physical LH part not identified."
       ],
-      "declaredDimensions": []
+      "declaredDimensions": [],
+      "realWorldReferenceSourceId": "shenka-2024"
     },
     {
       "sku": "SS-1003",
@@ -54,7 +56,8 @@
       "uncertainties": [
         "94 overall does not equal pilot47 or supplier54; preserve as separate historical record."
       ],
-      "declaredDimensions": []
+      "declaredDimensions": [],
+      "realWorldReferenceSourceId": "skysun-dyna"
     },
     {
       "sku": "SS-1010",
@@ -70,9 +73,10 @@
       "aliases": [],
       "consolidationAction": "retain",
       "uncertainties": [
-        "NPR examples include double-ended assemblies; original single-ended M22\u00d785 has no exact match."
+        "NPR examples include double-ended assemblies; original single-ended M22×85 has no exact match."
       ],
-      "declaredDimensions": []
+      "declaredDimensions": [],
+      "realWorldReferenceSourceId": "shenka-2024"
     },
     {
       "sku": "SS-1011",
@@ -90,7 +94,8 @@
       "uncertainties": [
         "Separate illustrative LH record, same unresolved architecture as SS-1010."
       ],
-      "declaredDimensions": []
+      "declaredDimensions": [],
+      "realWorldReferenceSourceId": "shenka-2024"
     },
     {
       "sku": "SS-1020",
@@ -107,9 +112,10 @@
       "aliases": [],
       "consolidationAction": "retain",
       "uncertainties": [
-        "M18\u00d764 headed model differs from retrieved double-ended78 and82 examples; no confirmed fitment."
+        "M18×64 headed model differs from retrieved double-ended78 and82 examples; no confirmed fitment."
       ],
-      "declaredDimensions": []
+      "declaredDimensions": [],
+      "realWorldReferenceSourceId": "litai-canter"
     },
     {
       "sku": "SS-1030",
@@ -128,7 +134,8 @@
       "uncertainties": [
         "108 overall/70 thread differs from GH118.5 overall/41 thread and Volvo115/77; shared M22 does not establish fitment or nut compatibility."
       ],
-      "declaredDimensions": []
+      "declaredDimensions": [],
+      "realWorldReferenceSourceId": "sanlu-gh"
     },
     {
       "sku": "SS-1040",
@@ -144,9 +151,10 @@
       "aliases": [],
       "consolidationAction": "retain",
       "uncertainties": [
-        "Double-ended architecture analogue; M20\u00d784/hex centre not proven for Condor or CK10/20."
+        "Double-ended architecture analogue; M20×84/hex centre not proven for Condor or CK10/20."
       ],
-      "declaredDimensions": []
+      "declaredDimensions": [],
+      "realWorldReferenceSourceId": "shenka-2024"
     },
     {
       "sku": "SS-1041",
@@ -162,9 +170,10 @@
       "aliases": [],
       "consolidationAction": "retain",
       "uncertainties": [
-        "Canter listing matches M18/M20\u00d778 nominal but has splines/flange, unlike old smooth central collar. Nissan MK association not established."
+        "Canter listing matches M18/M20×78 nominal but has splines/flange, unlike old smooth central collar. Nissan MK association not established."
       ],
-      "declaredDimensions": []
+      "declaredDimensions": [],
+      "realWorldReferenceSourceId": "litai-canter"
     },
     {
       "sku": "SS-2001",
@@ -174,7 +183,8 @@
       "fitmentStatus": "unverified",
       "geometryBasis": "illustrative",
       "sources": [
-        "litai-drawings"
+        "litai-drawings",
+        "sparex-m20-cone"
       ],
       "references": [],
       "aliases": [],
@@ -182,7 +192,8 @@
       "uncertainties": [
         "Nut analogues show chamfered hex with internal thread. Existing32AF/cone seat not proven compatible with listed vehicles."
       ],
-      "declaredDimensions": []
+      "declaredDimensions": [],
+      "realWorldReferenceSourceId": "sparex-m20-cone"
     },
     {
       "sku": "SS-2002",
@@ -192,15 +203,17 @@
       "fitmentStatus": "unverified",
       "geometryBasis": "illustrative",
       "sources": [
-        "litai-drawings"
+        "litai-drawings",
+        "alcoa-m22-flange"
       ],
       "references": [],
       "aliases": [],
       "consolidationAction": "retain",
       "uncertainties": [
-        "GH drawing nut is33AF\u00d732, existing32AF\u00d727 differs. Illustrative seat/washer is not an approved matching nut."
+        "GH drawing nut is33AF×32, existing32AF×27 differs. Illustrative seat/washer is not an approved matching nut."
       ],
-      "declaredDimensions": []
+      "declaredDimensions": [],
+      "realWorldReferenceSourceId": "alcoa-m22-flange"
     },
     {
       "sku": "SS-2003",
@@ -210,7 +223,8 @@
       "fitmentStatus": "unverified",
       "geometryBasis": "illustrative",
       "sources": [
-        "litai-drawings"
+        "litai-drawings",
+        "sparex-m20-cone"
       ],
       "references": [],
       "aliases": [],
@@ -218,7 +232,8 @@
       "uncertainties": [
         "Separate LH illustration; identification groove is a design convention, not a supplier marking declaration."
       ],
-      "declaredDimensions": []
+      "declaredDimensions": [],
+      "realWorldReferenceSourceId": "sparex-m20-cone"
     },
     {
       "sku": "SS-3001",
@@ -258,7 +273,8 @@
         "lengthBasis": "unresolved",
         "sourceId": "pilot-2026"
       },
-      "declaredDimensionsSource": "src/data/supplier-measurements.json#SS-3001"
+      "declaredDimensionsSource": "src/data/supplier-measurements.json#SS-3001",
+      "realWorldReferenceSourceId": "shenka-2024"
     },
     {
       "sku": "SS-3002",
@@ -298,7 +314,8 @@
         "lengthBasis": "unresolved",
         "sourceId": "pilot-2026"
       },
-      "declaredDimensionsSource": "src/data/supplier-measurements.json#SS-3002"
+      "declaredDimensionsSource": "src/data/supplier-measurements.json#SS-3002",
+      "realWorldReferenceSourceId": "shenka-2024"
     },
     {
       "sku": "SS-3003",
@@ -325,7 +342,8 @@
         "lengthBasis": "unresolved",
         "sourceId": "pilot-2026"
       },
-      "declaredDimensionsSource": "src/data/supplier-measurements.json#SS-3003"
+      "declaredDimensionsSource": "src/data/supplier-measurements.json#SS-3003",
+      "realWorldReferenceSourceId": "sanlu-gh"
     },
     {
       "sku": "SS-3004",
@@ -365,7 +383,8 @@
         "lengthBasis": "unresolved",
         "sourceId": "pilot-2026"
       },
-      "declaredDimensionsSource": "src/data/supplier-measurements.json#SS-3004"
+      "declaredDimensionsSource": "src/data/supplier-measurements.json#SS-3004",
+      "realWorldReferenceSourceId": "skysun-dyna"
     },
     {
       "sku": "SS-3005",
@@ -389,10 +408,11 @@
       "aliases": [],
       "consolidationAction": "retain",
       "uncertainties": [
-        "75 reference overall, Z50\u00b11; flange diameter unknown. Rino/2D identity and handedness unresolved."
+        "75 reference overall, Z50±1; flange diameter unknown. Rino/2D identity and handedness unresolved."
       ],
       "declaredDimensions": [],
-      "declaredDimensionsSource": "src/data/supplier-measurements.json#SS-3005"
+      "declaredDimensionsSource": "src/data/supplier-measurements.json#SS-3005",
+      "realWorldReferenceSourceId": "litai-rino"
     },
     {
       "sku": "SS-3006",
@@ -412,7 +432,8 @@
         "91 overall conflicts with pilot90; Durton/Dutro mapping unresolved and Durto marketplace75 conflicts again."
       ],
       "declaredDimensions": [],
-      "declaredDimensionsSource": "src/data/supplier-measurements.json#SS-3006"
+      "declaredDimensionsSource": "src/data/supplier-measurements.json#SS-3006",
+      "realWorldReferenceSourceId": "litai-durto"
     },
     {
       "sku": "SS-4001",
@@ -439,7 +460,8 @@
         "nominalLengthMm": 90,
         "lengthBasis": "unresolved",
         "sourceId": "pilot-2026"
-      }
+      },
+      "realWorldReferenceSourceId": "litai-durto"
     },
     {
       "sku": "SS-4002",
@@ -479,7 +501,8 @@
         "nominalLengthMm": 75,
         "lengthBasis": "unresolved",
         "sourceId": "pilot-2026"
-      }
+      },
+      "realWorldReferenceSourceId": "shenka-2024"
     },
     {
       "sku": "SS-4003",
@@ -518,7 +541,8 @@
         "nominalLengthMm": 102,
         "lengthBasis": "unresolved",
         "sourceId": "pilot-2026"
-      }
+      },
+      "realWorldReferenceSourceId": "shenka-2024"
     },
     {
       "sku": "SS-4004",
@@ -593,7 +617,8 @@
         "nominalLengthMm": 105,
         "lengthBasis": "unresolved",
         "sourceId": "pilot-2026"
-      }
+      },
+      "realWorldReferenceSourceId": "dt-volvo"
     }
   ]
 }

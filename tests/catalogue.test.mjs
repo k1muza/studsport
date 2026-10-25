@@ -22,3 +22,19 @@ test('end caps meet thread surfaces at every angle, for both tip directions',()=
   }
 });
 test('thread samples stay inside nominal envelope without negative radii',()=>{for(let y=0;y<=30;y+=.1)for(let a=0;a<6.28;a+=.3){const r=threadSurfaceRadius(thread,y,a);assert.ok(r>=8 && r<=10);}});
+
+test('all 22 product pages have a traceable, public real-world example link', () => {
+  const sourceMap=new Map(data.sources.map(s=>[s.id,s]));
+  assert.equal(data.products.length,22);
+  for(const p of data.products) {
+    const e=data.evidence.find(x=>x.sku===p.partNo);
+    const id=e?.realWorldReferenceSourceId;
+    assert.ok(id, `${p.partNo}: missing real-world reference`);
+    assert.ok(e.sources.includes(id), `${p.partNo}: reference not documented in evidence sources`);
+    const ref=sourceMap.get(id);
+    assert.ok(ref?.url, `${p.partNo}: no public URL`);
+    assert.equal(new URL(ref.url).protocol,'https:');
+    assert.ok(!['commercial-research','supplier-drawing'].includes(ref.kind),
+      `${p.partNo}: example must point to an accessible external listing or catalogue`);
+  }
+});

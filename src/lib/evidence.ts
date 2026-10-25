@@ -5,6 +5,12 @@ import measurements from '../data/supplier-measurements.json';
 // Procurement categories deliberately live in a separate, unimported JSON file.
 export const evidenceFor = (sku: string) => raw.records.find(r => r.sku === sku);
 export const sourceFor = (id: string) => sources.sources.find(s => s.id === id);
+/** A real manufacturer/supplier example, never proof of identical fitment. */
+export function realWorldReferenceFor(sku: string) {
+  const id = evidenceFor(sku)?.realWorldReferenceSourceId;
+  const source = id ? sourceFor(id) : null;
+  return source?.url ? { url: source.url, issuer: source.issuer } : null;
+}
 export function evidenceLabel(sku: string) {
   return evidenceFor(sku)?.geometryBasis === 'supplier-declared'
     ? 'Supplier-declared · fitment unverified' : 'Illustrative · identification pending';

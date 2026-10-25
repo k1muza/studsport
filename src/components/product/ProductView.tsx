@@ -6,6 +6,7 @@ import { productTypes, products as ALL, type Product, type Template } from '@/li
 import {
   getProduct, href, sheetHref, typeLabel, isLH, avail, keySpecs, specGroups, variants, related, compare, vehicle, whatsapp,
 } from '@/lib/products';
+import { realWorldReferenceFor } from '@/lib/evidence';
 import { Viewer } from '@/components/Viewer';
 import { Drawing } from '@/components/Drawing';
 import { Thumb } from '@/components/Thumb';
@@ -55,6 +56,7 @@ export function ProductView({ slug }: { slug: string }) {
   }, [p]);
 
   const toggle = (k: SectionKey) => setOpen(o => ({ ...o, [k]: !o[k] }));
+  const reference = realWorldReferenceFor(p.partNo);
   const av = avail(p);
   const vars = variants(p);
   const rev = p.spec.revision;
@@ -105,7 +107,20 @@ export function ProductView({ slug }: { slug: string }) {
                   <div className={s.drawingTab}><Drawing sku={p.slug} theme="dark" layout="auto" /></div>
                 )}
               </div>
-              <p className={s.stageNote}>Reference model only. Confirm specifications and vehicle compatibility before ordering.</p>
+              <div className={s.stageMeta}>
+                <p className={s.stageNote}>Reference model only. Confirm specifications and vehicle compatibility before ordering.</p>
+                {reference && (
+                  <a
+                    className={s.referenceLink}
+                    href={reference.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title={`External example from ${reference.issuer}; not a confirmed identical part or vehicle fitment`}
+                  >
+                    Real-world example <span aria-hidden="true">↗</span>
+                  </a>
+                )}
+              </div>
             </section>
 
             <section aria-label="Product summary" className={s.summary}>

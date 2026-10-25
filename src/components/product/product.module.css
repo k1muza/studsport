@@ -39,6 +39,10 @@
 .photo span { font-family: var(--font-mono), monospace; font-size: 10px; letter-spacing: 0.06em; color: var(--on-dark-3); line-height: 1.5; }
 .drawingTab { position: absolute; inset: 0; padding: 44px clamp(12px, 3vw, 40px) 20px; display: flex; align-items: center; justify-content: center; overflow: auto; }
 .stageNote { margin: 0; font-family: var(--font-mono), monospace; font-size: 10.5px; line-height: 1.6; color: var(--on-dark-4); }
+.stageMeta { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; }
+.referenceLink { font-family: var(--font-mono), monospace; font-size: 10.5px; line-height: 1.6; color: var(--on-dark-3); white-space: nowrap; text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 3px; }
+.referenceLink:hover, .referenceLink:focus-visible { color: var(--on-dark); text-decoration-color: currentColor; }
+
 
 .summary { flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 22px; }
 .intro { display: flex; flex-direction: column; gap: 12px; }
